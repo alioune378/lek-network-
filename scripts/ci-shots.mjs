@@ -50,6 +50,17 @@ for (const [vp, size] of VIEWPORTS) {
         dir: document.documentElement.dir,
         lang: document.documentElement.lang,
         overflow: document.documentElement.scrollWidth - window.innerWidth,
+        // name the elements that stick out of the viewport so an overflow can be traced
+        offenders:
+          document.documentElement.scrollWidth - window.innerWidth > 1
+            ? [...document.querySelectorAll('body *')]
+                .filter((el) => {
+                  const r = el.getBoundingClientRect();
+                  return r.width > 0 && (r.right > window.innerWidth + 1 || r.left < -1);
+                })
+                .slice(0, 6)
+                .map((el) => `${el.tagName.toLowerCase()}.${[...el.classList].join('.')}`)
+            : [],
         h1: document.querySelector('h1')?.textContent?.trim().slice(0, 90) ?? null,
       }));
       const file = `${vp}-${l}-${name}.png`;
@@ -89,5 +100,5 @@ await browser.close();
 const bad = report.pages.filter((x) => x.overflow > 1 || x.errors.length || x.failed.length || (x.status ?? 0) >= 400);
 writeFileSync('ci-artifacts/rendered-report.json', JSON.stringify(report, null, 2));
 console.log(`pages checked: ${report.pages.length}, with problems: ${bad.length}`);
-for (const b of bad) console.log('PROBLEM', b.vp, b.l, b.name, JSON.stringify({ status: b.status, overflow: b.overflow, errors: b.errors, failed: b.failed }));
+for (const b of bad) console.log('PROBLEM', b.vp, b.l, b.name, JSON.stringify({ status: b.status, overflow: b.overflow, offenders: b.offenders, errors: b.errors, failed: b.failed }));
 console.log('checks', JSON.stringify(report.checks, null, 2));

@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="container footer-grid">
         <div className="footer-brand">
-          <img src="/brand/lek-horizontal-light.svg" alt="LËK Network" width={1440} height={480} className="footer-logo" />
+          <img src="/brand/lek-horizontal-light.svg" alt="LËK Network" width={1352} height={557} className="footer-logo" />
           <p className="footer-tag">{t('meta.tagline')}</p>
           <p className="footer-about">{t('footer.about')}</p>
         </div>

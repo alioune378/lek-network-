@@ -307,13 +307,20 @@ html[lang='zh'] .eyebrow {
   min-height: 36px;
 }
 .strip-tag {
-  font-family: var(--serif);
+  /* the tagline is always French: keep the Latin serif in every locale */
+  font-family: var(--font-serif), Georgia, serif;
   font-style: italic;
   font-size: 0.86rem;
   color: var(--gold-soft);
+  white-space: nowrap;
 }
-html[lang='ar'] .strip-tag {
-  font-style: normal;
+@media (max-width: 479px) {
+  .strip-tag {
+    font-size: 0.8rem;
+  }
+  .strip-right .strip-link {
+    display: none;
+  }
 }
 .strip-right {
   display: flex;
@@ -325,6 +332,7 @@ html[lang='ar'] .strip-tag {
 }
 .live-chip {
   display: inline-flex;
+  white-space: nowrap;
   align-items: center;
   gap: 7px;
   font-weight: 600;
@@ -377,8 +385,7 @@ html[lang='ar'] .strip-tag {
 }
 .brand-logo {
   width: auto;
-  height: 46px;
-  margin-block: -4px;
+  height: 44px;
 }
 .mainnav {
   display: none;
@@ -482,7 +489,7 @@ html[lang='ar'] .strip-tag {
   margin-bottom: 16px;
 }
 .drawer-logo {
-  height: 44px;
+  height: 46px;
   width: auto;
 }
 .drawer-search {
@@ -551,7 +558,7 @@ html[lang='ar'] .strip-tag {
     margin-inline-end: 0;
   }
   .brand-logo {
-    height: 58px;
+    height: 56px;
   }
   .mainnav {
     display: flex;
@@ -2069,6 +2076,7 @@ html[lang='zh'] .article-body p:first-child::first-letter {
 }
 .studios-bottom {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 36px;
 }
 .process {
@@ -2451,7 +2459,7 @@ html[lang='zh'] .article-body p:first-child::first-letter {
   padding-bottom: 32px;
 }
 .footer-logo {
-  height: 64px;
+  height: 72px;
   width: auto;
 }
 .footer-tag {

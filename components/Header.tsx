@@ -48,7 +48,7 @@ export default function Header({ locale }: { locale: Locale }) {
       </a>
       <div className="strip">
         <div className="container strip-in">
-          <span className="strip-tag">{tm('tagline')}</span>
+          <span className="strip-tag" lang="fr" dir="ltr">{tm('tagline')}</span>
           <span className="strip-right">
             <Link href="/live" className={`live-chip ${live ? 'is-live' : ''}`}>
               <span className="live-dot" aria-hidden="true" />
@@ -67,7 +67,7 @@ export default function Header({ locale }: { locale: Locale }) {
             <span className="sr-only">{t('menu')}</span>
           </button>
           <Link href="/" className="brand" aria-label="LËK Network">
-            <img src="/brand/lek-horizontal-navy.svg" alt="LËK Network" width={1440} height={480} className="brand-logo" />
+            <img src="/brand/lek-horizontal-navy.svg" alt="LËK Network" width={1352} height={557} className="brand-logo" />
           </Link>
           <nav className="mainnav" aria-label={t('main')}>
             {NAV.map((n) => (
@@ -87,7 +87,7 @@ export default function Header({ locale }: { locale: Locale }) {
 
       <div id="drawer" className={`drawer ${open ? 'is-open' : ''}`} aria-hidden={!open} role="dialog" aria-modal="true" aria-label={t('menu')}>
         <div className="drawer-head">
-          <img src="/brand/lek-horizontal-light.svg" alt="" width={1440} height={480} className="drawer-logo" />
+          <img src="/brand/lek-horizontal-light.svg" alt="" width={1352} height={557} className="drawer-logo" />
           <button type="button" className="icon-btn" onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
             <CloseIcon />
             <span className="sr-only">{t('close')}</span>

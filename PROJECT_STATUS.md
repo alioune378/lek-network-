@@ -7,7 +7,6 @@ Updated after each milestone. "Verified" means checked by the CI run recorded on
 - Tailwind removed (it was configured but unused); one hand-written design system in `app/globals.css`.
 - Approved logo files integrated (horizontal navy, horizontal light, icon); favicon and app icon.
 - Responsive shell: sticky masthead, mobile drawer, language menu, first-visit language suggestion, footer.
-- Status: **written; awaiting first CI verification.**
 
 ## Milestone 2 — news
 - Homepage (lead, L’Essentiel briefing, secondary stories, Watch band, latest, regions, Africa & diaspora, standards, Studios).
@@ -22,6 +21,16 @@ Updated after each milestone. "Verified" means checked by the CI run recorded on
 
 ## Milestone 5 — checks
 - CI: translation coverage, type check, lint, production build, rendered checks (overflow, errors, RTL, language switching, search, drawer, 404) with screenshots.
+
+## Verification log
+- **CI run 42052229510 (commit cdcdb6a): passed.** Translation coverage, type check, lint and `next build` succeeded; all pages statically generated for the 10 locales. Rendered checks on 63 pages (FR/EN/AR × 21 pages, mobile 390px and desktop 1440px): no console errors, no failed requests, `dir="rtl"` on Arabic. Interaction checks passed: language suggestion, mobile drawer, switching an article to Arabic keeps the same article, fallback notice, search ("thies" → 1 result), 404.
+  - Problems found in that run and fixed afterwards:
+    - Mobile Arabic Studios page scrolled sideways by 10px (the form column could not shrink). Fixed with a shrinkable grid column.
+    - The supplied horizontal logo file cut off the bottom of the word "Network" (the artwork ran past its own frame). Only the frame (viewBox) was enlarged; the artwork is unchanged. Applied to the navy and light horizontal versions.
+    - The French tagline in the top strip was reordered by the Arabic text direction (".d'avance") and wrapped on phones. It is now marked as French, left-to-right, on one line.
+  - Overflow reports now name the elements responsible.
+- The next CI run re-verifies these fixes; see the latest run on the `ci-artifacts` branch.
+- **Not deployed.** The production build succeeds in CI, but the site has not been deployed to Netlify yet.
 
 ## Simulated
 See README › Simulated features.
