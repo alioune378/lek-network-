@@ -97,8 +97,8 @@ async function signIn2fa(email, secret) {
   return { ctx, first, meBefore, second, meAfter };
 }
 /** Registers through the API, opens the emailed link in a fresh browser context (which signs the member in). */
-async function member(username, displayName, viewport, invite) {
-  const email = `${username}@example.test`;
+async function member(username, displayName, viewport, invite, emailOverride) {
+  const email = emailOverride ?? `${username}@example.test`;
   const anon = await newCtx(viewport);
   const token = invite ?? POOL.shift();
   if (!token) throw new Error('no pilot invitation left');
@@ -149,7 +149,7 @@ try {
   const boot2 = await call(fctx, 'POST', '/api/community/admin/bootstrap', { token: BOOT, locale: 'fr' });
   check(
     'Founder bootstrap emails a one-time link to FOUNDER_EMAIL only and never returns it (masked address in the response)',
-    boot1.status === 200 && boot1.data.delivery === 'captured' && !/invite=|example\.test/.test(boot1.text) && boot1.data.sentTo?.includes('•••'),
+    boot1.status === 200 && boot1.data.delivery === 'captured' && !boot1.text.includes('invite=') && !boot1.text.includes(FOUNDER) && boot1.data.sentTo?.includes('•••'),
     boot1.data,
   );
   const newest = await mailLink(FOUNDER, 'invite', 0);
@@ -169,8 +169,7 @@ try {
   const noPrivacy = await call(await newCtx(), 'POST', '/api/community/register', { email: FOUNDER, password: PW, username: 'fondateur', displayName: 'Fondateur LËK', acceptGuidelines: true, acceptPrivacy: false, acceptPilot: false, invite: tokenOf(newest) });
   check('Privacy notice and pilot conditions must be accepted explicitly', noPrivacy.status === 422 && noPrivacy.data.fields?.acceptPrivacy === 'required' && noPrivacy.data.fields?.acceptPilot === 'required', noPrivacy.data);
 
-  const F = await member('fondateur', 'Fondateur LËK', undefined, tokenOf(newest));
-  F.email = FOUNDER;
+  const F = await member('fondateur', 'Fondateur LËK', undefined, tokenOf(newest), FOUNDER);
   const fMe = (await call(F.ctx, 'GET', '/api/community/me')).data;
   const fBlocked = await call(F.ctx, 'GET', '/api/community/invites');
   const fProfile = (await db.query(`SELECT privacy_version, pilot_consent_at FROM profile p JOIN "user" u ON u.id = p.user_id WHERE u.username = 'fondateur'`)).rows[0];
