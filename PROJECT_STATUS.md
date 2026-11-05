@@ -65,6 +65,39 @@ Updated after each milestone. "Verified" means checked by the CI run recorded on
   - Regions are a swipeable row of 3:4 place cards.
   - Tighter sections; the mobile homepage went from 7,820px to 6,849px tall.
 
+## Milestone 8 — LËK Community (built and tested; switched OFF in production)
+- **Plan and architecture**: `docs/COMMUNITY.md` covers the inspection, choices, data model, security, moderation, retention, launch checklist and phases.
+- **Stack**:
+  - PostgreSQL with parameterised SQL only.
+  - Better Auth for email and password, mandatory email verification, password reset, database sessions, the username plugin and built-in rate limits. There is no custom cryptography.
+  - Turnstile and a honeypot field when keys are configured.
+  - Transactional email through Resend when configured; captured in the database in demo mode.
+- **Built**:
+  - Registration (pseudonyms allowed, unique case-insensitive usernames, guidelines acceptance, impersonation checks, registration that does not reveal which emails have accounts) and login/logout.
+  - Verification, password reset, resend, and account deletion (personal data scrubbed, link kept internally for the retention period).
+  - Member profiles: public history, replies received, helpful marks, privacy toggles.
+  - Comments under articles and programmes:
+    - one level of replies;
+    - edits with an indicator and revision history;
+    - deletion;
+    - "helpful" reactions with anti-manipulation rules;
+    - reports, sorting (most helpful / newest), pagination, optional reply notifications;
+    - staff editorial notes and verified staff badges.
+  - Moderation:
+    - deterministic checks (links, spam, private information, threats, duplicates, coordinated posting, impersonation, repeat offenders), with no political scoring;
+    - a human review queue with severity, source, reasons, context and suggested step;
+    - graduated accountability (notice → warning → removal → restriction → suspension → escalation);
+    - appeals reviewed by a different moderator, restoration of removed comments, and an append-only audit log;
+    - an explicit choice required for held comments.
+  - "Votre voix compte": private feedback (six categories) and a newsroom inbox with status, assignee, notes and replies. Each reply is honestly labelled as visible in the account, sent by email, or internal.
+  - French, English and Arabic interface (right-to-left, names isolated for correct direction); Wolof terms prepared for review.
+  - Security headers.
+- **Verified** (community workflow, run 42113319907, commit 188612d, real Postgres 16, production build with `COMMUNITY_MODE=demo`):
+  - 12/12 unit tests and **61/61 acceptance checks**.
+  - Type check, lint and build passed; migrations are idempotent.
+  - The production pipeline (community off) still passes: 85 screenshots, 192 audited pages, no problems.
+- **Not done / needs the owner**: see `docs/COMMUNITY.md` §10. Production database, auth secret, email provider with a verified sending domain, Turnstile keys, first admin, legal/privacy review (Senegal CDP, GDPR), approval of the guidelines, Wolof review, a secure tip channel, and a separate preview deploy.
+
 ## Verification log
 - **CI run 42067676472 (commit cbae15c): passed.**
   - Type check, lint and production build passed.

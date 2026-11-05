@@ -102,3 +102,14 @@ Categories: article feedback, factual error, story idea, editorial question, tec
 ## 11. Phases
 
 1. Inspect and plan (this document). 2. Registration, login, verification, profiles. 3. Comments, replies, edits, reactions, reports. 4. Moderation queue, restrictions, appeals, audit. 5. Feedback inbox and journalist participation. 6. Localisation, security/accessibility/responsive tests, deployment validation.
+
+## 12. Verification (what was actually run)
+
+- **Unit tests** (`npm run test:community`): 12/12. Covered: sharp political criticism, satire and criticism of LËK are never flagged; threats (FR/EN/AR/WO) are held at critical severity; private information is held; link floods and dangerous links are rejected; shorteners are held; duplicates and coordinated posting are caught; the ladder is proportionate; impersonation is blocked.
+- **Acceptance suite** (`scripts/community/acceptance.mjs`, GitHub Actions `community.yml`, real Postgres 16, `next start` production build): **61/61**. It covers every acceptance criterion in the brief, plus:
+  - the closed raw sign-up endpoint, the CSRF origin check, XSS rendered as text, and idempotent posting;
+  - restoring removed content, the append-only audit log, and rate limiting;
+  - the newsroom inbox's honest reply channels, staff notes, keyboard reply focus, and account deletion;
+  - FR/EN/AR at 320–1280px without overflow;
+  - existing pages (home, Watch, Live, programme, search) still working.
+- **Not yet tested**: real email delivery (no provider configured), Turnstile (no keys), behaviour on Netlify Functions against a managed database (no preview database yet), and load/performance.

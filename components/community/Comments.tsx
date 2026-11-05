@@ -4,6 +4,7 @@ import { useCallback, useEffect, useId, useRef, useState, type FormEvent } from 
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { MODE, api, newKey, type Viewer } from './client';
+import { intlTag, type Locale } from '@/lib/locales';
 import { useViewer } from './useViewer';
 import Avatar from './Avatar';
 import Linkified from './Linkified';
@@ -280,7 +281,8 @@ function Item({ c, viewer, reload, setStatus, onReply }: { c: C; viewer: Viewer 
   const [helpful, setHelpful] = useState({ n: c.helpful, mine: c.helpedByMe });
   const [err, setErr] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const fmt = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' });
+  const locale = useLocale() as Locale;
+  const fmt = new Intl.DateTimeFormat(intlTag[locale], { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Africa/Dakar' });
 
   const hidden = c.status === 'removed' || c.status === 'deleted';
   const name = c.author.deleted ? t('comments.deletedAccount') : c.author.displayName;
@@ -339,7 +341,9 @@ function Item({ c, viewer, reload, setStatus, onReply }: { c: C; viewer: Viewer 
             </span>
           )}
           <span className="cm-time">
-            <time dateTime={c.createdAt}>{fmt.format(new Date(c.createdAt))}</time>
+            <bdi>
+              <time dateTime={c.createdAt}>{fmt.format(new Date(c.createdAt))}</time>
+            </bdi>
             {c.editedAt && (
               <span className="cm-edited" title={fmt.format(new Date(c.editedAt))}>
                 {' '}
