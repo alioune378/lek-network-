@@ -1,0 +1,22 @@
+name: Media candidates
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-save sharp@0.33.5
+      - run: node scripts/media/fetch-candidates.mjs /tmp/media-candidates
+      - name: Push candidates to media-candidates branch
+        run: |
+          cd /tmp/media-candidates
+          git init -q -b media-candidates
+          git add -A
+          git -c user.name="ci" -c user.email="ci@users.noreply.github.com" commit -q -m "Media candidates for ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${GITHUB_REPOSITORY}.git" media-candidates

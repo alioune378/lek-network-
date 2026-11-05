@@ -1,0 +1,22 @@
+{
+  "dakar-public": ["Corniche Dakar", "Place de l'Indépendance Dakar", "Dakar plage Anse Bernard"],
+  "dakar-street": ["Dakar street Plateau", "Dakar Médina street", "car rapide Dakar"],
+  "essentiel": ["Dakar morning", "Dakar boulevard traffic", "Monument de la Renaissance africaine"],
+  "economy-thies": ["Thiès market", "Marché Sandaga", "Dakar market vendors", "Senegal tailor workshop"],
+  "culture-saint-louis": ["Pont Faidherbe Saint-Louis", "Saint-Louis Senegal colonial street", "Saint-Louis Senegal pirogues Guet Ndar"],
+  "culture-music": ["sabar drummers Senegal", "Senegalese musicians kora", "Dak'Art Biennale"],
+  "technology": ["Dakar Diamniadio", "Senegal computer school", "Dakar office building"],
+  "touba": ["Great Mosque of Touba", "Touba Senegal street", "Touba Grand Magal"],
+  "ziguinchor": ["Casamance rice field", "Ziguinchor Casamance river", "Casamance village"],
+  "sport": ["Senegalese wrestling laamb", "lutte sénégalaise arène", "football Senegal stadium", "beach football Dakar"],
+  "kaolack": ["Kaolack Grand Mosque", "Kaolack market", "Saloum salt Kaolack"],
+  "tambacounda": ["Tambacounda", "Senegal health post", "Niokolo-Koba"],
+  "thies": ["Thiès gare", "Thiès Senegal city", "Thiès cathedral"],
+  "africa": ["Abidjan Plateau skyline", "Accra city", "Bamako Niger river", "Lagos skyline"],
+  "diaspora": ["Little Senegal Harlem", "116th Street Harlem African", "Château Rouge Paris marché"],
+  "investigation": ["Port autonome de Dakar", "Dakar Plateau buildings", "Dakar archives nationales"],
+  "senegal-reel": ["Lac Rose Senegal", "Sine Saloum delta", "Senegal fishermen pirogue Kayar"],
+  "conversations": ["Île de Gorée", "Gorée Maison des Esclaves", "Dakar Village des Arts"],
+  "africa-forward": ["Train Express Régional Dakar", "Diamniadio city", "Blaise Diagne airport"],
+  "studios": ["film shooting camera Africa", "film crew Dakar", "cinema camera set"]
+}
