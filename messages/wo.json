@@ -1,0 +1,23 @@
+{
+  "_review": "WOLOF — DRAFT FOR HUMAN REVIEW. Only a few interface terms are proposed; every other string falls back to French until a native-speaking editor writes and validates the Wolof. Do not publish as final.",
+  "_reviewTerms": [
+    "nav.home",
+    "nav.news",
+    "nav.search",
+    "nav.language",
+    "langSuggest.text",
+    "langSuggest.switch",
+    "langSuggest.stay"
+  ],
+  "nav": {
+    "home": "Kër gi",
+    "news": "Xibaar",
+    "search": "Seet",
+    "language": "Làkk"
+  },
+  "langSuggest": {
+    "text": "Jàng LËK ci {language} ?",
+    "switch": "Waaw, jël {language}",
+    "stay": "Déedéet, des ci {current}"
+  }
+}

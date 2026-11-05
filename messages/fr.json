@@ -1,0 +1,342 @@
+{
+  "meta": {
+    "title": "LËK Network — Toujours un temps d’avance",
+    "description": "Média indépendant sénégalais : actualité, documentaires, entretiens et direct. Prototype.",
+    "tagline": "Toujours un temps d’avance."
+  },
+  "nav": {
+    "home": "Accueil",
+    "news": "Actualité",
+    "watch": "Vidéo",
+    "live": "Direct",
+    "originals": "Programmes",
+    "africa": "Afrique",
+    "diaspora": "Diaspora",
+    "regions": "Régions",
+    "studios": "Studios",
+    "newsroom": "Rédaction",
+    "search": "Rechercher",
+    "standards": "Charte éditoriale",
+    "menu": "Menu",
+    "close": "Fermer",
+    "language": "Langue",
+    "skip": "Aller au contenu",
+    "main": "Navigation principale"
+  },
+  "common": {
+    "demo": "Démo",
+    "demoBanner": "Prototype — tous les articles sont fictifs et servent à tester la plateforme. Aucun n’est une information réelle.",
+    "minRead": "{n} min de lecture",
+    "published": "Publié le {date}",
+    "updated": "Mis à jour le {date}",
+    "by": "Par {name}",
+    "illustration": "Illustration abstraite, pas une photographie d’actualité",
+    "inDevelopment": "En développement",
+    "viewAll": "Tout voir",
+    "back": "Retour",
+    "home": "Accueil",
+    "notFound": "Page introuvable",
+    "notFoundText": "Cette page n’existe pas ou a été déplacée.",
+    "readArticle": "Lire l’article",
+    "watchProgramme": "Voir le programme"
+  },
+  "categories": {
+    "society": "Société",
+    "economy": "Économie",
+    "culture": "Culture",
+    "technology": "Technologie",
+    "sport": "Sport",
+    "africa": "Afrique",
+    "diaspora": "Diaspora",
+    "environment": "Environnement",
+    "health": "Santé",
+    "all": "Toute l’actualité"
+  },
+  "home": {
+    "lead": "À la une",
+    "briefing": "L’Essentiel",
+    "briefingIntro": "Les sujets du jour, en bref.",
+    "latest": "Dernières publications",
+    "regions": "Le Sénégal, région par région",
+    "regionsIntro": "Des correspondants dans chaque région : c’est le projet. Voici les rubriques prêtes à les accueillir.",
+    "world": "Afrique et diaspora",
+    "worldIntro": "Relier Dakar au continent et aux Sénégalais du monde entier.",
+    "watch": "LËK Watch",
+    "watchIntro": "Documentaires, entretiens et magazines originaux, en préparation.",
+    "liveLabel": "LËK Live",
+    "mission": "Notre engagement",
+    "missionTitle": "Une information claire, vérifiée et racontée depuis l’Afrique.",
+    "missionText": "Chaque article cite ses sources, signale ses corrections et sépare les faits des opinions. L’intelligence artificielle peut aider nos journalistes ; elle n’écrit ni ne publie à leur place.",
+    "readCharter": "Lire notre charte",
+    "studiosTitle": "LËK Studios",
+    "studiosText": "Une division de production pour les marques, institutions et diffuseurs, séparée de la rédaction.",
+    "discoverStudios": "Découvrir les Studios"
+  },
+  "article": {
+    "sources": "Sources",
+    "corrections": "Corrections",
+    "noCorrections": "Aucune correction à ce jour.",
+    "related": "À lire aussi",
+    "share": "Partager",
+    "copyLink": "Copier le lien",
+    "copied": "Lien copié",
+    "textSize": "Taille du texte",
+    "smaller": "Réduire le texte",
+    "larger": "Agrandir le texte",
+    "transparency": "Transparence",
+    "author": "Auteur",
+    "credit": "Visuel",
+    "fallback": "Cet article n’existe pas encore en {language}. Il est affiché dans sa langue d’origine en attendant une traduction relue par la rédaction.",
+    "needsReview": "Traduction de démonstration, en attente de relecture par un journaliste de langue maternelle.",
+    "alsoIn": "Aussi disponible en",
+    "fictional": "Article fictif de démonstration. Il ne décrit aucun fait réel.",
+    "relatedVideo": "Le programme vidéo associé"
+  },
+  "regions": {
+    "title": "Régions",
+    "intro": "L’actualité au plus près du terrain.",
+    "senegal": "Sénégal",
+    "empty": "Aucun article publié pour cette région pour le moment.",
+    "emptyHint": "La couverture régionale se construit avec des correspondants sur place.",
+    "count": "{n, plural, =0 {Aucun article} one {# article} other {# articles}}",
+    "future": "Autres régions à venir"
+  },
+  "search": {
+    "title": "Rechercher",
+    "placeholder": "Un sujet, une région, un mot…",
+    "label": "Rechercher dans LËK",
+    "results": "{n, plural, =0 {Aucun résultat} one {# résultat} other {# résultats}}",
+    "noResults": "Aucun article ne correspond. Essayez un autre mot ou retirez un filtre.",
+    "category": "Rubrique",
+    "region": "Région",
+    "any": "Toutes",
+    "clear": "Effacer",
+    "scope": "La recherche porte sur les articles de démonstration publiés dans ce prototype."
+  },
+  "watch": {
+    "title": "LËK Watch",
+    "intro": "Documentaires, entretiens, magazines et explications en vidéo. Tous les programmes ci-dessous sont en développement : aucun épisode n’a encore été publié.",
+    "featured": "Programme à la une",
+    "programmes": "Nos programmes",
+    "season": "Saison {n}",
+    "episode": "Épisode {n}",
+    "episodes": "Épisodes",
+    "trailer": "Bande-annonce",
+    "credits": "Générique",
+    "distribution": "Diffusion",
+    "format": "Format",
+    "subtitles": "Sous-titres",
+    "transcript": "Transcription",
+    "states": {
+      "in-development": "En développement",
+      "in-production": "En production",
+      "available": "Disponible"
+    },
+    "unavailableTitle": "Pas encore de vidéo",
+    "unavailableText": "Ce programme est en préparation. La lecture apparaîtra ici dès qu’un épisode sera publié avec ses droits confirmés.",
+    "play": "Lire la vidéo",
+    "soundOff": "Le son reste coupé jusqu’à ce que vous l’activiez."
+  },
+  "live": {
+    "title": "LËK Live",
+    "intro": "Le direct de LËK : journaux, événements et retransmissions. Un direct n’apparaît ici que lorsqu’une diffusion réelle est en cours.",
+    "status": {
+      "live": "En direct",
+      "scheduled": "Programmé",
+      "replay": "Rediffusion",
+      "offline": "Hors antenne"
+    },
+    "offlineTitle": "Aucune diffusion en cours",
+    "offlineText": "LËK Live n’a pas encore commencé à émettre. Aucune émission fictive n’est affichée.",
+    "schedule": "Programmation",
+    "noSchedule": "La grille sera publiée lorsque les dates de diffusion seront confirmées.",
+    "replays": "Replays",
+    "noReplays": "Les replays apparaîtront après les premières diffusions.",
+    "soundNote": "La lecture ne démarre jamais avec le son."
+  },
+  "originals": {
+    "title": "Programmes originaux",
+    "intro": "Cinq programmes en développement. Chaque page présente le projet, ses saisons et son équipe ; aucun épisode n’a encore été tourné.",
+    "slate": "Le catalogue"
+  },
+  "studios": {
+    "title": "LËK Studios",
+    "headline": "Des histoires qui bougent.",
+    "intro": "La division de production de LËK : documentaires de marque, films institutionnels, captation d’événements et post-production. LËK Studios travaille pour des clients ; la rédaction reste indépendante.",
+    "independence": "Séparation stricte : aucun contenu commandé par un client n’est publié comme article de la rédaction.",
+    "services": {
+      "brand": {
+        "title": "Documentaires de marque",
+        "text": "Raconter une entreprise ou une institution avec la rigueur du documentaire."
+      },
+      "corporate": {
+        "title": "Vidéo institutionnelle",
+        "text": "Films de présentation, rapports annuels, communication interne."
+      },
+      "film": {
+        "title": "Film et télévision",
+        "text": "Développement et production de séries et de films pour les diffuseurs."
+      },
+      "events": {
+        "title": "Captation et direct",
+        "text": "Retransmission multi-caméras de conférences, cérémonies et concerts."
+      },
+      "ads": {
+        "title": "Publicités",
+        "text": "Spots pour la télévision et les réseaux, de l’écriture à la livraison."
+      },
+      "interviews": {
+        "title": "Entretiens",
+        "text": "Plateaux d’interview, éclairage et son de qualité broadcast."
+      },
+      "post": {
+        "title": "Post-production",
+        "text": "Montage, étalonnage, mixage, sous-titrage multilingue."
+      }
+    },
+    "process": "Comment nous travaillons",
+    "steps": {
+      "brief": "Échange sur votre projet",
+      "proposal": "Proposition et devis",
+      "production": "Tournage",
+      "delivery": "Montage et livraison"
+    },
+    "form": {
+      "title": "Parlons de votre projet",
+      "name": "Nom",
+      "organisation": "Organisation",
+      "email": "E-mail",
+      "phone": "Téléphone (facultatif)",
+      "service": "Type de projet",
+      "choose": "Choisir",
+      "budget": "Budget indicatif (facultatif)",
+      "timing": "Date souhaitée (facultatif)",
+      "message": "Votre projet",
+      "consent": "J’accepte que LËK Studios utilise ces informations pour répondre à ma demande.",
+      "submit": "Vérifier ma demande",
+      "required": "Champ obligatoire",
+      "invalidEmail": "Adresse e-mail invalide",
+      "tooShort": "Quelques mots de plus, s’il vous plaît",
+      "demoNotice": "Prototype : la demande est vérifiée mais n’est pas encore envoyée. Aucune donnée n’est transmise ni enregistrée.",
+      "okTitle": "Demande vérifiée",
+      "okText": "Tout est correct. Dans la version en ligne, votre demande serait transmise à l’équipe LËK Studios. Pour l’instant, rien n’a été envoyé."
+    }
+  },
+  "standards": {
+    "title": "Charte éditoriale",
+    "intro": "La confiance est notre première promesse. Voici les règles que la rédaction de LËK s’engage à suivre.",
+    "status": "Document de travail du prototype, à valider par la direction de la rédaction.",
+    "sections": {
+      "independence": {
+        "title": "Indépendance",
+        "text": "La rédaction décide seule de ce qu’elle publie. Les annonceurs, partenaires et clients de LËK Studios n’ont aucun droit de regard sur les articles. Les contenus sponsorisés sont toujours signalés comme tels."
+      },
+      "sourcing": {
+        "title": "Sources",
+        "text": "Chaque information importante est attribuée. Les sources sont nommées autant que possible ; une source anonyme n’est utilisée que si elle est connue de la rédaction en chef et si l’information est vérifiée par ailleurs."
+      },
+      "verification": {
+        "title": "Vérification",
+        "text": "Les faits, chiffres et citations sont vérifiés avant publication. Les images sont créditées ; une illustration n’est jamais présentée comme une photographie d’actualité."
+      },
+      "reply": {
+        "title": "Droit de réponse",
+        "text": "Toute personne mise en cause est contactée avant publication et sa réponse est publiée."
+      },
+      "corrections": {
+        "title": "Corrections",
+        "text": "Les erreurs sont corrigées rapidement et la correction est signalée en bas de l’article, avec sa date."
+      },
+      "ai": {
+        "title": "Intelligence artificielle",
+        "text": "L’IA peut aider à organiser des recherches, transcrire, relire ou préparer une traduction. Elle n’invente ni fait, ni citation, ni source, et aucun article n’est publié sans validation humaine. Aucune image générée par IA n’est présentée comme documentaire."
+      },
+      "translation": {
+        "title": "Traductions",
+        "text": "Un article n’est publié dans une autre langue qu’après relecture par un journaliste maîtrisant cette langue. En attendant, il reste affiché dans sa langue d’origine."
+      }
+    },
+    "contact": "Signaler une erreur",
+    "contactText": "Une erreur ? Écrivez à la rédaction en précisant l’article et le passage concernés. Adresse de contact à confirmer avant le lancement."
+  },
+  "langSuggest": {
+    "text": "Lire LËK en {language} ?",
+    "switch": "Oui, passer en {language}",
+    "stay": "Non, rester en {current}"
+  },
+  "footer": {
+    "about": "Média indépendant né au Sénégal : actualité, documentaires, entretiens et direct.",
+    "sections": "Rubriques",
+    "network": "Le réseau",
+    "prototype": "Prototype de démonstration — contenus fictifs.",
+    "rights": "© {year} LËK Network"
+  },
+  "newsroom": {
+    "title": "Rédaction LËK",
+    "warning": "Démonstration locale : les données restent dans ce navigateur. Pas de connexion, pas de base de données, pas de publication réelle. Ne pas utiliser pour un vrai travail éditorial.",
+    "role": "Rôle (simulé)",
+    "roles": {
+      "reporter": "Journaliste",
+      "editor": "Éditeur",
+      "chief": "Rédaction en chef",
+      "translator": "Traducteur"
+    },
+    "tabs": {
+      "articles": "Articles",
+      "media": "Médias",
+      "video": "Vidéo",
+      "translations": "Traductions",
+      "corrections": "Corrections"
+    },
+    "new": "Nouvel article",
+    "edit": "Modifier",
+    "preview": "Aperçu",
+    "save": "Enregistrer le brouillon",
+    "delete": "Supprimer",
+    "reset": "Réinitialiser la démo",
+    "headline": "Titre",
+    "dek": "Chapô",
+    "body": "Texte",
+    "category": "Rubrique",
+    "region": "Région",
+    "scheduled": "Publication prévue",
+    "sources": "Sources (une par ligne)",
+    "status": "Statut",
+    "statuses": {
+      "draft": "Brouillon",
+      "review": "En relecture",
+      "approved": "Validé",
+      "scheduled": "Programmé",
+      "published": "Publié (démo)"
+    },
+    "actions": {
+      "submit": "Envoyer en relecture",
+      "approve": "Valider",
+      "reject": "Renvoyer au journaliste",
+      "schedule": "Programmer",
+      "publish": "Publier (démo)",
+      "unpublish": "Dépublier"
+    },
+    "notAllowed": "Votre rôle ne permet pas cette action.",
+    "aiRule": "Rappel : aucun texte généré par IA n’est publié sans vérification et validation humaines.",
+    "empty": "Aucun article. Créez un brouillon pour tester le circuit de validation.",
+    "history": "Historique",
+    "translationMatrix": "Suivi des traductions",
+    "trStates": {
+      "missing": "À traduire",
+      "draft": "Brouillon",
+      "review": "À relire",
+      "reviewed": "Relu"
+    },
+    "correction": "Ajouter une correction",
+    "correctionText": "Texte de la correction",
+    "mediaHint": "Bibliothèque de démonstration : illustrations abstraites de la charte. Les photos réelles exigeront crédit, droits et légende.",
+    "videoHint": "Métadonnées vidéo : titre, programme, durée, sous-titres et droits. Aucun fichier n’est envoyé.",
+    "videoTitle": "Titre de la vidéo",
+    "programme": "Programme",
+    "duration": "Durée",
+    "rights": "Droits confirmés",
+    "addVideo": "Ajouter la fiche",
+    "subtitles": "Sous-titres"
+  }
+}

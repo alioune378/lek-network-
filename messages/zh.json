@@ -1,0 +1,171 @@
+{
+  "_review": "Interface translation prepared for the prototype; to be reviewed by a native speaker before launch. Missing keys fall back to English.",
+  "meta": {
+    "title": "LËK Network — 永远领先一步"
+  },
+  "nav": {
+    "home": "首页",
+    "news": "新闻",
+    "watch": "视频",
+    "live": "直播",
+    "originals": "节目",
+    "africa": "非洲",
+    "diaspora": "海外侨民",
+    "regions": "地区",
+    "studios": "制作公司",
+    "newsroom": "编辑部",
+    "search": "搜索",
+    "standards": "编辑准则",
+    "menu": "菜单",
+    "close": "关闭",
+    "language": "语言",
+    "skip": "跳到内容",
+    "main": "主导航"
+  },
+  "common": {
+    "demo": "演示",
+    "demoBanner": "原型——所有文章均为虚构，仅用于测试平台，均非真实新闻。",
+    "minRead": "阅读约 {n} 分钟",
+    "published": "发布于 {date}",
+    "updated": "更新于 {date}",
+    "by": "作者：{name}",
+    "illustration": "抽象插图，并非新闻照片",
+    "inDevelopment": "开发中",
+    "viewAll": "查看全部",
+    "back": "返回",
+    "home": "首页",
+    "notFound": "页面未找到",
+    "notFoundText": "此页面不存在或已移动。",
+    "readArticle": "阅读文章",
+    "watchProgramme": "查看节目"
+  },
+  "categories": {
+    "society": "社会",
+    "economy": "经济",
+    "culture": "文化",
+    "technology": "科技",
+    "sport": "体育",
+    "africa": "非洲",
+    "diaspora": "海外侨民",
+    "environment": "环境",
+    "health": "健康",
+    "all": "全部新闻"
+  },
+  "home": {
+    "lead": "头条",
+    "briefingIntro": "今日要闻速览。",
+    "latest": "最新发布",
+    "regions": "塞内加尔各地区",
+    "regionsIntro": "每个地区都有一名通讯员：这是我们的计划。以下栏目已准备就绪。",
+    "world": "非洲与海外侨民",
+    "worldIntro": "连接达喀尔与非洲大陆及世界各地的塞内加尔人。",
+    "watchIntro": "原创纪录片、访谈和杂志节目正在筹备中。",
+    "mission": "我们的承诺",
+    "missionTitle": "清晰、经过核实、从非洲讲述的新闻。",
+    "missionText": "每篇文章都注明来源、公开更正，并区分事实与观点。人工智能可以协助记者，但绝不代替他们写作或发布。",
+    "readCharter": "阅读我们的准则",
+    "studiosText": "面向品牌、机构和电视台的制作部门，与编辑部严格分开。",
+    "discoverStudios": "了解制作公司"
+  },
+  "article": {
+    "sources": "来源",
+    "corrections": "更正",
+    "noCorrections": "暂无更正。",
+    "related": "延伸阅读",
+    "share": "分享",
+    "copyLink": "复制链接",
+    "copied": "链接已复制",
+    "textSize": "字号",
+    "smaller": "缩小字号",
+    "larger": "放大字号",
+    "transparency": "透明度",
+    "author": "作者",
+    "credit": "图片",
+    "fallback": "本文尚无{language}版本。在编辑部审校译文之前，以原文语言显示。",
+    "needsReview": "演示译文，等待母语记者审校。",
+    "alsoIn": "其他语言版本",
+    "fictional": "虚构的演示文章，不描述任何真实事件。",
+    "relatedVideo": "相关视频节目"
+  },
+  "regions": {
+    "title": "地区",
+    "intro": "来自一线的新闻。",
+    "senegal": "塞内加尔",
+    "empty": "该地区暂无已发布的文章。",
+    "emptyHint": "地区报道正在与当地通讯员一起建设。",
+    "count": "{n, plural, =0 {暂无文章} other {# 篇文章}}",
+    "future": "更多地区即将推出"
+  },
+  "search": {
+    "title": "搜索",
+    "placeholder": "话题、地区或关键词……",
+    "label": "在 LËK 中搜索",
+    "results": "{n, plural, =0 {无结果} other {# 条结果}}",
+    "noResults": "没有匹配的文章。请换个词或移除筛选条件。",
+    "category": "栏目",
+    "region": "地区",
+    "any": "全部",
+    "clear": "清除",
+    "scope": "搜索范围为本原型中发布的演示文章。"
+  },
+  "watch": {
+    "intro": "纪录片、访谈、杂志节目和视频解读。以下所有节目均在开发中，尚未发布任何一集。",
+    "featured": "推荐节目",
+    "programmes": "我们的节目",
+    "season": "第 {n} 季",
+    "episode": "第 {n} 集",
+    "episodes": "剧集",
+    "trailer": "预告片",
+    "credits": "演职人员",
+    "distribution": "发行",
+    "format": "形式",
+    "subtitles": "字幕",
+    "transcript": "文字稿",
+    "states": {
+      "in-development": "开发中",
+      "in-production": "制作中",
+      "available": "可观看"
+    },
+    "unavailableTitle": "暂无视频",
+    "unavailableText": "本节目正在筹备。版权确认的剧集发布后，播放器将显示在这里。",
+    "play": "播放视频",
+    "soundOff": "在您打开之前，声音保持关闭。"
+  },
+  "live": {
+    "intro": "LËK 直播：新闻、活动与转播。只有在真实播出时才会显示直播。",
+    "status": {
+      "live": "直播中",
+      "scheduled": "已排期",
+      "replay": "回放",
+      "offline": "未播出"
+    },
+    "offlineTitle": "当前没有直播",
+    "offlineText": "LËK Live 尚未开播，不显示任何虚构节目。",
+    "schedule": "节目表",
+    "noSchedule": "播出日期确定后将公布节目表。",
+    "replays": "回放",
+    "noReplays": "首批节目播出后将提供回放。",
+    "soundNote": "播放从不自动开启声音。"
+  },
+  "originals": {
+    "title": "原创节目",
+    "intro": "五个开发中的节目。每个页面介绍项目、季度和团队；尚未拍摄任何一集。",
+    "slate": "节目单"
+  },
+  "studios": {
+    "headline": "让故事动起来。",
+    "intro": "LËK 的制作部门：品牌纪录片、企业影片、活动转播与后期制作。LËK Studios 为客户服务，编辑部保持独立。",
+    "independence": "严格分离：客户委托的内容绝不会作为编辑部新闻发布。"
+  },
+  "langSuggest": {
+    "text": "用{language}阅读 LËK？",
+    "switch": "是，切换到{language}",
+    "stay": "否，继续使用{current}"
+  },
+  "footer": {
+    "about": "诞生于塞内加尔的独立媒体：新闻、纪录片、访谈与直播。",
+    "sections": "栏目",
+    "network": "网络",
+    "prototype": "演示原型——内容均为虚构。"
+  }
+}

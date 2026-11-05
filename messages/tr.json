@@ -1,0 +1,171 @@
+{
+  "_review": "Interface translation prepared for the prototype; to be reviewed by a native speaker before launch. Missing keys fall back to English.",
+  "meta": {
+    "title": "LËK Network — Her zaman bir adım önde"
+  },
+  "nav": {
+    "home": "Ana sayfa",
+    "news": "Haberler",
+    "watch": "Video",
+    "live": "Canlı",
+    "originals": "Programlar",
+    "africa": "Afrika",
+    "diaspora": "Diaspora",
+    "regions": "Bölgeler",
+    "studios": "Studios",
+    "newsroom": "Haber merkezi",
+    "search": "Ara",
+    "standards": "Yayın ilkeleri",
+    "menu": "Menü",
+    "close": "Kapat",
+    "language": "Dil",
+    "skip": "İçeriğe geç",
+    "main": "Ana gezinme"
+  },
+  "common": {
+    "demo": "Demo",
+    "demoBanner": "Prototip — tüm makaleler kurgusaldır ve platformu test etmek içindir. Hiçbiri gerçek haber değildir.",
+    "minRead": "{n} dk okuma",
+    "published": "Yayın: {date}",
+    "updated": "Güncelleme: {date}",
+    "by": "Yazan: {name}",
+    "illustration": "Soyut illüstrasyon, haber fotoğrafı değil",
+    "inDevelopment": "Geliştiriliyor",
+    "viewAll": "Tümünü gör",
+    "back": "Geri",
+    "home": "Ana sayfa",
+    "notFound": "Sayfa bulunamadı",
+    "notFoundText": "Bu sayfa yok ya da taşındı.",
+    "readArticle": "Makaleyi oku",
+    "watchProgramme": "Programı gör"
+  },
+  "categories": {
+    "society": "Toplum",
+    "economy": "Ekonomi",
+    "culture": "Kültür",
+    "technology": "Teknoloji",
+    "sport": "Spor",
+    "africa": "Afrika",
+    "diaspora": "Diaspora",
+    "environment": "Çevre",
+    "health": "Sağlık",
+    "all": "Tüm haberler"
+  },
+  "home": {
+    "lead": "Manşet",
+    "briefingIntro": "Günün konuları, kısaca.",
+    "latest": "Son yayınlar",
+    "regions": "Bölge bölge Senegal",
+    "regionsIntro": "Her bölgede bir muhabir: plan bu. Bu bölümler onları bekliyor.",
+    "world": "Afrika ve diaspora",
+    "worldIntro": "Dakar’ı kıtayla ve dünyadaki Senegallilerle buluşturuyoruz.",
+    "watchIntro": "Özgün belgeseller, söyleşiler ve dergi programları hazırlanıyor.",
+    "mission": "Taahhüdümüz",
+    "missionTitle": "Açık, doğrulanmış ve Afrika’dan anlatılan haber.",
+    "missionText": "Her makale kaynaklarını belirtir, düzeltmelerini gösterir ve olguyu görüşten ayırır. Yapay zekâ gazetecilerimize yardım edebilir; asla onların yerine yazmaz ya da yayımlamaz.",
+    "readCharter": "İlkelerimizi okuyun",
+    "studiosText": "Markalar, kurumlar ve yayıncılar için, haber merkezinden ayrı bir yapım birimi.",
+    "discoverStudios": "Studios’u keşfedin"
+  },
+  "article": {
+    "sources": "Kaynaklar",
+    "corrections": "Düzeltmeler",
+    "noCorrections": "Şimdilik düzeltme yok.",
+    "related": "Bunları da okuyun",
+    "share": "Paylaş",
+    "copyLink": "Bağlantıyı kopyala",
+    "copied": "Bağlantı kopyalandı",
+    "textSize": "Metin boyutu",
+    "smaller": "Daha küçük metin",
+    "larger": "Daha büyük metin",
+    "transparency": "Şeffaflık",
+    "author": "Yazar",
+    "credit": "Görsel",
+    "fallback": "Bu makale henüz {language} dilinde yok. Haber merkezi bir çeviriyi gözden geçirene kadar özgün dilinde gösteriliyor.",
+    "needsReview": "Tanıtım çevirisi; anadili bu dil olan bir gazetecinin kontrolünü bekliyor.",
+    "alsoIn": "Şu dillerde de var",
+    "fictional": "Kurgusal tanıtım makalesi. Gerçek bir olayı anlatmıyor.",
+    "relatedVideo": "İlgili video programı"
+  },
+  "regions": {
+    "title": "Bölgeler",
+    "intro": "Sahadan haberler.",
+    "senegal": "Senegal",
+    "empty": "Bu bölge için henüz yayımlanmış makale yok.",
+    "emptyHint": "Bölgesel haberler sahadaki muhabirlerle oluşturuluyor.",
+    "count": "{n, plural, =0 {Makale yok} other {# makale}}",
+    "future": "Yeni bölgeler yakında"
+  },
+  "search": {
+    "title": "Ara",
+    "placeholder": "Bir konu, bir bölge, bir kelime…",
+    "label": "LËK’te ara",
+    "results": "{n, plural, =0 {Sonuç yok} other {# sonuç}}",
+    "noResults": "Eşleşen makale yok. Başka bir kelime deneyin ya da bir filtreyi kaldırın.",
+    "category": "Bölüm",
+    "region": "Bölge",
+    "any": "Tümü",
+    "clear": "Temizle",
+    "scope": "Arama bu prototipteki tanıtım makalelerini kapsar."
+  },
+  "watch": {
+    "intro": "Belgeseller, söyleşiler, dergi programları ve açıklayıcı videolar. Tüm programlar geliştirme aşamasında: henüz hiçbir bölüm yayımlanmadı.",
+    "featured": "Öne çıkan program",
+    "programmes": "Programlarımız",
+    "season": "{n}. sezon",
+    "episode": "{n}. bölüm",
+    "episodes": "Bölümler",
+    "trailer": "Fragman",
+    "credits": "Jenerik",
+    "distribution": "Dağıtım",
+    "format": "Biçim",
+    "subtitles": "Altyazı",
+    "transcript": "Döküm",
+    "states": {
+      "in-development": "Geliştiriliyor",
+      "in-production": "Yapım aşamasında",
+      "available": "Yayında"
+    },
+    "unavailableTitle": "Henüz video yok",
+    "unavailableText": "Bu program hazırlanıyor. Hakları onaylanmış bir bölüm yayımlandığında oynatıcı burada görünecek.",
+    "play": "Videoyu oynat",
+    "soundOff": "Siz açana kadar ses kapalı kalır."
+  },
+  "live": {
+    "intro": "LËK’in canlı yayını: bültenler, etkinlikler ve yayınlar. Canlı yayın yalnızca gerçek bir yayın sürerken burada görünür.",
+    "status": {
+      "live": "Canlı",
+      "scheduled": "Planlandı",
+      "replay": "Tekrar",
+      "offline": "Yayın dışı"
+    },
+    "offlineTitle": "Şu anda yayın yok",
+    "offlineText": "LËK Live henüz yayına başlamadı. Kurgusal bir program gösterilmiyor.",
+    "schedule": "Yayın akışı",
+    "noSchedule": "Yayın akışı tarihler kesinleşince yayımlanacak.",
+    "replays": "Tekrarlar",
+    "noReplays": "Tekrarlar ilk yayınlardan sonra görünecek.",
+    "soundNote": "Oynatma asla sesle başlamaz."
+  },
+  "originals": {
+    "title": "Özgün programlar",
+    "intro": "Geliştirme aşamasında beş program. Her sayfa projeyi, sezonlarını ve ekibini tanıtıyor; henüz hiçbir bölüm çekilmedi.",
+    "slate": "Katalog"
+  },
+  "studios": {
+    "headline": "Harekete geçen hikâyeler.",
+    "intro": "LËK’in yapım birimi: marka belgeselleri, kurumsal filmler, etkinlik yayınları ve post prodüksiyon. LËK Studios müşteriler için çalışır; haber merkezi bağımsız kalır.",
+    "independence": "Kesin ayrım: bir müşterinin sipariş ettiği hiçbir içerik haber merkezi gazeteciliği olarak yayımlanmaz."
+  },
+  "langSuggest": {
+    "text": "LËK’i {language} okumak ister misiniz?",
+    "switch": "Evet, {language} diline geç",
+    "stay": "Hayır, {current} kal"
+  },
+  "footer": {
+    "about": "Senegal’de doğmuş bağımsız medya: haberler, belgeseller, söyleşiler ve canlı yayınlar.",
+    "sections": "Bölümler",
+    "network": "Ağ",
+    "prototype": "Tanıtım prototipi — kurgusal içerik."
+  }
+}

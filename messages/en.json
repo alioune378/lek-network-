@@ -1,0 +1,342 @@
+{
+  "meta": {
+    "title": "LËK Network — Always one step ahead",
+    "description": "Independent Senegalese media: news, documentaries, interviews and live broadcasts. Prototype.",
+    "tagline": "Toujours un temps d’avance."
+  },
+  "nav": {
+    "home": "Home",
+    "news": "News",
+    "watch": "Watch",
+    "live": "Live",
+    "originals": "Originals",
+    "africa": "Africa",
+    "diaspora": "Diaspora",
+    "regions": "Regions",
+    "studios": "Studios",
+    "newsroom": "Newsroom",
+    "search": "Search",
+    "standards": "Editorial standards",
+    "menu": "Menu",
+    "close": "Close",
+    "language": "Language",
+    "skip": "Skip to content",
+    "main": "Main navigation"
+  },
+  "common": {
+    "demo": "Demo",
+    "demoBanner": "Prototype — every article is fictional and exists to test the platform. None of it is real news.",
+    "minRead": "{n} min read",
+    "published": "Published {date}",
+    "updated": "Updated {date}",
+    "by": "By {name}",
+    "illustration": "Abstract illustration, not a news photograph",
+    "inDevelopment": "In development",
+    "viewAll": "View all",
+    "back": "Back",
+    "home": "Home",
+    "notFound": "Page not found",
+    "notFoundText": "This page does not exist or has moved.",
+    "readArticle": "Read the article",
+    "watchProgramme": "See the programme"
+  },
+  "categories": {
+    "society": "Society",
+    "economy": "Economy",
+    "culture": "Culture",
+    "technology": "Technology",
+    "sport": "Sport",
+    "africa": "Africa",
+    "diaspora": "Diaspora",
+    "environment": "Environment",
+    "health": "Health",
+    "all": "All news"
+  },
+  "home": {
+    "lead": "Top story",
+    "briefing": "L’Essentiel",
+    "briefingIntro": "Today’s stories, in brief.",
+    "latest": "Latest",
+    "regions": "Senegal, region by region",
+    "regionsIntro": "A correspondent in every region: that is the plan. These are the sections ready for them.",
+    "world": "Africa and the diaspora",
+    "worldIntro": "Connecting Dakar with the continent and with Senegalese around the world.",
+    "watch": "LËK Watch",
+    "watchIntro": "Original documentaries, interviews and magazines, in development.",
+    "liveLabel": "LËK Live",
+    "mission": "Our commitment",
+    "missionTitle": "News that is clear, verified and told from Africa.",
+    "missionText": "Every article cites its sources, flags its corrections and separates fact from opinion. Artificial intelligence may help our journalists; it never writes or publishes in their place.",
+    "readCharter": "Read our standards",
+    "studiosTitle": "LËK Studios",
+    "studiosText": "A production division for brands, institutions and broadcasters, kept separate from the newsroom.",
+    "discoverStudios": "Discover Studios"
+  },
+  "article": {
+    "sources": "Sources",
+    "corrections": "Corrections",
+    "noCorrections": "No corrections so far.",
+    "related": "Read next",
+    "share": "Share",
+    "copyLink": "Copy link",
+    "copied": "Link copied",
+    "textSize": "Text size",
+    "smaller": "Smaller text",
+    "larger": "Larger text",
+    "transparency": "Transparency",
+    "author": "Author",
+    "credit": "Image",
+    "fallback": "This article is not yet available in {language}. It is shown in its original language until a translation has been reviewed by the newsroom.",
+    "needsReview": "Demonstration translation, awaiting review by a native-speaking journalist.",
+    "alsoIn": "Also available in",
+    "fictional": "Fictional demonstration article. It describes no real event.",
+    "relatedVideo": "Related video programme"
+  },
+  "regions": {
+    "title": "Regions",
+    "intro": "News from close to the ground.",
+    "senegal": "Senegal",
+    "empty": "No articles published for this region yet.",
+    "emptyHint": "Regional coverage is being built with correspondents on the ground.",
+    "count": "{n, plural, =0 {No articles} one {# article} other {# articles}}",
+    "future": "More regions to come"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "A topic, a region, a word…",
+    "label": "Search LËK",
+    "results": "{n, plural, =0 {No results} one {# result} other {# results}}",
+    "noResults": "No article matches. Try another word or remove a filter.",
+    "category": "Section",
+    "region": "Region",
+    "any": "All",
+    "clear": "Clear",
+    "scope": "Search covers the demonstration articles published in this prototype."
+  },
+  "watch": {
+    "title": "LËK Watch",
+    "intro": "Documentaries, interviews, magazines and video explainers. Every programme below is in development: no episode has been published yet.",
+    "featured": "Featured programme",
+    "programmes": "Our programmes",
+    "season": "Season {n}",
+    "episode": "Episode {n}",
+    "episodes": "Episodes",
+    "trailer": "Trailer",
+    "credits": "Credits",
+    "distribution": "Distribution",
+    "format": "Format",
+    "subtitles": "Subtitles",
+    "transcript": "Transcript",
+    "states": {
+      "in-development": "In development",
+      "in-production": "In production",
+      "available": "Available"
+    },
+    "unavailableTitle": "No video yet",
+    "unavailableText": "This programme is in preparation. Playback will appear here once an episode is published with cleared rights.",
+    "play": "Play video",
+    "soundOff": "Sound stays off until you turn it on."
+  },
+  "live": {
+    "title": "LËK Live",
+    "intro": "LËK’s live channel: bulletins, events and broadcasts. A live stream appears here only when a real broadcast is on air.",
+    "status": {
+      "live": "Live",
+      "scheduled": "Scheduled",
+      "replay": "Replay",
+      "offline": "Off air"
+    },
+    "offlineTitle": "Nothing on air right now",
+    "offlineText": "LËK Live has not started broadcasting yet. No fictional programme is shown.",
+    "schedule": "Schedule",
+    "noSchedule": "The schedule will be published once broadcast dates are confirmed.",
+    "replays": "Replays",
+    "noReplays": "Replays will appear after the first broadcasts.",
+    "soundNote": "Playback never starts with sound."
+  },
+  "originals": {
+    "title": "Originals",
+    "intro": "Five programmes in development. Each page sets out the project, its seasons and its team; no episode has been filmed yet.",
+    "slate": "The slate"
+  },
+  "studios": {
+    "title": "LËK Studios",
+    "headline": "Stories that move.",
+    "intro": "LËK’s production division: brand documentaries, corporate films, event broadcasting and post-production. LËK Studios works for clients; the newsroom stays independent.",
+    "independence": "Strict separation: nothing commissioned by a client is ever published as newsroom journalism.",
+    "services": {
+      "brand": {
+        "title": "Brand documentaries",
+        "text": "Telling the story of a company or institution with documentary rigour."
+      },
+      "corporate": {
+        "title": "Corporate video",
+        "text": "Presentation films, annual reports, internal communication."
+      },
+      "film": {
+        "title": "Film and television",
+        "text": "Developing and producing series and films for broadcasters."
+      },
+      "events": {
+        "title": "Event broadcasting",
+        "text": "Multi-camera coverage of conferences, ceremonies and concerts."
+      },
+      "ads": {
+        "title": "Commercials",
+        "text": "Spots for television and social platforms, from script to delivery."
+      },
+      "interviews": {
+        "title": "Interviews",
+        "text": "Interview sets with broadcast-quality lighting and sound."
+      },
+      "post": {
+        "title": "Post-production",
+        "text": "Editing, grading, mixing and multilingual subtitling."
+      }
+    },
+    "process": "How we work",
+    "steps": {
+      "brief": "A conversation about your project",
+      "proposal": "Proposal and quote",
+      "production": "Filming",
+      "delivery": "Editing and delivery"
+    },
+    "form": {
+      "title": "Tell us about your project",
+      "name": "Name",
+      "organisation": "Organisation",
+      "email": "Email",
+      "phone": "Phone (optional)",
+      "service": "Type of project",
+      "choose": "Choose",
+      "budget": "Indicative budget (optional)",
+      "timing": "Preferred date (optional)",
+      "message": "Your project",
+      "consent": "I agree that LËK Studios may use this information to answer my request.",
+      "submit": "Check my request",
+      "required": "Required",
+      "invalidEmail": "Invalid email address",
+      "tooShort": "A few more words, please",
+      "demoNotice": "Prototype: the request is checked but not yet sent. No data is transmitted or stored.",
+      "okTitle": "Request checked",
+      "okText": "Everything is in order. In the live version your request would go to the LËK Studios team. For now, nothing has been sent."
+    }
+  },
+  "standards": {
+    "title": "Editorial standards",
+    "intro": "Trust is our first promise. These are the rules LËK’s newsroom commits to.",
+    "status": "Prototype working document, to be approved by the editorial leadership.",
+    "sections": {
+      "independence": {
+        "title": "Independence",
+        "text": "The newsroom alone decides what it publishes. Advertisers, partners and LËK Studios clients have no say over articles. Sponsored content is always labelled as such."
+      },
+      "sourcing": {
+        "title": "Sourcing",
+        "text": "Every important fact is attributed. Sources are named wherever possible; an anonymous source is used only if known to the editor-in-chief and the information is verified independently."
+      },
+      "verification": {
+        "title": "Verification",
+        "text": "Facts, figures and quotes are checked before publication. Images are credited; an illustration is never presented as a news photograph."
+      },
+      "reply": {
+        "title": "Right of reply",
+        "text": "Anyone implicated is contacted before publication and their response is published."
+      },
+      "corrections": {
+        "title": "Corrections",
+        "text": "Mistakes are corrected quickly and each correction is noted, with its date, at the foot of the article."
+      },
+      "ai": {
+        "title": "Artificial intelligence",
+        "text": "AI may help organise research, transcribe, proofread or prepare a draft translation. It never invents facts, quotes or sources, and no article is published without human sign-off. No AI-generated image is ever presented as documentary."
+      },
+      "translation": {
+        "title": "Translations",
+        "text": "An article is published in another language only after review by a journalist fluent in that language. Until then it stays in its original language."
+      }
+    },
+    "contact": "Report a mistake",
+    "contactText": "Spotted a mistake? Write to the newsroom with the article and passage concerned. Contact address to be confirmed before launch."
+  },
+  "langSuggest": {
+    "text": "Read LËK in {language}?",
+    "switch": "Yes, switch to {language}",
+    "stay": "No, stay in {current}"
+  },
+  "footer": {
+    "about": "Independent media born in Senegal: news, documentaries, interviews and live broadcasts.",
+    "sections": "Sections",
+    "network": "The network",
+    "prototype": "Demonstration prototype — fictional content.",
+    "rights": "© {year} LËK Network"
+  },
+  "newsroom": {
+    "title": "LËK Newsroom",
+    "warning": "Local demonstration: data stays in this browser. No login, no database, no real publishing. Do not use for real editorial work.",
+    "role": "Role (simulated)",
+    "roles": {
+      "reporter": "Reporter",
+      "editor": "Editor",
+      "chief": "Editor-in-chief",
+      "translator": "Translator"
+    },
+    "tabs": {
+      "articles": "Articles",
+      "media": "Media",
+      "video": "Video",
+      "translations": "Translations",
+      "corrections": "Corrections"
+    },
+    "new": "New article",
+    "edit": "Edit",
+    "preview": "Preview",
+    "save": "Save draft",
+    "delete": "Delete",
+    "reset": "Reset demo",
+    "headline": "Headline",
+    "dek": "Standfirst",
+    "body": "Body",
+    "category": "Section",
+    "region": "Region",
+    "scheduled": "Scheduled for",
+    "sources": "Sources (one per line)",
+    "status": "Status",
+    "statuses": {
+      "draft": "Draft",
+      "review": "In review",
+      "approved": "Approved",
+      "scheduled": "Scheduled",
+      "published": "Published (demo)"
+    },
+    "actions": {
+      "submit": "Send to review",
+      "approve": "Approve",
+      "reject": "Return to reporter",
+      "schedule": "Schedule",
+      "publish": "Publish (demo)",
+      "unpublish": "Unpublish"
+    },
+    "notAllowed": "Your role does not allow this action.",
+    "aiRule": "Reminder: no AI-generated text is published without human checks and sign-off.",
+    "empty": "No articles. Create a draft to try the approval workflow.",
+    "history": "History",
+    "translationMatrix": "Translation tracking",
+    "trStates": {
+      "missing": "To translate",
+      "draft": "Draft",
+      "review": "To review",
+      "reviewed": "Reviewed"
+    },
+    "correction": "Add a correction",
+    "correctionText": "Correction text",
+    "mediaHint": "Demonstration library: the brand’s abstract illustrations. Real photographs will require a credit, rights and a caption.",
+    "videoHint": "Video metadata: title, programme, duration, subtitles and rights. No file is uploaded.",
+    "videoTitle": "Video title",
+    "programme": "Programme",
+    "duration": "Duration",
+    "rights": "Rights cleared",
+    "addVideo": "Add record",
+    "subtitles": "Subtitles"
+  }
+}

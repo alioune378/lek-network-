@@ -1,0 +1,171 @@
+{
+  "_review": "Interface translation prepared for the prototype; to be reviewed by a native speaker before launch. Missing keys fall back to English.",
+  "meta": {
+    "title": "LËK Network — Immer einen Schritt voraus"
+  },
+  "nav": {
+    "home": "Start",
+    "news": "Nachrichten",
+    "watch": "Video",
+    "live": "Live",
+    "originals": "Sendungen",
+    "africa": "Afrika",
+    "diaspora": "Diaspora",
+    "regions": "Regionen",
+    "studios": "Studios",
+    "newsroom": "Redaktion",
+    "search": "Suche",
+    "standards": "Redaktionelle Standards",
+    "menu": "Menü",
+    "close": "Schließen",
+    "language": "Sprache",
+    "skip": "Zum Inhalt",
+    "main": "Hauptnavigation"
+  },
+  "common": {
+    "demo": "Demo",
+    "demoBanner": "Prototyp — alle Artikel sind fiktiv und dienen zum Testen der Plattform. Keiner ist eine echte Nachricht.",
+    "minRead": "{n} Min. Lesezeit",
+    "published": "Veröffentlicht am {date}",
+    "updated": "Aktualisiert am {date}",
+    "by": "Von {name}",
+    "illustration": "Abstrakte Illustration, kein Nachrichtenfoto",
+    "inDevelopment": "In Entwicklung",
+    "viewAll": "Alle anzeigen",
+    "back": "Zurück",
+    "home": "Start",
+    "notFound": "Seite nicht gefunden",
+    "notFoundText": "Diese Seite existiert nicht oder wurde verschoben.",
+    "readArticle": "Artikel lesen",
+    "watchProgramme": "Zur Sendung"
+  },
+  "categories": {
+    "society": "Gesellschaft",
+    "economy": "Wirtschaft",
+    "culture": "Kultur",
+    "technology": "Technologie",
+    "sport": "Sport",
+    "africa": "Afrika",
+    "diaspora": "Diaspora",
+    "environment": "Umwelt",
+    "health": "Gesundheit",
+    "all": "Alle Nachrichten"
+  },
+  "home": {
+    "lead": "Aufmacher",
+    "briefingIntro": "Die Themen des Tages, kurz gefasst.",
+    "latest": "Neueste Beiträge",
+    "regions": "Senegal, Region für Region",
+    "regionsIntro": "Ein Korrespondent in jeder Region: das ist der Plan. Diese Rubriken sind bereit.",
+    "world": "Afrika und Diaspora",
+    "worldIntro": "Dakar mit dem Kontinent und den Senegalesen weltweit verbinden.",
+    "watchIntro": "Originale Dokumentationen, Interviews und Magazine, in Vorbereitung.",
+    "mission": "Unser Versprechen",
+    "missionTitle": "Klare, geprüfte Nachrichten, erzählt aus Afrika.",
+    "missionText": "Jeder Artikel nennt seine Quellen, kennzeichnet Korrekturen und trennt Fakten von Meinungen. Künstliche Intelligenz kann unseren Journalisten helfen; sie schreibt und veröffentlicht nie an ihrer Stelle.",
+    "readCharter": "Unsere Standards lesen",
+    "studiosText": "Eine Produktionsabteilung für Marken, Institutionen und Sender, getrennt von der Redaktion.",
+    "discoverStudios": "Studios entdecken"
+  },
+  "article": {
+    "sources": "Quellen",
+    "corrections": "Korrekturen",
+    "noCorrections": "Bisher keine Korrekturen.",
+    "related": "Weiterlesen",
+    "share": "Teilen",
+    "copyLink": "Link kopieren",
+    "copied": "Link kopiert",
+    "textSize": "Textgröße",
+    "smaller": "Kleinerer Text",
+    "larger": "Größerer Text",
+    "transparency": "Transparenz",
+    "author": "Autor",
+    "credit": "Bild",
+    "fallback": "Dieser Artikel ist noch nicht auf {language} verfügbar. Er wird in der Originalsprache angezeigt, bis die Redaktion eine Übersetzung geprüft hat.",
+    "needsReview": "Demo-Übersetzung, wartet auf Prüfung durch eine muttersprachliche Journalistin oder einen Journalisten.",
+    "alsoIn": "Auch verfügbar auf",
+    "fictional": "Fiktiver Demonstrationsartikel. Er beschreibt kein reales Ereignis.",
+    "relatedVideo": "Zugehörige Videosendung"
+  },
+  "regions": {
+    "title": "Regionen",
+    "intro": "Nachrichten aus der Nähe.",
+    "senegal": "Senegal",
+    "empty": "Für diese Region gibt es noch keine Artikel.",
+    "emptyHint": "Die Regionalberichterstattung wird mit Korrespondenten vor Ort aufgebaut.",
+    "count": "{n, plural, =0 {Keine Artikel} one {# Artikel} other {# Artikel}}",
+    "future": "Weitere Regionen folgen"
+  },
+  "search": {
+    "title": "Suche",
+    "placeholder": "Ein Thema, eine Region, ein Wort…",
+    "label": "In LËK suchen",
+    "results": "{n, plural, =0 {Keine Ergebnisse} one {# Ergebnis} other {# Ergebnisse}}",
+    "noResults": "Kein Artikel passt. Versuchen Sie ein anderes Wort oder entfernen Sie einen Filter.",
+    "category": "Rubrik",
+    "region": "Region",
+    "any": "Alle",
+    "clear": "Löschen",
+    "scope": "Die Suche umfasst die Demonstrationsartikel dieses Prototyps."
+  },
+  "watch": {
+    "intro": "Dokumentationen, Interviews, Magazine und Erklärvideos. Alle Sendungen sind in Entwicklung: Es wurde noch keine Folge veröffentlicht.",
+    "featured": "Sendung im Fokus",
+    "programmes": "Unsere Sendungen",
+    "season": "Staffel {n}",
+    "episode": "Folge {n}",
+    "episodes": "Folgen",
+    "trailer": "Trailer",
+    "credits": "Mitwirkende",
+    "distribution": "Verbreitung",
+    "format": "Format",
+    "subtitles": "Untertitel",
+    "transcript": "Transkript",
+    "states": {
+      "in-development": "In Entwicklung",
+      "in-production": "In Produktion",
+      "available": "Verfügbar"
+    },
+    "unavailableTitle": "Noch kein Video",
+    "unavailableText": "Diese Sendung ist in Vorbereitung. Die Wiedergabe erscheint hier, sobald eine Folge mit geklärten Rechten veröffentlicht ist.",
+    "play": "Video abspielen",
+    "soundOff": "Der Ton bleibt aus, bis Sie ihn einschalten."
+  },
+  "live": {
+    "intro": "Das Live-Programm von LËK: Nachrichten, Events und Übertragungen. Ein Livestream erscheint nur, wenn wirklich gesendet wird.",
+    "status": {
+      "live": "Live",
+      "scheduled": "Geplant",
+      "replay": "Wiederholung",
+      "offline": "Nicht auf Sendung"
+    },
+    "offlineTitle": "Derzeit keine Sendung",
+    "offlineText": "LËK Live sendet noch nicht. Es wird kein fiktives Programm gezeigt.",
+    "schedule": "Programm",
+    "noSchedule": "Das Programm wird veröffentlicht, sobald die Termine feststehen.",
+    "replays": "Wiederholungen",
+    "noReplays": "Wiederholungen erscheinen nach den ersten Sendungen.",
+    "soundNote": "Die Wiedergabe startet nie mit Ton."
+  },
+  "originals": {
+    "title": "Eigenproduktionen",
+    "intro": "Fünf Sendungen in Entwicklung. Jede Seite stellt Projekt, Staffeln und Team vor; noch keine Folge wurde gedreht.",
+    "slate": "Das Programm"
+  },
+  "studios": {
+    "headline": "Geschichten in Bewegung.",
+    "intro": "Die Produktionsabteilung von LËK: Markendokumentationen, Unternehmensfilme, Eventübertragungen und Postproduktion. LËK Studios arbeitet für Kunden; die Redaktion bleibt unabhängig.",
+    "independence": "Strikte Trennung: Nichts, was ein Kunde beauftragt, wird als redaktioneller Journalismus veröffentlicht."
+  },
+  "langSuggest": {
+    "text": "LËK auf {language} lesen?",
+    "switch": "Ja, zu {language} wechseln",
+    "stay": "Nein, bei {current} bleiben"
+  },
+  "footer": {
+    "about": "Unabhängiges Medium aus dem Senegal: Nachrichten, Dokumentationen, Interviews und Live-Sendungen.",
+    "sections": "Rubriken",
+    "network": "Das Netzwerk",
+    "prototype": "Demonstrationsprototyp — fiktive Inhalte."
+  }
+}
