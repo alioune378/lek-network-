@@ -32,7 +32,47 @@ Updated after each milestone. "Verified" means checked by the CI run recorded on
 - **Pages:** article photos with full captions and an Open Graph image; region pages with photo banners; photos on the regions overview, Originals slate, programme banners and the Studios hero.
 - **Fixes:** French narrow no-break spaces before `: ; ! ?`; form fields no longer widen the page at 320px in Arabic; the edge padding of the poster rail; hover zoom switched off under reduced motion.
 
+## Milestone 7 — broadcast identity, art direction, mobile storytelling
+- **Ident (v1 concept)** — 6 seconds, silent, made only from the approved logo:
+  - Sequence: a gold time line is drawn and measured, and a marker races ahead. Geometric facets fold in and the hare leaps in "one step ahead". The LËK letters rise, the Ë dots drop in, then "Network" and the tagline appear.
+  - One source (`lib/ident.ts` + `components/ident.css`) drives both:
+    - the website version: plays once when scrolled into view and offers a replay button; with reduced motion it is the finished still frame, with no replay button.
+    - the video render: 1080p and 720p MP4 plus a still frame.
+  - Used on:
+    - the Live page's off-air screen.
+    - trailer slots on programme pages.
+    - the image for L'Essentiel, the daily briefing, in the Watch row and on the Watch page.
+    - a new "On-air identity" section on the Studios page, with the video and a download link.
+- **Art direction system:**
+  - Image ratios: editorial 3:2, thumbnails 1:1, video 16:9, places 3:4.
+  - One photo grade for every photograph.
+  - Archive images are monochrome with an "Archive · year" label.
+  - Gold viewfinder corners mark video imagery.
+  - Headline sizes and section spacing come from shared settings.
+- **Photography:** six more recent photos replace the clichés (two sunsets and a backlit bridge) and the oldest or lowest-resolution images:
+  - Dakar BRT stop, 2026
+  - Saint-Louis fishing fleet, 2020
+  - Château-Rouge in Paris, 2021
+  - Dakar port and skyline, 2021
+  - Kabrousse rice fields, 2023
+  - Kaolack main street, 2018 (replaces the 1900 postcard)
+  - The replaced files were removed.
+- **Mobile homepage:**
+  - Full-bleed 4:5 hero with the headline set on the photo.
+  - L'Essentiel shown as a timeline of the day, with headlines limited to two lines.
+  - The Watch feature stays 16:9, with its copy below and a "From the newsroom" link back to the related article.
+  - Stories tied to a programme carry a LËK Watch link, and the stream marks them "Video".
+  - Regions are a swipeable row of 3:4 place cards.
+  - Tighter sections; the mobile homepage went from 7,820px to 6,849px tall.
+
 ## Verification log
+- **CI run 42067676472 (commit cbae15c): passed.**
+  - Type check, lint and production build passed.
+  - 85 screenshots, plus 192 audited page loads at 320/375/430/768px: no overflow, broken images, console errors or failed requests.
+  - The ident plays on Live (26 running animations). Under reduced motion it is present, static and has no replay button.
+  - The three motion files are served (HTTP 200).
+  - All earlier checks still pass: logo, menu, focus, language switching, anchors and search.
+
 - **CI run 42061711035 (commit fb992f0): passed.**
   - Translation coverage, type check, lint and `next build` succeeded.
   - 85 full-page screenshots at 390px and 1440px, in FR, EN and AR.

@@ -56,7 +56,8 @@ Language behaviour:
 | Feature | Status |
 |---|---|
 | Articles, regions, programmes | **Fictional demonstration content**, labelled on every page |
-| Images | 23 freely licensed photographs from Wikimedia Commons (see `MEDIA_CREDITS.md` and `/credits`), each captioned as an illustration of a place, **not** evidence of the fictional story. One story keeps the brand’s abstract cover. Watch posters are location “mood” images, labelled as not coming from any programme |
+| Brand motion | The ident is a v1 concept animation (brand graphics only). No programme footage exists. |
+| Images | 22 freely licensed photographs from Wikimedia Commons (see `MEDIA_CREDITS.md` and `/credits`), each captioned as an illustration of a place, **not** evidence of the fictional story. One story keeps the brand’s abstract cover. Watch posters are location “mood” images, labelled as not coming from any programme |
 | Privacy page | Describes what the prototype actually does; a full policy is required before launch |
 | LËK Watch | Programme pages, seasons, episode slots, credits; **no video exists**. The player is ready for MP4/HLS and shows “not available yet” without a source |
 | LËK Live | Shows *off air*. Becomes live only with `NEXT_PUBLIC_LIVE_STATUS=live` **and** a real `NEXT_PUBLIC_LIVE_HLS_URL` |
