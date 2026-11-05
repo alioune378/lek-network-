@@ -139,8 +139,14 @@ try {
   );
   const again = await call(B.ctx, 'POST', '/api/community/comments', { article: ARTICLE, body: 'D’accord, et il faut aussi des bancs.', parentId: top.id, idempotencyKey: 'reply-0000001' });
   check('Posting is idempotent (same key does not create a duplicate)', again.data.id === reply.data.id && again.data.duplicate === true);
-  const notes = await call(A.ctx, 'GET', '/api/community/notifications');
-  check('Optional reply notifications reach the parent author', notes.data.items?.some((n) => n.kind === 'reply'), `${notes.data.items?.length} notifications`);
+  // A registered without reply notifications (opt-in box unchecked); B opted in. A replied to B's reply.
+  const notesA = await call(A.ctx, 'GET', '/api/community/notifications');
+  const notesB = await call(B.ctx, 'GET', '/api/community/notifications');
+  check(
+    'Reply notifications are optional: sent to a member who opted in, not to one who did not',
+    notesB.data.items?.some((n) => n.kind === 'reply' && n.payload.by === 'aminata_d') && !notesA.data.items?.some((n) => n.kind === 'reply'),
+    { optedIn: notesB.data.items?.length, optedOut: notesA.data.items?.length },
+  );
 
   const pubJson = JSON.stringify(await commentsOf(fresh)) + JSON.stringify((await call(fresh, 'GET', '/api/community/users/aminata_d')).data);
   const profPage = await (await newCtx()).newPage();
