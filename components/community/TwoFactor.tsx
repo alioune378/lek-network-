@@ -26,6 +26,7 @@ export default function TwoFactor({ enabled, staff, onChange }: { enabled: boole
     setErr(null);
     const { data, error } = await authClient.twoFactor.enable({ password });
     if (error || !data) return setErr(error?.status === 401 || error?.status === 400 ? t('twoFactor.badPassword') : error?.status === 403 ? t('account.reauth') : t('errors.generic'));
+    if (!('totpURI' in data)) return setErr(t('errors.generic'));
     const u = data.totpURI;
     setUri(u);
     setSecret(new URL(u).searchParams.get('secret') ?? '');
