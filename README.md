@@ -4,7 +4,7 @@
 
 Prototype of LËK Network: an independent Senegalese media platform for news, documentaries, interviews, live broadcasting and commercial production (LËK Studios). Built on Next.js (App Router) with next-intl, in ten languages.
 
-> **Everything published here is fictional demonstration content.** No article reports a real event; covers are abstract illustrations; no video or live stream exists yet. See “Simulated features” below.
+> **Everything published here is fictional demonstration content.** No article reports a real event; photographs are freely licensed pictures of places, captioned as illustrations unrelated to the stories; no video or live stream exists yet. See “Simulated features” below.
 
 ## Run
 
@@ -56,11 +56,12 @@ Language behaviour:
 | Feature | Status |
 |---|---|
 | Articles, regions, programmes | **Fictional demonstration content**, labelled on every page |
-| Images | Abstract SVG covers drawn from the brand palette; no photographs |
+| Images | 23 freely licensed photographs from Wikimedia Commons (see `MEDIA_CREDITS.md` and `/credits`), each captioned as an illustration of a place, **not** evidence of the fictional story. One story keeps the brand’s abstract cover. Watch posters are location “mood” images, labelled as not coming from any programme |
+| Privacy page | Describes what the prototype actually does; a full policy is required before launch |
 | LËK Watch | Programme pages, seasons, episode slots, credits; **no video exists**. The player is ready for MP4/HLS and shows “not available yet” without a source |
 | LËK Live | Shows *off air*. Becomes live only with `NEXT_PUBLIC_LIVE_STATUS=live` **and** a real `NEXT_PUBLIC_LIVE_HLS_URL` |
 | Studios inquiry form | Validated in the browser; **not sent anywhere** (says so) |
-| Newsroom (CMS) | Runs in the browser only (`localStorage`): drafts, review, approval, scheduling, “publish (demo)”, translation tracking, corrections, video metadata, simulated roles. **No authentication, no server, no shared data, nothing reaches the public site** |
+| Newsroom (CMS) | Reached from the footer (“Prototype tools”), not from public navigation. Runs in the browser only (`localStorage`): drafts, review, approval, scheduling, “publish (demo)”, translation tracking, corrections, video metadata, simulated roles. **No authentication, no server, no shared data, nothing reaches the public site** |
 
 ## Before launch
 
