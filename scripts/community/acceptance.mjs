@@ -212,11 +212,11 @@ try {
   await rp.screenshot({ path: `${OUT}/shots/mobile-fr-register-invite-only.png`, fullPage: true });
   check('Without an invitation the registration page explains it is invitation-only (no form)', (await rp.locator('form.cm-form').count()) === 0 && /invitation/i.test(await rp.locator('main').innerText()));
   await rp.goto(`${BASE}/fr/account/register?invite=${POOL.shift()}`, { waitUntil: 'networkidle' });
-  await rp.getByLabel('Nom affiché').fill('Aminata D.');
-  await rp.getByLabel('Nom d’utilisateur').fill('aminata_d');
+  await rp.getByLabel('Nom affiché', { exact: true }).fill('Aminata D.');
+  await rp.getByLabel('Nom d’utilisateur', { exact: true }).fill('aminata_d');
   await rp.waitForTimeout(900);
   const availText = await rp.locator('.cm-avail').textContent();
-  await rp.getByLabel('Adresse e-mail').fill('aminata_d@example.test');
+  await rp.getByLabel('Adresse e-mail', { exact: true }).fill('aminata_d@example.test');
   await rp.locator('input[type="password"]').fill(PW);
   for (const n of [1, 2, 3]) await rp.locator('.cm-check input').nth(n).check();
   // Turnstile widget (Cloudflare test site key) must produce a token in the browser.

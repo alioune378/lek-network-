@@ -17,8 +17,11 @@ export type ApiResult<T = Record<string, unknown>> = { ok: boolean; status: numb
 
 export async function api<T = Record<string, unknown>>(path: string, init: { method?: string; body?: unknown } = {}): Promise<ApiResult<T>> {
   try {
+    const method = init.method ?? 'GET';
+    // Mutations always send JSON (an empty object when there is no body), which the server requires.
+    if (method !== 'GET' && init.body === undefined) init = { ...init, body: {} };
     const r = await fetch(path, {
-      method: init.method ?? 'GET',
+      method,
       credentials: 'same-origin',
       headers: init.body !== undefined ? { 'content-type': 'application/json' } : undefined,
       body: init.body !== undefined ? JSON.stringify(init.body) : undefined,

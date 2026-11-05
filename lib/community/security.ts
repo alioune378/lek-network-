@@ -27,6 +27,7 @@ export async function readJson<T = Record<string, unknown>>(req: Request, maxByt
   if (!(req.headers.get('content-type') ?? '').includes('application/json')) throw new HttpError(415, 'json_required');
   const text = await req.text();
   if (text.length > maxBytes) throw new HttpError(413, 'too_large');
+  if (!text.trim()) return {} as T; // e.g. DELETE without a body
   try {
     const v = JSON.parse(text);
     if (!v || typeof v !== 'object' || Array.isArray(v)) throw new Error();
