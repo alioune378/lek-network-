@@ -98,6 +98,25 @@ Updated after each milestone. "Verified" means checked by the CI run recorded on
   - The production pipeline (community off) still passes: 85 screenshots, 192 audited pages, no problems.
 - **Not done / needs the owner**: see `docs/COMMUNITY.md` §10. Production database, auth secret, email provider with a verified sending domain, Turnstile keys, first admin, legal/privacy review (Senegal CDP, GDPR), approval of the guidelines, Wolof review, a secure tip channel, and a separate preview deploy.
 
+## Milestone 9 — Private pilot preparation (staging; community still OFF in production)
+- **Setup, costs, risks and launch checklist**: `docs/STAGING.md`.
+- **Built**:
+  - Invitation-only registration. Registration is closed by default; public registration needs `live` mode plus the founder's dated approval flag.
+  - Single-use invitations: hash stored, link shown once, optional binding to one email, expiry, revocation.
+  - One-time founder bootstrap (`BOOTSTRAP_TOKEN` + `FOUNDER_EMAIL`): the link is emailed and never displayed; the bootstrap closes once an owner exists.
+  - Staff powers require a verified email, two-step verification (TOTP with backup codes) and a sign-in less than 12 hours old.
+  - Role hierarchy with an owner (founder). Admins cannot create admins or touch the owner; nobody changes their own role.
+  - Pilot guide and questionnaire (tasks, 1–5 ratings, comprehension check, free text). Editors and above see anonymous results.
+  - Explicit consent to the privacy notice (versioned) and to the pilot conditions.
+  - Staging protections: noindex header, robots disallow, visible badge, no-store on the API, build-time migrations, and a build that refuses CI-only settings on Netlify.
+  - The privacy page names the processors (Netlify, Resend, Cloudflare Turnstile), states the real IP and session retention, and has a pilot section. A routine clean-up removes IP-bearing records.
+- **Verified** (community workflow, run 42125918569, commit 316797a):
+  - Built in the exact pilot configuration (pilot mode, invite-only, `LEK_ENV=staging`).
+  - Postgres 16, Cloudflare Turnstile **test** keys, emails captured rather than sent.
+  - Results: 12/12 unit tests, **94/94 acceptance checks**; type check, lint and build passed.
+- **Staging site**: `leknetwork-staging` was created with team-login protection on all deploys and the non-secret variables set. It is **not functional yet**: the founder must link the repo (branch `staging`), create the database, and set the secrets (`docs/STAGING.md` §2).
+- **Not yet proven**: real email delivery (Resend) and Turnstile with real keys. These need the end-to-end test in `docs/STAGING.md` §5.
+
 ## Verification log
 - **CI run 42067676472 (commit cbae15c): passed.**
   - Type check, lint and production build passed.
