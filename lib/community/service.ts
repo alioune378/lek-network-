@@ -565,7 +565,8 @@ export async function decideCase(viewer: Viewer, caseId: string, input: Record<s
   requireModerator(viewer);
   const reason = cleanText(input.reason, 1000);
   if (reason.length < 3) throw new HttpError(422, 'reason_required');
-  const commentAction = String(input.commentAction ?? 'keep');
+  // The outcome for the comment must be chosen explicitly (no default that could publish a held comment).
+  const commentAction = String(input.commentAction ?? '');
   const userAction = String(input.userAction ?? 'none');
   if (!['keep', 'approve', 'remove'].includes(commentAction) || !(USER_ACTIONS as readonly string[]).includes(userAction)) throw new HttpError(422, 'invalid_action');
   return tx(async (t) => {

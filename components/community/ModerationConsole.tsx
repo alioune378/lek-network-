@@ -94,7 +94,8 @@ export default function ModerationConsole({ canManageStaff }: { canManageStaff: 
 
 function CaseCard({ c, reload, onDone }: { c: Case; reload: () => void; onDone: (m: string) => void }) {
   const t = useTranslations('community');
-  const [commentAction, setCommentAction] = useState(c.commentStatus === 'pending' ? 'approve' : 'keep');
+  // No pre-selected outcome: a held comment (possibly a threat) must never be published by an unconsidered click.
+  const [commentAction, setCommentAction] = useState('');
   const [userAction, setUserAction] = useState('none');
   const [duration, setDuration] = useState('24h');
   const [reason, setReason] = useState('');
@@ -158,9 +159,11 @@ function CaseCard({ c, reload, onDone }: { c: Case; reload: () => void; onDone: 
           <div className="mod-row">
             <label className="cm-field">
               <span>{t('mod.commentDecision')}</span>
-              <select value={commentAction} onChange={(e) => setCommentAction(e.target.value)}>
-                <option value="keep">{t('mod.keep')}</option>
-                <option value="approve">{t('mod.approve')}</option>
+              <select value={commentAction} onChange={(e) => setCommentAction(e.target.value)} required>
+                <option value="" disabled>
+                  {t('mod.choose')}
+                </option>
+                {c.commentStatus === 'pending' ? <option value="approve">{t('mod.approve')}</option> : <option value="keep">{t('mod.keep')}</option>}
                 <option value="remove">{t('ladder.remove_comment')}</option>
               </select>
             </label>
@@ -191,7 +194,7 @@ function CaseCard({ c, reload, onDone }: { c: Case; reload: () => void; onDone: 
             <span>{t('mod.reasonShown')}</span>
             <textarea value={reason} onChange={(e) => setReason(e.target.value)} rows={2} maxLength={1000} />
           </label>
-          <button type="button" className="btn btn-navy btn-sm" disabled={reason.trim().length < 3} onClick={decide}>
+          <button type="button" className="btn btn-navy btn-sm" disabled={!commentAction || reason.trim().length < 3} onClick={decide}>
             {t('mod.record')}
           </button>
         </div>

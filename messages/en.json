@@ -482,8 +482,8 @@
       "closed": "Comments are closed for this article.",
       "until": "until {date}.",
       "seeDetails": "See details",
-      "postingAs": "Posting as {name}",
-      "replyTo": "Reply to {name}",
+      "postingAs": "Posting as <name></name>",
+      "replyTo": "Reply to <name></name>",
       "composerLabel": "Your comment",
       "placeholder": "Your view, a question, a correction…",
       "writtenIn": "Language",
@@ -886,7 +886,8 @@
       },
       "staffTitleField": "Displayed title",
       "saveStaff": "Save",
-      "staffSaved": "Verification saved."
+      "staffSaved": "Verification saved.",
+      "choose": "Choose…"
     },
     "inbox": {
       "title": "Your voice counts — newsroom inbox",

@@ -415,8 +415,8 @@
       "closed": "التعليقات مغلقة على هذا المقال.",
       "until": "حتى {date}.",
       "seeDetails": "عرض التفاصيل",
-      "postingAs": "تنشر باسم {name}",
-      "replyTo": "الرد على {name}",
+      "postingAs": "تنشر باسم <name></name>",
+      "replyTo": "الرد على <name></name>",
       "composerLabel": "تعليقك",
       "placeholder": "رأيك، سؤال، تصحيح…",
       "writtenIn": "اللغة",
@@ -819,7 +819,8 @@
       },
       "staffTitleField": "الصفة المعروضة",
       "saveStaff": "حفظ",
-      "staffSaved": "سُجِّل التحقق."
+      "staffSaved": "سُجِّل التحقق.",
+      "choose": "اختر…"
     },
     "inbox": {
       "title": "صوتك مهم — صندوق هيئة التحرير",

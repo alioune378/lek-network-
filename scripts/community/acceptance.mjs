@@ -230,6 +230,8 @@ try {
   await mp.goto(`${BASE}/fr/moderation`, { waitUntil: 'networkidle' });
   await mp.screenshot({ path: `${OUT}/shots/desktop-fr-moderation.png`, fullPage: true });
 
+  const noChoice = await call(M.ctx, 'POST', `/api/community/moderation/cases/${threatCase.id}`, { userAction: 'none', reason: 'Clic trop rapide' });
+  check('A held comment cannot be decided without an explicit choice (no default that publishes)', noChoice.status === 422 && noChoice.data.error === 'invalid_action', noChoice.data);
   // dismiss the bad-faith report: the comment stays
   await call(M.ctx, 'POST', `/api/community/moderation/cases/${reportCase.id}`, { commentAction: 'keep', userAction: 'none', reason: 'Critique politique légitime, aucune règle enfreinte.' });
   // remove the threat + restrict

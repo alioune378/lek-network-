@@ -179,7 +179,9 @@ function Composer({ slug, locale, viewer, parent, onPosted, onCancel, autoFocus 
       <div className="cm-composer-who">
         <Avatar name={viewer.displayName} staff={Boolean(viewer.staff)} size={28} />
         <span>
-          {parent ? t('comments.replyTo', { name: parent.author.displayName ?? t('comments.deletedAccount') }) : t('comments.postingAs', { name: viewer.displayName })}
+          {parent
+            ? t.rich('comments.replyTo', { name: () => <bdi>{parent.author.displayName ?? t('comments.deletedAccount')}</bdi> })
+            : t.rich('comments.postingAs', { name: () => <bdi>{viewer.displayName}</bdi> })}
         </span>
       </div>
       <label htmlFor={`${id}-b`} className="sr-only">
@@ -308,13 +310,19 @@ function Item({ c, viewer, reload, setStatus, onReply }: { c: C; viewer: Viewer 
         <Avatar name={name} staff={Boolean(c.author.staff)} />
         <div className="cm-who">
           {c.author.deleted || !c.author.username ? (
-            <span className="cm-name is-deleted">{name}</span>
+            <span className="cm-name is-deleted">
+              <bdi>{name}</bdi>
+            </span>
           ) : (
             <Link href={`/u/${c.author.username}`} className="cm-name">
-              {name}
+              <bdi>{name}</bdi>
             </Link>
           )}
-          {c.author.username && !c.author.deleted && <span className="cm-handle">@{c.author.username}</span>}
+          {c.author.username && !c.author.deleted && (
+            <bdi className="cm-handle" dir="ltr">
+              @{c.author.username}
+            </bdi>
+          )}
           {c.author.staff && (
             <span className="cm-staff" title={c.author.staff.title ?? undefined}>
               <svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true">
@@ -322,7 +330,12 @@ function Item({ c, viewer, reload, setStatus, onReply }: { c: C; viewer: Viewer 
                 <path d="M8 12.5l2.6 2.5L16 9.5" fill="none" stroke="#0b0f1a" strokeWidth="2" />
               </svg>
               {t('comments.staffBadge')}
-              {c.author.staff.title && <span className="cm-staff-title"> · {c.author.staff.title}</span>}
+              {c.author.staff.title && (
+                <span className="cm-staff-title">
+                  {' '}
+                  · <bdi>{c.author.staff.title}</bdi>
+                </span>
+              )}
             </span>
           )}
           <span className="cm-time">

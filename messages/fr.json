@@ -482,8 +482,8 @@
       "closed": "Les commentaires sont fermés pour cet article.",
       "until": "jusqu’au {date}.",
       "seeDetails": "Voir les détails",
-      "postingAs": "Vous publiez en tant que {name}",
-      "replyTo": "Répondre à {name}",
+      "postingAs": "Vous publiez en tant que <name></name>",
+      "replyTo": "Répondre à <name></name>",
       "composerLabel": "Votre commentaire",
       "placeholder": "Votre point de vue, une question, une précision…",
       "writtenIn": "Langue",
@@ -886,7 +886,8 @@
       },
       "staffTitleField": "Fonction affichée",
       "saveStaff": "Enregistrer",
-      "staffSaved": "Vérification enregistrée."
+      "staffSaved": "Vérification enregistrée.",
+      "choose": "Choisir…"
     },
     "inbox": {
       "title": "Votre voix compte — boîte de la rédaction",
