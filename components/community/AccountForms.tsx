@@ -3,9 +3,10 @@
 import { useCallback, useEffect, useId, useState, type FormEvent, type ReactNode } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link, useRouter } from '@/i18n/navigation';
-import { MODE, api, authClient, type Viewer } from './client';
+import { MODE, PILOT_END, REGISTRATION, api, authClient, type Viewer } from './client';
 import Turnstile from './Turnstile';
 import Avatar from './Avatar';
+import TwoFactor from './TwoFactor';
 
 export function CommunityOff() {
   const t = useTranslations('community');
@@ -49,7 +50,10 @@ export function RegisterForm() {
   const t = useTranslations('community');
   const locale = useLocale();
   const id = useId();
-  const [f, setF] = useState({ displayName: '', username: '', email: '', password: '', website: '', notifyReplies: false, acceptGuidelines: false });
+  const [f, setF] = useState({ displayName: '', username: '', email: '', password: '', website: '', notifyReplies: false, acceptGuidelines: false, acceptPrivacy: false, acceptPilot: false });
+  const [invite, setInvite] = useState<string | null>(null);
+  const [inviteState, setInviteState] = useState<'none' | 'checking' | 'valid' | 'invalid'>('none');
+  const [invitePurpose, setInvitePurpose] = useState<string | null>(null);
   const [show, setShow] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [avail, setAvail] = useState<string | null>(null);
@@ -58,6 +62,17 @@ export function RegisterForm() {
   const [busy, setBusy] = useState(false);
   const [formErr, setFormErr] = useState<string | null>(null);
   const onToken = useCallback((x: string) => setCaptcha(x), []);
+
+  useEffect(() => {
+    const tok = new URLSearchParams(window.location.search).get('invite');
+    if (!tok) return;
+    setInvite(tok);
+    setInviteState('checking');
+    api<{ valid: boolean; purpose?: string }>(`/api/community/invites/check?token=${encodeURIComponent(tok)}`).then((r) => {
+      setInviteState(r.ok && r.data.valid ? 'valid' : 'invalid');
+      setInvitePurpose(r.data.purpose ?? null);
+    });
+  }, []);
 
   useEffect(() => {
     const u = f.username.trim().toLowerCase();
@@ -70,6 +85,24 @@ export function RegisterForm() {
   }, [f.username]);
 
   if (MODE === 'off') return <CommunityOff />;
+  // Registration is by invitation unless the founder has explicitly opened it.
+  if (!done && REGISTRATION !== 'open' && !invite)
+    return (
+      <div className="cm-card">
+        <h2 className="cm-card-title">{t('pilot.inviteOnlyTitle')}</h2>
+        <p>{t('pilot.inviteOnlyText')}</p>
+        <p>
+          <Link href="/account/login">{t('auth.haveAccount')} {t('auth.signIn')}</Link>
+        </p>
+      </div>
+    );
+  if (!done && invite && inviteState === 'invalid')
+    return (
+      <div className="cm-card" role="alert">
+        <h2 className="cm-card-title">{t('pilot.inviteInvalidTitle')}</h2>
+        <p>{t('pilot.inviteInvalidText')}</p>
+      </div>
+    );
   if (done)
     return (
       <div className="cm-card" role="status">
@@ -86,16 +119,22 @@ export function RegisterForm() {
     e.preventDefault();
     setBusy(true);
     setFormErr(null);
-    const r = await api('/api/community/register', { method: 'POST', body: { ...f, username: f.username.trim().toLowerCase(), locale, captcha } });
+    const r = await api('/api/community/register', { method: 'POST', body: { ...f, username: f.username.trim().toLowerCase(), locale, captcha, invite } });
     setBusy(false);
     if (r.ok) return setDone(true);
     setErrors(r.data.fields ?? {});
-    if (!r.data.fields) setFormErr(t(`errors.${r.data.error === 'rate_limited' ? 'rate_limited' : 'generic'}`));
+    const known = ['rate_limited', 'invite_required', 'invite_invalid', 'invite_email_mismatch', 'registration_closed', 'captcha_required', 'captcha_failed'];
+    if (!r.data.fields) setFormErr(t(`errors.${known.includes(r.data.error ?? '') ? r.data.error : 'generic'}`));
   };
 
   return (
     <form className="cm-form" onSubmit={submit} noValidate>
       <DemoNote />
+      {inviteState === 'valid' && (
+        <p className="cm-status" role="status">
+          {t(invitePurpose === 'founder' ? 'pilot.inviteFounder' : invitePurpose === 'staff' ? 'pilot.inviteStaff' : 'pilot.inviteValid')}
+        </p>
+      )}
       <Field id={`${id}-d`} label={t('auth.displayName')} hint={t('auth.displayNameHint')} error={err('displayName')}>
         <input id={`${id}-d`} value={f.displayName} onChange={set('displayName')} maxLength={50} autoComplete="nickname" required aria-describedby={`${id}-d-hint`} />
       </Field>
@@ -134,6 +173,20 @@ export function RegisterForm() {
         </span>
       </label>
       {err('acceptGuidelines') && <p className="cm-error">{err('acceptGuidelines')}</p>}
+      <label className={`cm-check ${errors.acceptPrivacy ? 'has-err' : ''}`}>
+        <input type="checkbox" checked={f.acceptPrivacy} onChange={set('acceptPrivacy')} required />{' '}
+        <span>{t.rich('pilot.acceptPrivacy', { link: (c) => <Link href="/privacy">{c}</Link> })}</span>
+      </label>
+      {err('acceptPrivacy') && <p className="cm-error">{err('acceptPrivacy')}</p>}
+      {MODE === 'pilot' && (
+        <>
+          <label className={`cm-check ${errors.acceptPilot ? 'has-err' : ''}`}>
+            <input type="checkbox" checked={f.acceptPilot} onChange={set('acceptPilot')} required />{' '}
+            <span>{PILOT_END ? t('pilot.acceptPilotDated', { date: PILOT_END }) : t('pilot.acceptPilot')}</span>
+          </label>
+          {err('acceptPilot') && <p className="cm-error">{err('acceptPilot')}</p>}
+        </>
+      )}
       <p className="cm-hint">{t('auth.privacyNote')}</p>
       <Turnstile onToken={onToken} />
       <button type="submit" className="btn btn-navy" disabled={busy}>
@@ -164,16 +217,54 @@ export function LoginForm() {
   const [msg, setMsg] = useState<{ kind: 'error' | 'info'; text: string } | null>(null);
   const [unverified, setUnverified] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [twoStep, setTwoStep] = useState(false);
+  const [code, setCode] = useState('');
+  const [useBackup, setUseBackup] = useState(false);
   const onToken = useCallback((x: string) => setCaptcha(x), []);
   if (MODE === 'off') return <CommunityOff />;
   const headers = captcha ? { 'x-captcha-response': captcha } : undefined;
+
+  const verify = async (e: FormEvent) => {
+    e.preventDefault();
+    setBusy(true);
+    const clean = code.replace(/\s/g, '');
+    const { error } = useBackup ? await authClient.twoFactor.verifyBackupCode({ code: clean }) : await authClient.twoFactor.verifyTotp({ code: clean });
+    setBusy(false);
+    if (error) return setMsg({ kind: 'error', text: error.status === 429 ? t('errors.rate_limited') : t('twoFactor.badCode') });
+    router.push('/account');
+    router.refresh();
+  };
+  if (twoStep)
+    return (
+      <form className="cm-form" onSubmit={verify}>
+        <p>{useBackup ? t('twoFactor.backupPrompt') : t('twoFactor.prompt')}</p>
+        <Field id={`${id}-c`} label={useBackup ? t('twoFactor.backupCode') : t('twoFactor.code')}>
+          <input id={`${id}-c`} value={code} onChange={(e) => setCode(e.target.value)} inputMode={useBackup ? 'text' : 'numeric'} autoComplete="one-time-code" required dir="ltr" autoFocus />
+        </Field>
+        <button type="submit" className="btn btn-navy" disabled={busy || code.trim().length < 6}>
+          {t('twoFactor.verify')}
+        </button>
+        <button type="button" className="cm-act" onClick={() => { setUseBackup((x) => !x); setCode(''); }}>
+          {useBackup ? t('twoFactor.useApp') : t('twoFactor.useBackup')}
+        </button>
+        {msg && (
+          <p className={msg.kind === 'error' ? 'cm-error' : 'cm-status'} role={msg.kind === 'error' ? 'alert' : 'status'}>
+            {msg.text}
+          </p>
+        )}
+      </form>
+    );
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
     setBusy(true);
     setMsg(null);
-    const { error } = await authClient.signIn.email({ email, password, callbackURL: `/${locale}/account` }, { headers });
+    const { data, error } = await authClient.signIn.email({ email, password, callbackURL: `/${locale}/account` }, { headers });
     setBusy(false);
+    if (!error && data && 'twoFactorRedirect' in data && data.twoFactorRedirect) {
+      setTwoStep(true);
+      return;
+    }
     if (!error) {
       router.push('/account');
       router.refresh();
@@ -313,6 +404,8 @@ type Me = {
   profile?: { displayName: string; bio: string | null; region: string | null; preferredLanguage: string | null; interests: string[]; showHistory: boolean; notifyReplies: boolean } | null;
   moderation?: { id: string; action: string; reason: string; until: string | null; createdAt: string; appeal: string | null }[];
   unreadNotifications?: number;
+  staffStatus?: string | null;
+  pilot?: boolean;
 };
 type Note = { id: string; kind: string; payload: Record<string, string>; read: boolean; createdAt: string };
 
@@ -414,6 +507,24 @@ export function AccountPanel() {
           {v.restriction.endsAt && <> {t('comments.until', { date: new Date(v.restriction.endsAt).toLocaleString() })}</>}
         </p>
       )}
+
+      {v.staff && me.staffStatus && (
+        <p className="cm-note cm-note-warn" role="note">
+          {t(`staffStatus.${me.staffStatus}`)}
+        </p>
+      )}
+      {me.pilot && (
+        <section className="cm-card cm-pilot-card">
+          <h2 className="cm-card-title">{t('pilot.cardTitle')}</h2>
+          <p>{t('pilot.cardText')}</p>
+          <p>
+            <Link href="/pilot" className="btn btn-gold btn-sm">
+              {t('pilot.cardCta')}
+            </Link>
+          </p>
+        </section>
+      )}
+      <TwoFactor enabled={v.twoFactorEnabled} staff={Boolean(v.staff)} onChange={load} />
 
       <section className="cm-card" aria-labelledby={`${id}-n`}>
         <h2 id={`${id}-n`} className="cm-card-title">

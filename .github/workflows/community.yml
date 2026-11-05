@@ -1,7 +1,9 @@
-name: Community (demo environment tests)
+name: Community (private pilot configuration tests)
 
-# Builds the site with LËK Community switched on (COMMUNITY_MODE=demo) against a throwaway Postgres,
-# runs unit tests and the acceptance suite, and publishes results to the ci-community branch.
+# Builds the site exactly as the private staging pilot is configured (COMMUNITY_MODE=pilot, invitation-only
+# registration, founder bootstrap, staff two-step verification, LEK_ENV=staging) against a throwaway Postgres,
+# with Cloudflare Turnstile TEST keys and emails captured in the database instead of sent.
+# Runs unit tests and the acceptance suite, and publishes results to the ci-community branch.
 # Production is not affected: it builds without COMMUNITY_MODE (community off).
 on:
   push:
@@ -32,11 +34,20 @@ jobs:
     env:
       NEXT_TELEMETRY_DISABLED: '1'
       DATABASE_URL: postgres://lek:lek-ci-only@localhost:5432/lek_community
-      COMMUNITY_MODE: demo
-      NEXT_PUBLIC_COMMUNITY_MODE: demo
+      COMMUNITY_MODE: pilot
+      NEXT_PUBLIC_COMMUNITY_MODE: pilot
+      COMMUNITY_REGISTRATION: invite
+      NEXT_PUBLIC_COMMUNITY_REGISTRATION: invite
+      LEK_ENV: staging
+      NEXT_PUBLIC_LEK_ENV: staging
+      NEXT_PUBLIC_PILOT_END_DATE: '2026-12-15'
       MAIL_CAPTURE: '1'
       BETTER_AUTH_URL: http://localhost:3000
       COMMUNITY_REGISTER_LIMIT: '200'
+      FOUNDER_EMAIL: founder@example.test
+      # Cloudflare's published Turnstile test keys (always pass). They are public, not secrets.
+      TURNSTILE_SECRET_KEY: 1x0000000000000000000000000000000AA
+      NEXT_PUBLIC_TURNSTILE_SITE_KEY: 1x00000000000000000000AA
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -46,6 +57,7 @@ jobs:
         run: |
           echo "BETTER_AUTH_SECRET=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
           echo "TEST_MAIL_TOKEN=$(openssl rand -hex 16)" >> "$GITHUB_ENV"
+          echo "BOOTSTRAP_TOKEN=$(openssl rand -hex 24)" >> "$GITHUB_ENV"
       - name: Install
         run: |
           mkdir -p ci-artifacts/community
@@ -64,10 +76,10 @@ jobs:
           set -o pipefail
           npm run community:migrate 2>&1 | tee ci-artifacts/community/04-migrate.log
           npm run community:migrate 2>&1 | tee -a ci-artifacts/community/04-migrate.log
-      - name: Production build (community on, demo)
+      - name: Production build (community on, pilot configuration)
         run: |
           set -o pipefail
-          npm run build 2>&1 | tee ci-artifacts/community/05-build.log
+          npm run build:netlify 2>&1 | tee ci-artifacts/community/05-build.log
       - name: Acceptance tests
         run: |
           set -o pipefail

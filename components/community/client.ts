@@ -1,13 +1,17 @@
 'use client';
 
 import { createAuthClient } from 'better-auth/react';
-import { usernameClient } from 'better-auth/client/plugins';
+import { twoFactorClient, usernameClient } from 'better-auth/client/plugins';
 
 /** Build-time flag for the interface. The server enforces COMMUNITY_MODE independently. */
-export const MODE = (process.env.NEXT_PUBLIC_COMMUNITY_MODE ?? 'off') as 'off' | 'demo' | 'live';
+export const MODE = (process.env.NEXT_PUBLIC_COMMUNITY_MODE ?? 'off') as 'off' | 'demo' | 'pilot' | 'live';
+/** Display only; the server enforces COMMUNITY_REGISTRATION. */
+export const REGISTRATION = (process.env.NEXT_PUBLIC_COMMUNITY_REGISTRATION ?? 'closed') as 'closed' | 'invite' | 'open';
+export const PILOT_END = process.env.NEXT_PUBLIC_PILOT_END_DATE ?? '';
 export const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? '';
 
-export const authClient = createAuthClient({ plugins: [usernameClient()] });
+// The sign-in form handles the two-step prompt itself (no automatic redirect).
+export const authClient = createAuthClient({ plugins: [usernameClient(), twoFactorClient()] });
 
 export type ApiResult<T = Record<string, unknown>> = { ok: boolean; status: number; data: T & { error?: string; fields?: Record<string, string> } };
 
@@ -32,6 +36,7 @@ export type Viewer = {
   displayName: string;
   emailVerified: boolean;
   createdAt: string;
+  twoFactorEnabled: boolean;
   staff: { role: string; title: string } | null;
   restriction: { kind: 'comment_restricted' | 'suspended'; endsAt: string | null; reason: string } | null;
 };

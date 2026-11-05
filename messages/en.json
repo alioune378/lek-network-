@@ -453,7 +453,15 @@
       },
       "community": {
         "title": "LËK Community (when open)",
-        "text": "Commenting requires an account: a verified email address (never shown publicly), a display name, a username and a password hashed by the authentication library. Comments, reactions, reports and moderation decisions are kept according to the published retention policy. IP addresses are kept only in hashed form, for 48 hours, to limit abuse. You can delete your account at any time from “My account”."
+        "text": "Commenting requires an account: a verified email address (never shown publicly), a display name, a username and a password hashed by the authentication library. Comments, reactions, reports and moderation decisions are kept according to the published retention policy. Each sign-in session records your IP address and browser type; these are deleted when you sign out, or in routine clean-up after the session expires (7 days at most). Anti-abuse records (a hashed IP address, or the IP address for sign-in rate limits) are deleted in routine clean-up after 48 hours. You can delete your account at any time from “My account”."
+      },
+      "communityServices": {
+        "title": "Services used by LËK Community",
+        "text": "Accounts and contributions are stored in a Postgres database managed by Netlify. Confirmation, password-reset and invitation emails are sent by Resend, which receives your email address and the message content. The Cloudflare Turnstile anti-robot check receives technical signals from your browser and your IP address when you register or sign in."
+      },
+      "pilot": {
+        "title": "During the private pilot",
+        "text": "The pilot is open only to invited people. Its data is kept separate from the public site and may be erased at the end of the test. Pilot questionnaire answers are shown to the team as averages and unnamed text. For any access or deletion request, write through “Your voice matters” or delete your account from “My account”."
       }
     }
   },
@@ -549,7 +557,17 @@
       "already_decided": "This case has already been handled.",
       "reason_required": "Give a reason (it will be shown to the member).",
       "same_reviewer": "An appeal must be reviewed by someone other than the person who made the decision.",
-      "already_appealed": "An appeal has already been filed for this decision."
+      "already_appealed": "An appeal has already been filed for this decision.",
+      "invite_required": "An invitation link is needed to register during the pilot.",
+      "invite_invalid": "This invitation has expired, has already been used or was revoked.",
+      "invite_email_mismatch": "This invitation is reserved for a different email address.",
+      "registration_closed": "Registration is closed for now.",
+      "captcha_required": "Please complete the anti-robot check.",
+      "captcha_failed": "The anti-robot check failed. Please try again.",
+      "two_factor_required": "Turn on two-step verification to use staff powers.",
+      "staff_session_expired": "For this action, sign in again (sign-in within the last 12 hours required).",
+      "last_owner": "Not possible: at least one founder administrator must always remain.",
+      "invalid": "Some values are not valid."
     },
     "fieldErrors": {
       "displayName": {
@@ -570,6 +588,12 @@
       },
       "acceptGuidelines": {
         "required": "You must accept the community guidelines."
+      },
+      "acceptPrivacy": {
+        "required": "Please confirm you have read the privacy policy."
+      },
+      "acceptPilot": {
+        "required": "Please accept the pilot conditions."
       }
     },
     "auth": {
@@ -685,7 +709,10 @@
       "dismiss": "No violation",
       "lift_restriction": "Restriction lifted",
       "grant_staff": "Professional verification granted",
-      "revoke_staff": "Professional verification revoked"
+      "revoke_staff": "Professional verification revoked",
+      "create_invite": "Invitation created",
+      "revoke_invite": "Invitation revoked",
+      "bootstrap_owner": "Founder administrator activated"
     },
     "about": {
       "title": "LËK Community",
@@ -797,7 +824,9 @@
         "resolved": "Handled",
         "appeals": "Appeals",
         "audit": "Audit log",
-        "members": "Members"
+        "members": "Members",
+        "invites": "Invitations",
+        "pilot": "Pilot"
       },
       "principles": "Automatic detections flag; they prove nothing. Judge conduct, not opinion. Give a reason for every decision: it is shown to the member.",
       "empty": "Nothing to handle.",
@@ -882,12 +911,63 @@
         "editor": "Editor",
         "moderator": "Moderator",
         "admin": "Administrator",
-        "revoke": "Revoke verification"
+        "revoke": "Revoke verification",
+        "owner": "Founder administrator"
       },
       "staffTitleField": "Displayed title",
       "saveStaff": "Save",
       "staffSaved": "Verification saved.",
-      "choose": "Choose…"
+      "choose": "Choose…",
+      "invites": {
+        "title": "Create invitations",
+        "hint": "Each link is single-use and expires. An invitation with an email address only works for that address and is sent to it.",
+        "kind": "Type",
+        "kinds": {
+          "pilot": "Pilot tester",
+          "staff": "Staff member",
+          "founder": "Founder"
+        },
+        "count": "Number of links",
+        "days": "Valid for (days)",
+        "emailOptional": "Email address (optional, reserves the link for that address)",
+        "emailRequired": "Email address (required)",
+        "note": "Internal note (optional)",
+        "create": "Create",
+        "created": "{n, plural, one {# link created} other {# links created}}.",
+        "delivery": {
+          "accepted": "Invitation accepted by the email service (delivery not guaranteed).",
+          "captured": "Test mode: email captured, not sent.",
+          "failed": "Sending failed: pass the link on yourself.",
+          "not_configured": "Email not configured: pass the link on yourself."
+        },
+        "onceTitle": "Links shown only once.",
+        "onceText": "Copy them now and give each one to a single person, through a private channel.",
+        "copy": "Copy the links",
+        "copied": "Links copied.",
+        "copyFailed": "Could not copy: select the links manually.",
+        "for": "Recipient",
+        "status": "Status",
+        "statuses": {
+          "active": "Active",
+          "used": "Used",
+          "expired": "Expired",
+          "revoked": "Revoked"
+        },
+        "usedBy": "Used by",
+        "revoke": "Revoke",
+        "revoked": "Invitation revoked."
+      },
+      "pilot": {
+        "none": "No questionnaire answers yet.",
+        "responses": "{n, plural, one {# questionnaire answer} other {# questionnaire answers}}.",
+        "understanding": "Understanding",
+        "understandingHint": "Share of people who chose the right answer.",
+        "comments": "Free-text comments (no names)",
+        "kinds": {
+          "confusing": "Confusing",
+          "suggestion": "Suggestion"
+        }
+      }
     },
     "inbox": {
       "title": "Your voice counts — newsroom inbox",
@@ -915,6 +995,149 @@
         "email": "sent by email",
         "internal": "internal note (not sent)"
       }
+    },
+    "bootstrap": {
+      "title": "Founder administrator activation",
+      "explain": "One-time step. Enter the bootstrap token (BOOTSTRAP_TOKEN) you set in the Netlify environment variables. A single-use invitation, valid for 48 hours, will be sent to the FOUNDER_EMAIL address. The link is never shown here. This page stops working as soon as a founder administrator exists.",
+      "token": "Bootstrap token",
+      "send": "Send the founder invitation",
+      "sent": "Request accepted by the email service for {to}. Check that inbox (and spam); the email is not guaranteed until it arrives.",
+      "captured": "Test mode: the email for {to} was captured in the database, not sent.",
+      "errors": {
+        "bootstrap_denied": "Token refused, or bootstrap not configured (BOOTSTRAP_TOKEN and FOUNDER_EMAIL required).",
+        "already_bootstrapped": "A founder administrator already exists. Use sign-in or password reset.",
+        "mail_unavailable": "The email service did not accept the message. No invitation was kept. Check RESEND_API_KEY, MAIL_FROM and the sending domain.",
+        "rate_limited": "Too many attempts. Try again in an hour.",
+        "not_found": "The community is not enabled on this site.",
+        "generic": "The operation failed. Try again later."
+      }
+    },
+    "twoFactor": {
+      "title": "Two-step verification",
+      "intro": "Optional for members: a 6-digit code from an authenticator app (Aegis, Google Authenticator, 1Password…) is requested at each sign-in.",
+      "staffRequired": "Required for staff: without it, moderation and administration powers and the newsroom inbox stay disabled.",
+      "on": "Enabled on this account.",
+      "enable": "Turn on",
+      "disable": "Turn off",
+      "confirmPassword": "Confirm your password",
+      "continue": "Continue",
+      "step1": "Scan this QR code with your authenticator app, or enter the key manually.",
+      "step2": "Enter the 6-digit code shown by the app to confirm.",
+      "qrAlt": "QR code to set up two-step verification",
+      "manual": "Manual key:",
+      "openApp": "Open in this device’s authenticator app",
+      "code": "6-digit code",
+      "verify": "Verify",
+      "badCode": "Wrong or expired code. Check your phone’s clock and try again.",
+      "badPassword": "Wrong password.",
+      "backupTitle": "Backup codes.",
+      "backupText": "Keep them offline, somewhere safe. Each works once if you lose your phone. They will not be shown again.",
+      "prompt": "Enter the code from your authenticator app.",
+      "backupPrompt": "Enter one of your backup codes.",
+      "backupCode": "Backup code",
+      "useApp": "Use the app",
+      "useBackup": "Use a backup code",
+      "disableStaffWarning": "Warning: while two-step verification is off, your staff powers are suspended."
+    },
+    "staffStatus": {
+      "not_staff": "This account has no staff role.",
+      "email_unverified": "Staff powers inactive: confirm your email address first.",
+      "restricted": "Staff powers inactive: this account is under a restriction.",
+      "two_factor_required": "Staff powers inactive: turn on two-step verification below.",
+      "staff_session_expired": "Staff powers inactive: you signed in more than 12 hours ago. Sign out and sign in again."
+    },
+    "pilot": {
+      "inviteOnlyTitle": "Registration by invitation",
+      "inviteOnlyText": "LËK Community is in a private pilot. You can only register with a personal invitation link sent by the LËK team.",
+      "inviteInvalidTitle": "Invitation not valid",
+      "inviteInvalidText": "This invitation link has expired, has already been used or was revoked. Ask the person who invited you for a new one.",
+      "inviteValid": "Valid pilot invitation.",
+      "inviteFounder": "Valid founder administrator invitation: use the email address it was sent to.",
+      "inviteStaff": "Valid staff invitation: use the email address it was sent to.",
+      "acceptPrivacy": "I have read the <link>privacy policy</link>: my email address stays private; my display name, username and published comments are visible to other participants.",
+      "acceptPilot": "I am taking part in a private test: data may be erased at the end of the pilot and the service may be interrupted.",
+      "acceptPilotDated": "I am taking part in a private test planned until {date}: data may be erased at the end of the pilot and the service may be interrupted.",
+      "cardTitle": "You are testing LËK Community",
+      "cardText": "Thank you for joining the pilot. Once you have tried a few features, tell us what was clear or confusing (5 minutes).",
+      "cardCta": "Pilot questionnaire",
+      "acceptTitle": "Accept an invitation",
+      "acceptSignIn": "Sign in with the account this invitation is meant for, then open the link again.",
+      "acceptText": "You are signed in as {name}. Accepting adds the invitation’s role to this account.",
+      "acceptCta": "Accept the invitation",
+      "accepted": "Invitation accepted: {role} role. Turn on two-step verification in your account to use staff powers.",
+      "title": "LËK Community pilot",
+      "intro": "Thank you for testing the community before it opens. Your answers help us check that registration, rules, reporting and appeals are understandable.",
+      "guideTitle": "What we ask you to do",
+      "guide": {
+        "g1": "Create your account with your invitation link and confirm your email address.",
+        "g2": "Read the community rules, then post a comment and a reply under an article.",
+        "g3": "Try “Helpful”, report a test comment, and check your notifications.",
+        "g4": "Send a message through “Your voice matters” and switch language (French, English, Arabic).",
+        "g5": "Fill in the questionnaire below. You can change it later."
+      },
+      "languages": "You can write comments in French, English, Wolof or Arabic. The interface is complete in French, English and Arabic; the Wolof interface is not translated yet.",
+      "signInFirst": "Sign in to answer the pilot questionnaire.",
+      "tasksTitle": "What you tried",
+      "tasksHint": "Tick what you actually did.",
+      "tasks": {
+        "register": "Create an account and confirm the email",
+        "profile": "Edit my profile",
+        "comment": "Post a comment",
+        "reply": "Reply to someone",
+        "helpful": "Mark a comment as helpful",
+        "report": "Report a comment",
+        "feedback": "Write to the newsroom (“Your voice matters”)",
+        "notifications": "Check my notifications",
+        "language": "Use another language",
+        "delete_test": "Delete a test comment or account"
+      },
+      "ratingsTitle": "Clarity and trust",
+      "ratingsHint": "From 1 (not at all) to 5 (completely).",
+      "scale": "1 = not at all · 5 = completely",
+      "ratings": {
+        "registration": "Registration was simple.",
+        "rules": "The community rules are clear.",
+        "reporting": "I know how to report a comment.",
+        "appeals": "I know how to challenge a moderation decision.",
+        "safety": "I feel safe expressing myself here.",
+        "design": "The interface is pleasant and readable.",
+        "recommend": "I would recommend LËK Community to someone close to me."
+      },
+      "quizTitle": "Did we explain it well?",
+      "quizHint": "No trick questions: these measure how clear our explanations are, not what you know.",
+      "quiz": {
+        "emailVisible": {
+          "q": "Can other members see your email address?",
+          "yes": "Yes",
+          "no": "No",
+          "unsure": "I don’t know"
+        },
+        "reportEffect": {
+          "q": "What happens when someone reports a comment?",
+          "auto_removed": "It is removed automatically",
+          "human_review": "A person on the moderation team reviews it",
+          "unsure": "I don’t know"
+        },
+        "appeal": {
+          "q": "If a moderation decision affects you, who reviews your appeal?",
+          "no_appeal": "There is no appeal",
+          "same_moderator": "The same person who decided",
+          "other_moderator": "Another person on the team",
+          "unsure": "I don’t know"
+        },
+        "disagreement": {
+          "q": "Can you disagree with an article or with the newsroom?",
+          "forbidden": "No, it is not allowed",
+          "allowed": "Yes, respectfully",
+          "unsure": "I don’t know"
+        }
+      },
+      "confusing": "What was confusing or difficult?",
+      "suggestion": "What should we improve before opening?",
+      "anonymousResults": "The team sees averages and free-text answers without your name. Please avoid personal information in them.",
+      "send": "Save my answers",
+      "saved": "Thank you! Your answers are saved. You can change them at any time.",
+      "needRatings": "Please answer at least the rating questions before saving."
     }
   }
 }

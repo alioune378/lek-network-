@@ -51,7 +51,17 @@ export async function rateLimit(key: string, limit: number, windowSec: number): 
   const row = await one<{ n: string }>(`SELECT count(*)::text AS n FROM rate_event WHERE key = $1 AND created_at > now() - make_interval(secs => $2)`, [key, windowSec]);
   if (Number(row?.n ?? 0) >= limit) throw new HttpError(429, 'rate_limited', { retryAfter: windowSec });
   await q(`INSERT INTO rate_event (key) VALUES ($1)`, [key]);
-  if (Math.random() < 0.02) await q(`DELETE FROM rate_event WHERE created_at < now() - interval '48 hours'`);
+  if (Math.random() < 0.02) await cleanup();
+}
+
+/**
+ * Routine clean-up of records that contain IP addresses or user agents: our own rate events (hashed IPs) after 48 h,
+ * Better Auth's rate-limit rows (which key on the IP) after 48 h, and expired sessions (which store IP and user agent).
+ */
+export async function cleanup(): Promise<void> {
+  await q(`DELETE FROM rate_event WHERE created_at < now() - interval '48 hours'`);
+  await q(`DELETE FROM "rateLimit" WHERE "lastRequest" < (extract(epoch from now() - interval '48 hours') * 1000)::bigint`).catch(() => undefined);
+  await q(`DELETE FROM session WHERE "expiresAt" < now()`).catch(() => undefined);
 }
 
 /** Cloudflare Turnstile, verified server-side when configured. */

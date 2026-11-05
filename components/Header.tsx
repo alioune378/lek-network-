@@ -21,6 +21,8 @@ const NAV: { key: string; href: string; match: string }[] = [
   { key: 'studios', href: '/studios', match: '/studios' },
 ];
 const COMMUNITY_ON = (process.env.NEXT_PUBLIC_COMMUNITY_MODE ?? 'off') !== 'off';
+/** Private staging only: a visible badge so testers never mistake it for the public site. */
+const STAGING = process.env.NEXT_PUBLIC_LEK_ENV === 'staging';
 
 /** The seven sections the menu puts first. */
 const PRIMARY = ['news', 'watch', 'live', 'originals', 'africa', 'diaspora', 'studios'];
@@ -88,6 +90,11 @@ export default function Header({ locale }: { locale: Locale }) {
             {tm('tagline')}
           </span>
           <span className="strip-right">
+            {STAGING && (
+              <span className="staging-badge" lang="fr">
+                STAGING PRIVÉ · PILOTE
+              </span>
+            )}
             <Link href="/live" className={`live-chip ${live ? 'is-live' : ''}`}>
               <span className="live-dot" aria-hidden="true" />
               LËK Live · {tl(LIVE.status)}

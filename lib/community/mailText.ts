@@ -17,9 +17,16 @@ const T = {
     en: ['Registration attempt — LËK Community', 'Hello,\n\nSomeone tried to create a LËK Community account with your address, which already has an account. If it was you, sign in or reset your password:\n{url}\n\nOtherwise you can ignore this message.'],
     ar: ['محاولة تسجيل — LËK Community', 'مرحباً،\n\nحاول أحدهم إنشاء حساب في LËK Community بعنوانك، وهو مرتبط بحساب موجود. إن كنت أنت فسجّل الدخول أو أعد تعيين كلمة المرور:\n{url}\n\nوإلا فتجاهل هذه الرسالة.'],
   },
+  invite: {
+    fr: ['Votre invitation — LËK Community', 'Bonjour,\n\nVous êtes invité·e à rejoindre LËK Community ({purpose}). Ouvrez ce lien personnel (valable jusqu’au {expires}, utilisable une fois) :\n{url}\n\nNe le transférez pas. Si vous n’attendiez pas ce message, ignorez-le.\n\nLËK Network — Toujours un temps d’avance.'],
+    en: ['Your invitation — LËK Community', 'Hello,\n\nYou are invited to join LËK Community ({purpose}). Open this personal link (valid until {expires}, single use):\n{url}\n\nDo not forward it. If you were not expecting this message, ignore it.\n\nLËK Network'],
+    ar: ['دعوتك — LËK Community', 'مرحباً،\n\nأنت مدعو للانضمام إلى LËK Community ({purpose}). افتح هذا الرابط الشخصي (صالح حتى {expires}، لاستخدام واحد):\n{url}\n\nلا تُعِد توجيهه. إذا لم تكن تنتظر هذه الرسالة فتجاهلها.\n\nLËK Network'],
+  },
 } as const;
 
-export function mailText(kind: keyof typeof T, locale: string | undefined, url: string) {
+export function mailText(kind: keyof typeof T, locale: string | undefined, url: string, vars: Record<string, string> = {}) {
   const [subject, text] = T[kind][pick(locale)];
-  return { subject, text: text.replace('{url}', url) };
+  let body: string = text.replace('{url}', url);
+  for (const [k, v] of Object.entries(vars)) body = body.replace(`{${k}}`, v);
+  return { subject, text: body };
 }

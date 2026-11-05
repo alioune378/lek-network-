@@ -11,7 +11,8 @@
     "check:i18n": "node scripts/check-messages.mjs",
     "test:community": "tsx --test tests/community/*.test.ts",
     "community:migrate": "tsx scripts/community/migrate.mjs",
-    "community:grant-staff": "tsx scripts/community/grant-staff.mjs"
+    "community:grant-staff": "tsx scripts/community/grant-staff.mjs",
+    "build:netlify": "node scripts/community/prebuild.mjs && next build"
   },
   "dependencies": {
     "hls.js": "^1.5.0",
@@ -20,7 +21,8 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "better-auth": "^1.6.0",
-    "pg": "^8.16.0"
+    "pg": "^8.16.0",
+    "qrcode": "^1.5.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
@@ -31,7 +33,8 @@
     "eslint-config-next": "^15.5.0",
     "typescript": "^5.8.3",
     "@types/pg": "^8.15.0",
-    "tsx": "^4.20.0"
+    "tsx": "^4.20.0",
+    "@types/qrcode": "^1.5.5"
   },
   "engines": {
     "node": ">=20.9"

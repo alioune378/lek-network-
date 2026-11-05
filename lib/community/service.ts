@@ -1,14 +1,15 @@
-import { createHash, randomUUID } from 'node:crypto';
+import { createHash, randomBytes, randomUUID, timingSafeEqual } from 'node:crypto';
 import type { PoolClient } from 'pg';
 import { one, q, tx } from './db';
 import { getAuth } from './auth';
 import { HttpError, cleanText, rateLimit } from './security';
-import { LIMITS } from './config';
+import { LIMITS, PRIVACY_VERSION, communityMode, registrationMode, siteOrigin } from './config';
 import { analyse, fingerprint, suggestNextStep, type Severity } from './moderation';
-import { can, type StaffRole, type Viewer } from './permissions';
+import { can, canAssignRole, staffBlock, type StaffRole, type Viewer } from './permissions';
 import { impersonates } from './names';
 import { STORIES, PROGRAMMES } from '../content';
 import { sendMail } from './mail';
+import { mailText } from './mailText';
 
 export const GUIDELINES_VERSION = '2026-11';
 const LOCALES = ['fr', 'en', 'wo', 'ar', 'es', 'pt', 'de', 'it', 'tr', 'zh'];
@@ -19,10 +20,10 @@ export async function getViewer(headers: Headers): Promise<Viewer | null> {
   const session = await getAuth().api.getSession({ headers });
   if (!session) return null;
   const row = await one<{
-    id: string; username: string; emailVerified: boolean; createdAt: Date; locale: string | null;
+    id: string; username: string; emailVerified: boolean; createdAt: Date; locale: string | null; twoFactorEnabled: boolean | null;
     display_name: string | null; deleted_at: Date | null; role: StaffRole | null; title: string | null;
   }>(
-    `SELECT u.id, u.username, u."emailVerified", u."createdAt", u.locale, p.display_name, p.deleted_at, s.role, s.title
+    `SELECT u.id, u.username, u."emailVerified", u."createdAt", u.locale, u."twoFactorEnabled", p.display_name, p.deleted_at, s.role, s.title
        FROM "user" u LEFT JOIN profile p ON p.user_id = u.id LEFT JOIN staff s ON s.user_id = u.id WHERE u.id = $1`,
     [session.user.id],
   );
@@ -40,6 +41,8 @@ export async function getViewer(headers: Headers): Promise<Viewer | null> {
     emailVerified: row.emailVerified,
     createdAt: new Date(row.createdAt).toISOString(),
     locale: row.locale,
+    twoFactorEnabled: Boolean(row.twoFactorEnabled),
+    sessionCreatedAt: new Date(session.session.createdAt).toISOString(),
     staff: row.role ? { role: row.role, title: row.title ?? '' } : null,
     restriction: r ? { kind: r.kind, endsAt: r.ends_at ? new Date(r.ends_at).toISOString() : null, reason: r.reason } : null,
     deleted: Boolean(row.deleted_at),
@@ -52,6 +55,51 @@ export async function requireViewer(headers: Headers): Promise<Viewer> {
   return v;
 }
 
+/* ------------------------------------------------------------------ invitations */
+
+const tokenHash = (t: string) => createHash('sha256').update(t).digest('hex');
+const newToken = () => randomBytes(32).toString('base64url');
+
+type InviteRow = {
+  id: string; purpose: 'founder' | 'staff' | 'pilot'; role: StaffRole | null; title: string | null; email: string | null;
+  max_uses: number; uses: number; expires_at: Date; revoked_at: Date | null; created_by: string | null;
+};
+
+async function findInvite(token: string): Promise<InviteRow | null> {
+  if (!/^[A-Za-z0-9_-]{30,80}$/.test(token)) return null;
+  const i = await one<InviteRow>(`SELECT id, purpose, role, title, email, max_uses, uses, expires_at, revoked_at, created_by FROM invite WHERE token_hash = $1`, [tokenHash(token)]);
+  if (!i || i.revoked_at || new Date(i.expires_at).getTime() < Date.now() || i.uses >= i.max_uses) return null;
+  return i;
+}
+
+/** Public check used by the registration page: says whether a link is valid, never who it is for. */
+export async function checkInvite(token: string) {
+  const i = await findInvite(token);
+  return i ? { valid: true, purpose: i.purpose, emailBound: Boolean(i.email), expiresAt: new Date(i.expires_at).toISOString() } : { valid: false };
+}
+
+/** Atomically reserves one use of an invitation (refunded if no account is created). */
+async function reserveInvite(id: string): Promise<boolean> {
+  const r = await q(`UPDATE invite SET uses = uses + 1 WHERE id = $1 AND uses < max_uses AND revoked_at IS NULL AND expires_at > now() RETURNING id`, [id]);
+  return r.length === 1;
+}
+const refundInvite = (id: string) => q(`UPDATE invite SET uses = greatest(uses - 1, 0) WHERE id = $1`, [id]);
+
+/** Grants the staff role an invitation carries (founder → owner). */
+async function applyInviteRole(c: PoolClient | null, invite: InviteRow, userId: string) {
+  const run = (sql: string, params: unknown[]) => (c ? c.query(sql, params) : q(sql, params));
+  await run(`INSERT INTO invite_use (invite_id, user_id) VALUES ($1, $2) ON CONFLICT DO NOTHING`, [invite.id, userId]);
+  if (!invite.role) return;
+  const title = invite.title || (invite.purpose === 'founder' ? 'Fondateur, LËK Network' : 'Rédaction LËK');
+  await run(
+    `INSERT INTO staff (user_id, role, title, verified_by) VALUES ($1, $2, $3, $4) ON CONFLICT (user_id) DO UPDATE SET role = $2, title = $3, verified_by = $4, verified_at = now()`,
+    [userId, invite.role, title, invite.created_by],
+  );
+  await run(`INSERT INTO moderation_action (actor_id, target_user_id, action, reason) VALUES ($1, $2, $3, $4)`, [
+    invite.created_by, userId, invite.purpose === 'founder' ? 'bootstrap_owner' : 'grant_staff', `${invite.role} via ${invite.purpose} invitation`,
+  ]);
+}
+
 /* ------------------------------------------------------------------ registration */
 
 export async function register(input: Record<string, unknown>) {
@@ -60,6 +108,7 @@ export async function register(input: Record<string, unknown>) {
   const username = String(input.username ?? '').trim().toLowerCase();
   const displayName = cleanText(input.displayName, LIMITS.displayNameMax);
   const locale = LOCALES.includes(String(input.locale)) ? String(input.locale) : 'fr';
+  const pilot = communityMode() === 'pilot';
   const errors: Record<string, string> = {};
   if (!/^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/.test(email) || email.length > 254) errors.email = 'invalid';
   if (password.length < 10 || password.length > 128) errors.password = 'length';
@@ -68,31 +117,210 @@ export async function register(input: Record<string, unknown>) {
   if (!displayName) errors.displayName = 'required';
   else if (impersonates(displayName)) errors.displayName = 'reserved';
   if (input.acceptGuidelines !== true) errors.acceptGuidelines = 'required';
+  if (input.acceptPrivacy !== true) errors.acceptPrivacy = 'required';
+  if (pilot && input.acceptPilot !== true) errors.acceptPilot = 'required';
+
+  // Registration gate: closed (staff invitations only), invite (any valid invitation), open (public, founder-approved live only).
+  const mode = registrationMode();
+  const token = typeof input.invite === 'string' ? input.invite : '';
+  const invite = token ? await findInvite(token) : null;
+  if (token && !invite) throw new HttpError(403, 'invite_invalid');
+  if (mode === 'closed' && !invite?.role) throw new HttpError(403, 'registration_closed');
+  if (mode === 'invite' && !invite) throw new HttpError(403, 'invite_required');
+  if (invite?.email && invite.email.toLowerCase() !== email) throw new HttpError(403, 'invite_email_mismatch');
   if (Object.keys(errors).length) throw new HttpError(422, 'invalid', { fields: errors });
 
   const taken = await one(`SELECT 1 FROM "user" WHERE username = $1`, [username]);
   if (taken) throw new HttpError(409, 'username_taken', { fields: { username: 'taken' } });
 
+  if (invite && !(await reserveInvite(invite.id))) throw new HttpError(403, 'invite_invalid');
+  let created: { id: string } | undefined;
   try {
     await getAuth().api.signUpEmail({
       body: { email, password, name: displayName, username, displayUsername: username, locale, callbackURL: `/${locale}/account?verified=1` },
     });
+    // Only an account this request actually created gets a profile (an existing email creates nothing).
+    created = await one<{ id: string }>(`SELECT id FROM "user" WHERE username = $1 AND lower(email) = $2`, [username, email]);
   } catch (e) {
+    if (invite) await refundInvite(invite.id);
     const msg = String((e as { body?: { code?: string } }).body?.code ?? (e as Error).message ?? '');
     if (/USERNAME_IS_ALREADY_TAKEN|username/i.test(msg)) throw new HttpError(409, 'username_taken', { fields: { username: 'taken' } });
     if (/PASSWORD/i.test(msg)) throw new HttpError(422, 'invalid', { fields: { password: 'weak' } });
     throw e;
   }
-  // Create the profile only for an account this request actually created (an existing email creates nothing).
-  const u = await one<{ id: string }>(`SELECT id FROM "user" WHERE username = $1 AND lower(email) = $2`, [username, email]);
-  if (u) {
-    await q(
-      `INSERT INTO profile (user_id, display_name, preferred_language, notify_replies, guidelines_version) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (user_id) DO NOTHING`,
-      [u.id, displayName, locale, input.notifyReplies === true, GUIDELINES_VERSION],
-    );
+  if (!created) {
+    if (invite) await refundInvite(invite.id);
+  } else {
+    await tx(async (c) => {
+      await c.query(
+        `INSERT INTO profile (user_id, display_name, preferred_language, notify_replies, guidelines_version, privacy_version, privacy_at, pilot_consent_at)
+         VALUES ($1, $2, $3, $4, $5, $6, now(), $7) ON CONFLICT (user_id) DO NOTHING`,
+        [created!.id, displayName, locale, input.notifyReplies === true, GUIDELINES_VERSION, PRIVACY_VERSION, pilot ? new Date() : null],
+      );
+      if (invite) await applyInviteRole(c, invite, created!.id);
+    });
   }
   // Same answer whether or not the address was already registered (no account enumeration).
   return { ok: true };
+}
+
+/** A signed-in, verified member accepts a staff invitation bound to their own address. */
+export async function acceptInvite(viewer: Viewer, token: string) {
+  const invite = await findInvite(token);
+  if (!invite || !invite.role) throw new HttpError(403, 'invite_invalid');
+  if (!viewer.emailVerified) throw new HttpError(403, 'email_unverified');
+  const email = (await one<{ email: string }>(`SELECT lower(email) AS email FROM "user" WHERE id = $1`, [viewer.id]))?.email;
+  if (!invite.email || invite.email.toLowerCase() !== email) throw new HttpError(403, 'invite_email_mismatch');
+  if (!(await reserveInvite(invite.id))) throw new HttpError(403, 'invite_invalid');
+  await tx((c) => applyInviteRole(c, invite, viewer.id));
+  return { ok: true, role: invite.role };
+}
+
+/**
+ * Founder bootstrap: the one-time path to the first owner. Requires BOOTSTRAP_TOKEN (a secret set by the founder in
+ * Netlify, never in the code) and FOUNDER_EMAIL. Works only while no owner exists. Sends a single-use invitation
+ * (48 h) to FOUNDER_EMAIL; the link is never returned to the caller.
+ */
+export async function bootstrapFounder(input: Record<string, unknown>, locale: string) {
+  const secret = process.env.BOOTSTRAP_TOKEN ?? '';
+  const founder = (process.env.FOUNDER_EMAIL ?? '').trim().toLowerCase();
+  if (secret.length < 32 || !founder) throw new HttpError(404, 'not_found');
+  const given = Buffer.from(String(input.token ?? ''));
+  const expected = Buffer.from(secret);
+  if (given.length !== expected.length || !timingSafeEqual(given, expected)) throw new HttpError(403, 'bootstrap_denied');
+  const owner = await one(`SELECT 1 FROM staff WHERE role = 'owner'`);
+  if (owner) throw new HttpError(409, 'already_bootstrapped');
+  // Any earlier unused founder invitation is revoked: only the newest link works.
+  await q(`UPDATE invite SET revoked_at = now() WHERE purpose = 'founder' AND revoked_at IS NULL AND uses = 0`);
+  const token = newToken();
+  const expires = new Date(Date.now() + 48 * 3600_000);
+  const inv = await one<{ id: string }>(
+    `INSERT INTO invite (token_hash, purpose, role, title, email, max_uses, expires_at) VALUES ($1, 'founder', 'owner', $2, $3, 1, $4) RETURNING id`,
+    [tokenHash(token), 'Fondateur, LËK Network', founder, expires],
+  );
+  const l = LOCALES.includes(locale) ? locale : 'fr';
+  const existing = await one(`SELECT 1 FROM "user" WHERE lower(email) = $1 AND "emailVerified" = true`, [founder]);
+  const url = `${siteOrigin()}/${l}/account/${existing ? 'invite' : 'register'}?invite=${token}`;
+  const m = mailText('invite', l, url, { purpose: 'founder', expires: expires.toISOString().slice(0, 16).replace('T', ' ') + ' UTC' });
+  const delivery = await sendMail({ to: founder, kind: 'invite', ...m });
+  if (delivery === 'failed' || delivery === 'not_configured') {
+    await q(`UPDATE invite SET revoked_at = now() WHERE id = $1`, [inv!.id]);
+    throw new HttpError(503, 'mail_unavailable', { delivery });
+  }
+  await q(`INSERT INTO moderation_action (actor_id, target_user_id, action, reason) VALUES (NULL, NULL, 'create_invite', 'Founder bootstrap invitation issued')`);
+  const [name, domain] = founder.split('@');
+  return { ok: true, delivery, sentTo: `${name.slice(0, 2)}•••@${domain}` };
+}
+
+/** Pilot / staff invitations, created by admins or the owner. Links are returned once and never stored in clear. */
+export async function createInvites(viewer: Viewer, input: Record<string, unknown>, locale: string) {
+  if (!can.invite(viewer)) throw new HttpError(403, staffBlock(viewer) ?? 'forbidden');
+  const purpose = input.role ? 'staff' : 'pilot';
+  const role = input.role ? String(input.role) : null;
+  if (role && !canAssignRole(viewer, role as StaffRole, null)) throw new HttpError(403, 'forbidden');
+  const count = Math.min(20, Math.max(1, Number(input.count ?? 1) || 1));
+  const days = Math.min(30, Math.max(1, Number(input.days ?? 14) || 14));
+  const email = input.email ? String(input.email).trim().toLowerCase() : null;
+  if (email && !/^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/.test(email)) throw new HttpError(422, 'invalid', { fields: { email: 'invalid' } });
+  if ((role || email) && count !== 1) throw new HttpError(422, 'invalid', { fields: { count: 'one_for_named' } });
+  if (role && !email) throw new HttpError(422, 'invalid', { fields: { email: 'required_for_staff' } });
+  const title = cleanText(input.title, 80) || null;
+  const note = cleanText(input.note, 200) || null;
+  await rateLimit(`invite:${viewer.id}`, 60, 3600);
+  const l = LOCALES.includes(locale) ? locale : 'fr';
+  const expires = new Date(Date.now() + days * 86400_000);
+  const links: string[] = [];
+  for (let i = 0; i < count; i++) {
+    const token = newToken();
+    await q(`INSERT INTO invite (token_hash, purpose, role, title, email, note, max_uses, created_by, expires_at) VALUES ($1, $2, $3, $4, $5, $6, 1, $7, $8)`, [
+      tokenHash(token), purpose, role, title, email, note, viewer.id, expires,
+    ]);
+    links.push(`${siteOrigin()}/${l}/account/register?invite=${token}`);
+  }
+  await q(`INSERT INTO moderation_action (actor_id, action, reason) VALUES ($1, 'create_invite', $2)`, [viewer.id, `${count} ${purpose} invitation(s)${role ? ` (${role})` : ''}${note ? `: ${note}` : ''}`]);
+  let delivery: string | null = null;
+  if (email) {
+    const m = mailText('invite', l, links[0], { purpose: role ? 'staff' : 'pilot', expires: expires.toISOString().slice(0, 10) });
+    delivery = await sendMail({ to: email, kind: 'invite', ...m });
+  }
+  return { ok: true, links, delivery, expiresAt: expires.toISOString() };
+}
+
+export async function listInvites(viewer: Viewer) {
+  if (!can.invite(viewer)) throw new HttpError(403, staffBlock(viewer) ?? 'forbidden');
+  const rows = await q<{ id: string; purpose: string; role: string | null; email: string | null; note: string | null; uses: number; max_uses: number; created_at: Date; expires_at: Date; revoked_at: Date | null; creator: string | null; users: string[] | null }>(
+    `SELECT i.id, i.purpose, i.role, i.email, i.note, i.uses, i.max_uses, i.created_at, i.expires_at, i.revoked_at, c.username AS creator,
+            (SELECT array_agg(u.username) FROM invite_use iu JOIN "user" u ON u.id = iu.user_id WHERE iu.invite_id = i.id) AS users
+       FROM invite i LEFT JOIN "user" c ON c.id = i.created_by ORDER BY i.created_at DESC LIMIT 200`,
+  );
+  return rows.map((r) => ({
+    id: r.id, purpose: r.purpose, role: r.role, email: r.email, note: r.note, uses: r.uses, maxUses: r.max_uses, creator: r.creator, users: r.users ?? [],
+    createdAt: new Date(r.created_at).toISOString(), expiresAt: new Date(r.expires_at).toISOString(),
+    status: r.revoked_at ? 'revoked' : r.uses >= r.max_uses ? 'used' : new Date(r.expires_at).getTime() < Date.now() ? 'expired' : 'active',
+  }));
+}
+
+export async function revokeInvite(viewer: Viewer, id: string) {
+  if (!can.invite(viewer)) throw new HttpError(403, staffBlock(viewer) ?? 'forbidden');
+  const r = await q(`UPDATE invite SET revoked_at = now() WHERE id = $1 AND revoked_at IS NULL RETURNING id`, [id]).catch(() => []);
+  if (!r.length) throw new HttpError(404, 'not_found');
+  await q(`INSERT INTO moderation_action (actor_id, action, reason) VALUES ($1, 'revoke_invite', 'Invitation revoked')`, [viewer.id]);
+  return { ok: true };
+}
+
+/* ------------------------------------------------------------------ pilot usability feedback */
+
+const RATINGS = ['registration', 'rules', 'reporting', 'appeals', 'safety', 'design', 'recommend'];
+const QUIZ: Record<string, string> = { emailVisible: 'no', reportEffect: 'human_review', appeal: 'other_moderator', disagreement: 'allowed' };
+const TASKS = ['register', 'profile', 'comment', 'reply', 'helpful', 'report', 'feedback', 'notifications', 'language', 'delete_test'];
+
+export async function savePilotFeedback(viewer: Viewer, input: Record<string, unknown>) {
+  if (communityMode() !== 'pilot' && communityMode() !== 'demo') throw new HttpError(404, 'not_found');
+  const ratingsIn = (input.ratings ?? {}) as Record<string, unknown>;
+  const ratings: Record<string, number> = {};
+  for (const k of RATINGS) {
+    const n = Number(ratingsIn[k]);
+    if (Number.isInteger(n) && n >= 1 && n <= 5) ratings[k] = n;
+  }
+  const quizIn = (input.quiz ?? {}) as Record<string, unknown>;
+  const quiz: Record<string, string> = {};
+  for (const k of Object.keys(QUIZ)) if (typeof quizIn[k] === 'string') quiz[k] = String(quizIn[k]).slice(0, 40);
+  if (Object.keys(ratings).length < 3) throw new HttpError(422, 'invalid', { fields: { ratings: 'required' } });
+  const tasks = Array.isArray(input.tasks) ? input.tasks.map(String).filter((t) => TASKS.includes(t)) : [];
+  await rateLimit(`pilot:${viewer.id}`, 20, 3600);
+  await q(
+    `INSERT INTO pilot_feedback (user_id, ratings, quiz, tasks, confusing, suggestion) VALUES ($1, $2, $3, $4, $5, $6)
+     ON CONFLICT (user_id) DO UPDATE SET ratings = $2, quiz = $3, tasks = $4, confusing = $5, suggestion = $6, updated_at = now()`,
+    [viewer.id, JSON.stringify(ratings), JSON.stringify(quiz), tasks, cleanText(input.confusing, 2000) || null, cleanText(input.suggestion, 2000) || null],
+  );
+  return { ok: true };
+}
+
+export async function pilotSummary(viewer: Viewer) {
+  if (!can.pilotResults(viewer)) throw new HttpError(403, staffBlock(viewer) ?? 'forbidden');
+  const rows = await q<{ ratings: Record<string, number>; quiz: Record<string, string>; tasks: string[]; confusing: string | null; suggestion: string | null; updated_at: Date }>(
+    `SELECT ratings, quiz, tasks, confusing, suggestion, updated_at FROM pilot_feedback ORDER BY updated_at DESC`,
+  );
+  const avg = (k: string) => {
+    const v = rows.map((r) => r.ratings[k]).filter((x) => typeof x === 'number');
+    return v.length ? Math.round((v.reduce((a, b) => a + b, 0) / v.length) * 10) / 10 : null;
+  };
+  const correct = (k: string) => {
+    const v = rows.filter((r) => r.quiz[k] !== undefined);
+    return v.length ? Math.round((v.filter((r) => r.quiz[k] === QUIZ[k]).length / v.length) * 100) : null;
+  };
+  // Free-text answers are shown without names: the questionnaire is about the product, not the person.
+  return {
+    responses: rows.length,
+    ratings: Object.fromEntries(RATINGS.map((k) => [k, avg(k)])),
+    understanding: Object.fromEntries(Object.keys(QUIZ).map((k) => [k, correct(k)])),
+    tasks: Object.fromEntries(TASKS.map((k) => [k, rows.filter((r) => r.tasks.includes(k)).length])),
+    comments: rows.flatMap((r) => [r.confusing && { kind: 'confusing', text: r.confusing }, r.suggestion && { kind: 'suggestion', text: r.suggestion }].filter(Boolean)),
+  };
+}
+
+export async function myPilotFeedback(viewer: Viewer) {
+  return (await one(`SELECT ratings, quiz, tasks, confusing, suggestion FROM pilot_feedback WHERE user_id = $1`, [viewer.id])) ?? null;
 }
 
 export async function usernameAvailable(u: string) {
@@ -211,15 +439,15 @@ export async function createComment(viewer: Viewer, input: Record<string, unknow
   const staffNote = input.staffNote === true;
   if (!body) throw new HttpError(422, 'empty');
   if (!/^[A-Za-z0-9-]{8,64}$/.test(key)) throw new HttpError(422, 'idempotency_key');
-  if (staffNote && !can.staffNote(viewer)) throw new HttpError(403, 'forbidden');
+  if (staffNote && !can.staffNote(viewer)) throw staffError(viewer);
 
   const existing = await one<{ id: string; status: string }>(`SELECT id, status FROM comment WHERE user_id = $1 AND idempotency_key = $2`, [viewer.id, key]);
   if (existing) return { id: existing.id, status: existing.status, duplicate: true };
 
   const open = await ensureArticle(slug);
   if (!open) throw new HttpError(403, 'comments_closed');
-  await rateLimit(`comment:10m:${viewer.id}`, viewer.staff ? 30 : 6, 600);
-  await rateLimit(`comment:day:${viewer.id}`, viewer.staff ? 300 : 40, 86400);
+  await rateLimit(`comment:10m:${viewer.id}`, activeStaff(viewer) ? 30 : 6, 600);
+  await rateLimit(`comment:day:${viewer.id}`, activeStaff(viewer) ? 300 : 40, 86400);
 
   let parentId: string | null = null;
   let parentAuthor: string | null = null;
@@ -238,7 +466,7 @@ export async function createComment(viewer: Viewer, input: Record<string, unknow
   }
 
   const hash = hashOf(body);
-  const verdict = viewer.staff ? { outcome: 'publish' as const, signals: [], severity: null } : await signalsFor(viewer, body, hash);
+  const verdict = activeStaff(viewer) ? { outcome: 'publish' as const, signals: [], severity: null } : await signalsFor(viewer, body, hash);
   // Staff are not exempt from the rules: their comments are still reportable. They skip automatic holds only.
   if (verdict.outcome === 'reject') throw new HttpError(422, 'rejected', { signals: verdict.signals.map((s) => s.code) });
   const status = verdict.outcome === 'hold' ? 'pending' : 'published';
@@ -281,7 +509,7 @@ export async function editComment(viewer: Viewer, id: string, input: Record<stri
   if (body === c.body) return { id, status: c.status };
   await rateLimit(`edit:${viewer.id}`, 20, 3600);
   const hash = hashOf(body);
-  const verdict = viewer.staff ? { outcome: 'publish' as const, signals: [], severity: null } : await signalsFor(viewer, body, hash);
+  const verdict = activeStaff(viewer) ? { outcome: 'publish' as const, signals: [], severity: null } : await signalsFor(viewer, body, hash);
   if (verdict.outcome === 'reject') throw new HttpError(422, 'rejected', { signals: verdict.signals.map((s) => s.code) });
   const status = verdict.outcome === 'hold' ? 'pending' : c.status;
   await tx(async (t) => {
@@ -420,6 +648,8 @@ export async function myAccount(viewer: Viewer) {
       : null,
     moderation: actions.map((a) => ({ id: a.id, action: a.action, reason: a.reason, until: a.until ? new Date(a.until).toISOString() : null, createdAt: new Date(a.created_at).toISOString(), appeal: a.appeal_status })),
     unreadNotifications: Number(unread?.n ?? 0),
+    staffStatus: viewer.staff ? staffBlock(viewer) : null,
+    pilot: communityMode() === 'pilot',
   };
 }
 
@@ -477,8 +707,13 @@ export async function markNotificationsRead(viewer: Viewer) {
 
 /* ------------------------------------------------------------------ moderation */
 
+const activeStaff = (v: Viewer) => Boolean(v.staff) && staffBlock(v) === null;
+
+/** Staff errors say why (e.g. two-step verification missing) so the console can guide the person. */
+const staffError = (v: Viewer) => new HttpError(403, v.staff ? (staffBlock(v) ?? 'forbidden') : 'forbidden');
+
 function requireModerator(v: Viewer) {
-  if (!can.moderate(v)) throw new HttpError(403, 'forbidden');
+  if (!can.moderate(v)) throw staffError(v);
 }
 
 export async function moderationQueue(viewer: Viewer, status: string) {
@@ -714,19 +949,29 @@ export async function auditLog(viewer: Viewer) {
 }
 
 export async function setStaff(viewer: Viewer, input: Record<string, unknown>) {
-  if (!can.manageStaff(viewer)) throw new HttpError(403, 'forbidden');
+  if (!can.manageStaff(viewer)) throw staffError(viewer);
   const username = String(input.username ?? '').toLowerCase();
-  const role = String(input.role ?? '');
+  const role = String(input.role ?? '') as StaffRole | 'revoke';
   const title = cleanText(input.title, 80);
-  const u = await one<{ id: string; emailVerified: boolean }>(`SELECT id, "emailVerified" FROM "user" WHERE username = $1`, [username]);
+  if (role !== 'revoke' && (!['journalist', 'editor', 'moderator', 'admin', 'owner'].includes(role) || title.length < 2)) throw new HttpError(422, 'invalid');
+  const u = await one<{ id: string; emailVerified: boolean; role: StaffRole | null }>(
+    `SELECT u.id, u."emailVerified", s.role FROM "user" u LEFT JOIN staff s ON s.user_id = u.id WHERE u.username = $1`,
+    [username],
+  );
   if (!u || !u.emailVerified) throw new HttpError(404, 'not_found');
+  if (u.id === viewer.id) throw new HttpError(403, 'conflict_of_interest');
+  // Hierarchy: only the owner grants or removes admin/owner; admins manage roles below admin.
+  if (!canAssignRole(viewer, role, u.role)) throw new HttpError(403, 'forbidden');
   return tx(async (t) => {
+    if (u.role === 'owner' && role !== 'owner') {
+      const owners = await t.query(`SELECT count(*)::int AS n FROM staff WHERE role = 'owner'`);
+      if (owners.rows[0].n <= 1) throw new HttpError(409, 'last_owner');
+    }
     if (role === 'revoke') {
       await t.query(`DELETE FROM staff WHERE user_id = $1`, [u.id]);
       await t.query(`INSERT INTO moderation_action (actor_id, target_user_id, action, reason) VALUES ($1, $2, 'revoke_staff', $3)`, [viewer.id, u.id, title || 'Staff verification revoked']);
       return { ok: true };
     }
-    if (!['journalist', 'editor', 'moderator', 'admin'].includes(role) || title.length < 2) throw new HttpError(422, 'invalid');
     await t.query(
       `INSERT INTO staff (user_id, role, title, verified_by) VALUES ($1, $2, $3, $4) ON CONFLICT (user_id) DO UPDATE SET role = $2, title = $3, verified_by = $4, verified_at = now()`,
       [u.id, role, title, viewer.id],
@@ -760,7 +1005,7 @@ export async function createFeedback(viewer: Viewer | null, input: Record<string
 }
 
 function requireInbox(v: Viewer) {
-  if (!can.inbox(v)) throw new HttpError(403, 'forbidden');
+  if (!can.inbox(v)) throw staffError(v);
 }
 
 export async function inbox(viewer: Viewer, status: string) {

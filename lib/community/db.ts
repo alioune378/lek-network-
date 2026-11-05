@@ -1,13 +1,23 @@
 import { Pool, type PoolClient, type QueryResultRow } from 'pg';
+import { databaseUrl } from './config';
 
 /** One pool per server instance, created on first use. Parameterised queries only. */
 let pool: Pool | undefined;
 
 export function getPool(): Pool {
   if (!pool) {
-    const connectionString = process.env.DATABASE_URL;
-    if (!connectionString) throw new Error('DATABASE_URL is not set');
-    pool = new Pool({ connectionString, max: Number(process.env.DB_POOL_MAX ?? 5), ssl: /sslmode=require|neon\.tech/.test(connectionString) ? { rejectUnauthorized: true } : undefined });
+    const connectionString = databaseUrl();
+    if (!connectionString) throw new Error('DATABASE_URL / NETLIFY_DB_URL is not set');
+    const local = /@(localhost|127\.0\.0\.1)[:/]/.test(connectionString);
+    // Managed Postgres (Netlify Database) requires TLS with certificate verification; local CI Postgres does not use TLS.
+    // Serverless functions keep the pool small: one module-scope pool per instance, a few connections.
+    pool = new Pool({
+      connectionString,
+      max: Number(process.env.DB_POOL_MAX ?? 3),
+      idleTimeoutMillis: 10_000,
+      connectionTimeoutMillis: 15_000,
+      ssl: local || /sslmode=disable/.test(connectionString) ? undefined : { rejectUnauthorized: true },
+    });
   }
   return pool;
 }

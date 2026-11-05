@@ -453,7 +453,15 @@
       },
       "community": {
         "title": "LËK Community (quand elle est ouverte)",
-        "text": "Pour commenter, il faut un compte : adresse e-mail vérifiée (jamais affichée publiquement), nom affiché, nom d’utilisateur, mot de passe chiffré par la bibliothèque d’authentification. Les commentaires, réactions, signalements et décisions de modération sont conservés selon la politique de conservation publiée. Les adresses IP ne sont gardées que sous forme chiffrée, 48 heures, pour limiter les abus. Vous pouvez supprimer votre compte à tout moment depuis « Mon compte »."
+        "text": "Pour commenter, il faut un compte : adresse e-mail vérifiée (jamais affichée publiquement), nom affiché, nom d’utilisateur, mot de passe haché par la bibliothèque d’authentification. Les commentaires, réactions, signalements et décisions de modération sont conservés selon la politique de conservation publiée. Chaque session de connexion enregistre votre adresse IP et le type de navigateur ; ces données sont supprimées à la déconnexion ou lors du nettoyage régulier après l’expiration de la session (7 jours au plus). Les relevés anti-abus (adresse IP hachée, ou adresse IP pour la limitation des connexions) sont supprimés lors du nettoyage régulier après 48 heures. Vous pouvez supprimer votre compte à tout moment depuis « Mon compte »."
+      },
+      "communityServices": {
+        "title": "Services utilisés par LËK Community",
+        "text": "Les comptes et les contributions sont stockés dans une base de données Postgres gérée par Netlify. Les e-mails de confirmation, de réinitialisation et d’invitation sont envoyés par Resend, qui reçoit votre adresse e-mail et le contenu du message. La vérification anti-robot Cloudflare Turnstile reçoit des signaux techniques de votre navigateur et votre adresse IP au moment de l’inscription ou de la connexion."
+      },
+      "pilot": {
+        "title": "Pendant le pilote privé",
+        "text": "Le pilote est réservé aux personnes invitées. Ses données sont séparées du site public et pourront être effacées à la fin du test. Les réponses au questionnaire du pilote sont montrées à l’équipe sous forme de moyennes et de textes sans nom. Pour toute demande d’accès ou de suppression, écrivez via « Votre voix compte » ou supprimez votre compte depuis « Mon compte »."
       }
     }
   },
@@ -549,7 +557,17 @@
       "already_decided": "Ce dossier a déjà été traité.",
       "reason_required": "Indiquez un motif (il sera communiqué au membre).",
       "same_reviewer": "Un recours doit être examiné par une autre personne que l’auteur de la décision.",
-      "already_appealed": "Un recours a déjà été déposé pour cette décision."
+      "already_appealed": "Un recours a déjà été déposé pour cette décision.",
+      "invite_required": "Un lien d’invitation est nécessaire pour s’inscrire pendant le pilote.",
+      "invite_invalid": "Cette invitation a expiré, a déjà été utilisée ou a été révoquée.",
+      "invite_email_mismatch": "Cette invitation est réservée à une autre adresse e-mail.",
+      "registration_closed": "Les inscriptions sont fermées pour le moment.",
+      "captcha_required": "Merci de compléter la vérification anti-robot.",
+      "captcha_failed": "La vérification anti-robot a échoué. Réessayez.",
+      "two_factor_required": "Activez la vérification en deux étapes pour utiliser les pouvoirs d’équipe.",
+      "staff_session_expired": "Pour cette action, reconnectez-vous (connexion de moins de 12 heures requise).",
+      "last_owner": "Impossible : il doit toujours rester au moins un administrateur fondateur.",
+      "invalid": "Certaines valeurs ne sont pas valables."
     },
     "fieldErrors": {
       "displayName": {
@@ -570,6 +588,12 @@
       },
       "acceptGuidelines": {
         "required": "Vous devez accepter les règles de la communauté."
+      },
+      "acceptPrivacy": {
+        "required": "Vous devez confirmer avoir lu la politique de confidentialité."
+      },
+      "acceptPilot": {
+        "required": "Vous devez accepter les conditions du pilote."
       }
     },
     "auth": {
@@ -685,7 +709,10 @@
       "dismiss": "Aucune infraction",
       "lift_restriction": "Restriction levée",
       "grant_staff": "Vérification professionnelle accordée",
-      "revoke_staff": "Vérification professionnelle retirée"
+      "revoke_staff": "Vérification professionnelle retirée",
+      "create_invite": "Invitation créée",
+      "revoke_invite": "Invitation révoquée",
+      "bootstrap_owner": "Administrateur fondateur activé"
     },
     "about": {
       "title": "LËK Community",
@@ -797,7 +824,9 @@
         "resolved": "Traités",
         "appeals": "Recours",
         "audit": "Journal",
-        "members": "Membres"
+        "members": "Membres",
+        "invites": "Invitations",
+        "pilot": "Pilote"
       },
       "principles": "Les détections automatiques signalent, elles ne prouvent rien. Jugez le comportement, pas l’opinion. Motivez chaque décision : le motif est communiqué au membre.",
       "empty": "Rien à traiter.",
@@ -882,12 +911,63 @@
         "editor": "Éditeur ou éditrice",
         "moderator": "Modérateur ou modératrice",
         "admin": "Administration",
-        "revoke": "Retirer la vérification"
+        "revoke": "Retirer la vérification",
+        "owner": "Administrateur fondateur"
       },
       "staffTitleField": "Fonction affichée",
       "saveStaff": "Enregistrer",
       "staffSaved": "Vérification enregistrée.",
-      "choose": "Choisir…"
+      "choose": "Choisir…",
+      "invites": {
+        "title": "Créer des invitations",
+        "hint": "Chaque lien est à usage unique et expire. Une invitation avec une adresse e-mail ne fonctionne que pour cette adresse et lui est envoyée.",
+        "kind": "Type",
+        "kinds": {
+          "pilot": "Testeur du pilote",
+          "staff": "Membre de l’équipe",
+          "founder": "Fondateur"
+        },
+        "count": "Nombre de liens",
+        "days": "Validité (jours)",
+        "emailOptional": "Adresse e-mail (facultative, réserve le lien à cette adresse)",
+        "emailRequired": "Adresse e-mail (obligatoire)",
+        "note": "Note interne (facultative)",
+        "create": "Créer",
+        "created": "{n, plural, one {# lien créé} other {# liens créés}}.",
+        "delivery": {
+          "accepted": "Invitation acceptée par le service d’e-mail (réception non garantie).",
+          "captured": "Mode test : e-mail capturé, pas envoyé.",
+          "failed": "L’envoi a échoué : transmettez le lien vous-même.",
+          "not_configured": "E-mail non configuré : transmettez le lien vous-même."
+        },
+        "onceTitle": "Liens affichés une seule fois.",
+        "onceText": "Copiez-les maintenant et transmettez chacun à une seule personne, par un canal privé.",
+        "copy": "Copier les liens",
+        "copied": "Liens copiés.",
+        "copyFailed": "Copie impossible : sélectionnez les liens manuellement.",
+        "for": "Destinataire",
+        "status": "État",
+        "statuses": {
+          "active": "Active",
+          "used": "Utilisée",
+          "expired": "Expirée",
+          "revoked": "Révoquée"
+        },
+        "usedBy": "Utilisée par",
+        "revoke": "Révoquer",
+        "revoked": "Invitation révoquée."
+      },
+      "pilot": {
+        "none": "Aucune réponse au questionnaire pour l’instant.",
+        "responses": "{n, plural, one {# réponse} other {# réponses}} au questionnaire.",
+        "understanding": "Compréhension",
+        "understandingHint": "Part des personnes ayant choisi la bonne réponse.",
+        "comments": "Commentaires libres (sans nom)",
+        "kinds": {
+          "confusing": "Confus",
+          "suggestion": "Suggestion"
+        }
+      }
     },
     "inbox": {
       "title": "Votre voix compte — boîte de la rédaction",
@@ -915,6 +995,149 @@
         "email": "envoyée par e-mail",
         "internal": "note interne (non envoyée)"
       }
+    },
+    "bootstrap": {
+      "title": "Activation de l’administrateur fondateur",
+      "explain": "Étape unique. Saisissez le jeton d’amorçage (BOOTSTRAP_TOKEN) que vous avez défini dans les variables d’environnement Netlify. Une invitation à usage unique, valable 48 heures, sera envoyée à l’adresse FOUNDER_EMAIL. Le lien n’est jamais affiché ici. Cette page cesse de fonctionner dès qu’un administrateur fondateur existe.",
+      "token": "Jeton d’amorçage",
+      "send": "Envoyer l’invitation fondateur",
+      "sent": "Demande acceptée par le service d’e-mail pour {to}. Vérifiez cette boîte (et les indésirables) ; l’e-mail n’est pas garanti tant qu’il n’est pas reçu.",
+      "captured": "Mode test : l’e-mail pour {to} a été capturé dans la base de données, pas envoyé.",
+      "errors": {
+        "bootstrap_denied": "Jeton refusé, ou amorçage non configuré (BOOTSTRAP_TOKEN et FOUNDER_EMAIL requis).",
+        "already_bootstrapped": "Un administrateur fondateur existe déjà. Utilisez la connexion ou la réinitialisation du mot de passe.",
+        "mail_unavailable": "Le service d’e-mail n’a pas accepté l’envoi. Aucune invitation n’a été conservée. Vérifiez RESEND_API_KEY, MAIL_FROM et le domaine d’envoi.",
+        "rate_limited": "Trop de tentatives. Réessayez dans une heure.",
+        "not_found": "La communauté n’est pas activée sur ce site.",
+        "generic": "L’opération a échoué. Réessayez plus tard."
+      }
+    },
+    "twoFactor": {
+      "title": "Vérification en deux étapes",
+      "intro": "Facultative pour les membres : un code à 6 chiffres d’une application d’authentification (Aegis, Google Authenticator, 1Password…) est demandé à chaque connexion.",
+      "staffRequired": "Obligatoire pour l’équipe : sans elle, les pouvoirs de modération, d’administration et l’accès à la boîte de rédaction restent désactivés.",
+      "on": "Activée sur ce compte.",
+      "enable": "Activer",
+      "disable": "Désactiver",
+      "confirmPassword": "Confirmez votre mot de passe",
+      "continue": "Continuer",
+      "step1": "Scannez ce code QR avec votre application d’authentification, ou saisissez la clé manuellement.",
+      "step2": "Saisissez le code à 6 chiffres affiché par l’application pour confirmer.",
+      "qrAlt": "Code QR de configuration de la vérification en deux étapes",
+      "manual": "Clé manuelle :",
+      "openApp": "Ouvrir dans l’application d’authentification de cet appareil",
+      "code": "Code à 6 chiffres",
+      "verify": "Vérifier",
+      "badCode": "Code incorrect ou expiré. Vérifiez l’heure de votre téléphone et réessayez.",
+      "badPassword": "Mot de passe incorrect.",
+      "backupTitle": "Codes de secours.",
+      "backupText": "Conservez-les hors ligne, en lieu sûr. Chacun ne sert qu’une fois si vous perdez votre téléphone. Ils ne seront plus affichés.",
+      "prompt": "Saisissez le code de votre application d’authentification.",
+      "backupPrompt": "Saisissez l’un de vos codes de secours.",
+      "backupCode": "Code de secours",
+      "useApp": "Utiliser l’application",
+      "useBackup": "Utiliser un code de secours",
+      "disableStaffWarning": "Attention : tant que la vérification en deux étapes est désactivée, vos pouvoirs d’équipe sont suspendus."
+    },
+    "staffStatus": {
+      "not_staff": "Ce compte n’a pas de rôle d’équipe.",
+      "email_unverified": "Pouvoirs d’équipe inactifs : confirmez d’abord votre adresse e-mail.",
+      "restricted": "Pouvoirs d’équipe inactifs : ce compte fait l’objet d’une restriction.",
+      "two_factor_required": "Pouvoirs d’équipe inactifs : activez la vérification en deux étapes ci-dessous.",
+      "staff_session_expired": "Pouvoirs d’équipe inactifs : votre connexion date de plus de 12 heures. Déconnectez-vous puis reconnectez-vous."
+    },
+    "pilot": {
+      "inviteOnlyTitle": "Inscription sur invitation",
+      "inviteOnlyText": "LËK Community est en phase pilote privée. L’inscription n’est possible qu’avec un lien d’invitation personnel envoyé par l’équipe LËK.",
+      "inviteInvalidTitle": "Invitation non valable",
+      "inviteInvalidText": "Ce lien d’invitation a expiré, a déjà été utilisé ou a été révoqué. Demandez-en un nouveau à la personne qui vous a invité.",
+      "inviteValid": "Invitation au pilote valable.",
+      "inviteFounder": "Invitation administrateur fondateur valable : utilisez l’adresse e-mail à laquelle elle a été envoyée.",
+      "inviteStaff": "Invitation équipe valable : utilisez l’adresse e-mail à laquelle elle a été envoyée.",
+      "acceptPrivacy": "J’ai lu la <link>politique de confidentialité</link> : mon adresse e-mail reste privée ; mon nom affiché, mon nom d’utilisateur et mes commentaires publiés sont visibles des autres participants.",
+      "acceptPilot": "Je participe à un test privé : les données pourront être effacées à la fin du pilote et le service peut être interrompu.",
+      "acceptPilotDated": "Je participe à un test privé prévu jusqu’au {date} : les données pourront être effacées à la fin du pilote et le service peut être interrompu.",
+      "cardTitle": "Vous testez LËK Community",
+      "cardText": "Merci de participer au pilote. Quand vous aurez essayé quelques fonctions, dites-nous ce qui était clair ou confus (5 minutes).",
+      "cardCta": "Questionnaire du pilote",
+      "acceptTitle": "Accepter une invitation",
+      "acceptSignIn": "Connectez-vous avec le compte auquel cette invitation est destinée, puis rouvrez le lien.",
+      "acceptText": "Vous êtes connecté en tant que {name}. Accepter ajoutera le rôle prévu par l’invitation à ce compte.",
+      "acceptCta": "Accepter l’invitation",
+      "accepted": "Invitation acceptée : rôle {role}. Activez la vérification en deux étapes dans votre compte pour utiliser les pouvoirs d’équipe.",
+      "title": "Pilote LËK Community",
+      "intro": "Merci de tester la communauté avant son ouverture. Vos réponses nous aident à vérifier que l’inscription, les règles, les signalements et les recours sont compréhensibles.",
+      "guideTitle": "Ce que nous vous demandons",
+      "guide": {
+        "g1": "Créez votre compte avec votre lien d’invitation et confirmez votre adresse e-mail.",
+        "g2": "Lisez les règles de la communauté, puis publiez un commentaire et une réponse sous un article.",
+        "g3": "Essayez « Utile », signalez un commentaire de test, et consultez vos notifications.",
+        "g4": "Envoyez un message via « Votre voix compte » et changez de langue (français, anglais, arabe).",
+        "g5": "Remplissez le questionnaire ci-dessous. Vous pouvez le modifier ensuite."
+      },
+      "languages": "Vous pouvez écrire vos commentaires en français, anglais, wolof ou arabe. L’interface est complète en français, anglais et arabe ; l’interface en wolof n’est pas encore traduite.",
+      "signInFirst": "Connectez-vous pour répondre au questionnaire du pilote.",
+      "tasksTitle": "Ce que vous avez essayé",
+      "tasksHint": "Cochez ce que vous avez réellement fait.",
+      "tasks": {
+        "register": "Créer un compte et confirmer l’e-mail",
+        "profile": "Modifier mon profil",
+        "comment": "Publier un commentaire",
+        "reply": "Répondre à quelqu’un",
+        "helpful": "Marquer un commentaire comme utile",
+        "report": "Signaler un commentaire",
+        "feedback": "Écrire à la rédaction (« Votre voix compte »)",
+        "notifications": "Consulter mes notifications",
+        "language": "Utiliser une autre langue",
+        "delete_test": "Supprimer un commentaire ou un compte de test"
+      },
+      "ratingsTitle": "Clarté et confiance",
+      "ratingsHint": "De 1 (pas du tout) à 5 (tout à fait).",
+      "scale": "1 = pas du tout · 5 = tout à fait",
+      "ratings": {
+        "registration": "L’inscription était simple.",
+        "rules": "Les règles de la communauté sont claires.",
+        "reporting": "Je sais comment signaler un commentaire.",
+        "appeals": "Je sais comment contester une décision de modération.",
+        "safety": "Je me sens en sécurité pour m’exprimer ici.",
+        "design": "L’interface est agréable et lisible.",
+        "recommend": "Je recommanderais LËK Community à un proche."
+      },
+      "quizTitle": "Avez-vous compris ?",
+      "quizHint": "Pas de piège : ces questions mesurent la clarté de nos explications, pas vos connaissances.",
+      "quiz": {
+        "emailVisible": {
+          "q": "Les autres membres peuvent-ils voir votre adresse e-mail ?",
+          "yes": "Oui",
+          "no": "Non",
+          "unsure": "Je ne sais pas"
+        },
+        "reportEffect": {
+          "q": "Que se passe-t-il quand quelqu’un signale un commentaire ?",
+          "auto_removed": "Il est supprimé automatiquement",
+          "human_review": "Une personne de l’équipe de modération l’examine",
+          "unsure": "Je ne sais pas"
+        },
+        "appeal": {
+          "q": "Si une décision de modération vous concerne, qui examine votre recours ?",
+          "no_appeal": "Il n’y a pas de recours possible",
+          "same_moderator": "La même personne qui a décidé",
+          "other_moderator": "Une autre personne de l’équipe",
+          "unsure": "Je ne sais pas"
+        },
+        "disagreement": {
+          "q": "Peut-on exprimer un désaccord avec un article ou avec la rédaction ?",
+          "forbidden": "Non, c’est interdit",
+          "allowed": "Oui, avec respect",
+          "unsure": "Je ne sais pas"
+        }
+      },
+      "confusing": "Qu’est-ce qui était confus ou difficile ?",
+      "suggestion": "Que devrions-nous améliorer avant l’ouverture ?",
+      "anonymousResults": "L’équipe voit les moyennes et les textes libres sans votre nom. Évitez d’y mettre des informations personnelles.",
+      "send": "Enregistrer mes réponses",
+      "saved": "Merci ! Vos réponses sont enregistrées. Vous pouvez les modifier à tout moment.",
+      "needRatings": "Répondez au moins aux questions de notation avant d’enregistrer."
     }
   }
 }

@@ -15,8 +15,9 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
   setRequestLocale(locale);
   const t = await getTranslations('privacy');
   // With the community open, "nothing collected" is no longer true: that item is replaced by the community's data practices.
-  const on = (process.env.NEXT_PUBLIC_COMMUNITY_MODE ?? 'off') !== 'off';
-  const items: string[] = on ? [...ITEMS.filter((x) => x !== 'collected'), 'community'] : [...ITEMS];
+  const mode = process.env.NEXT_PUBLIC_COMMUNITY_MODE ?? 'off';
+  const on = mode !== 'off';
+  const items: string[] = on ? [...ITEMS.filter((x) => x !== 'collected'), 'community', 'communityServices', ...(mode === 'pilot' ? ['pilot'] : [])] : [...ITEMS];
   return (
     <div className="container-narrow page standards">
       <header className="page-head">

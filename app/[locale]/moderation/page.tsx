@@ -23,7 +23,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
         <p className="eyebrow">LËK COMMUNITY</p>
         <h1 className="page-title">{t('mod.title')}</h1>
       </header>
-      <ModerationConsole canManageStaff={can.manageStaff(viewer)} />
+      <ModerationConsole canManageStaff={can.manageStaff(viewer)} canInvite={can.invite(viewer)} canSeePilot={can.pilotResults(viewer)} />
     </div>
   );
 }

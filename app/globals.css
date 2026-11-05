@@ -5605,3 +5605,165 @@ html[lang='ar'] .cm-note-label {
 .inbox-new {
   border-inline-start-color: var(--gold);
 }
+
+/* ------------------------------------------------------------------ pilot, invitations, two-step verification */
+.staging-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  border-radius: var(--radius);
+  white-space: nowrap;
+}
+.cm-steps {
+  margin: 8px 0 12px;
+  padding-inline-start: 1.3em;
+  display: grid;
+  gap: 6px;
+  font-size: 0.92rem;
+}
+.cm-qr {
+  display: block;
+  width: 220px;
+  height: 220px;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  background: var(--white);
+  image-rendering: pixelated;
+}
+.cm-secret {
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+  background: var(--paper-2);
+  padding: 2px 6px;
+}
+.cm-backup {
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px dashed var(--gold-ink);
+  background: #fbf6e8;
+  font-size: 0.9rem;
+}
+.cm-backup-list {
+  list-style: none;
+  margin: 8px 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 4px 12px;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+.cm-backup-list.cm-links {
+  grid-template-columns: 1fr;
+  font-size: 0.78rem;
+}
+.cm-backup-list code {
+  overflow-wrap: anywhere;
+}
+.cm-pilot {
+  margin-top: 20px;
+  gap: 22px;
+}
+.cm-pilot-card {
+  border-inline-start: 3px solid var(--gold);
+}
+.cm-taskgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 2px 16px;
+}
+.cm-rating {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.cm-rating-q {
+  flex: 1 1 240px;
+  font-size: 0.92rem;
+}
+.cm-rating-scale {
+  display: inline-flex;
+  gap: 6px;
+}
+.cm-rating-n {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  background: var(--white);
+}
+.cm-rating-n input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.cm-rating-n:focus-within {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+.cm-rating-n.is-on {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--white);
+}
+.cm-quiz {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.cm-quiz-q {
+  margin: 0 0 6px;
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+.cm-dl {
+  margin: 0;
+  display: grid;
+  gap: 0;
+}
+.cm-dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+.cm-dl dd {
+  margin: 0;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.cm-chip {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--paper);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.cm-pilot-comment {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+}
