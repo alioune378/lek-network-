@@ -3674,8 +3674,10 @@ html[lang='ar'] .poster-state {
   line-height: 1.3;
   color: rgba(255, 255, 255, 0.6);
 }
-.dp-news {
+.dp-wide {
   grid-column: 1 / -1;
+}
+.dp-news {
   background: var(--gold);
   color: var(--navy);
 }
@@ -3698,7 +3700,6 @@ html[lang='ar'] .poster-state {
   background: var(--red);
 }
 .dp-studios {
-  grid-column: 1 / -1;
   border: 1px solid var(--line-dark);
   background: transparent;
 }
@@ -3884,5 +3885,149 @@ html[lang='ar'] .footer-k {
   }
   .drawer {
     transition: none;
+  }
+}
+
+/* forms never wider than their column (long <select> options set min-content width) */
+.studio-form {
+  min-width: 0;
+}
+.form-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 640px) {
+  .form-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+.field-check input {
+  width: 20px;
+}
+/* the drawer becomes visible immediately on open (so focus can move in) and hides after the slide-out */
+.drawer.is-open {
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.drawer-brand {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* ---------------------------------------------------------------- v2 refinements (after first rendered review) */
+/* ul[role=list] resets padding with higher specificity: restore the rail's edge padding */
+.watch-band .poster-rail {
+  padding: 0 var(--gutter) 6px;
+}
+@media (min-width: 900px) {
+  .watch-band .poster-rail {
+    padding: 0;
+  }
+}
+.text-card {
+  align-self: start;
+}
+.second-grid {
+  align-items: start;
+}
+.side-card .meta,
+.row-card .meta {
+  margin-top: 4px;
+}
+/* Africa & diaspora panels share one height on wide screens */
+@media (min-width: 900px) {
+  .world-pair {
+    align-items: start;
+  }
+  .world-pair .overlay-card,
+  .world-diaspora .overlay-card {
+    aspect-ratio: auto;
+    height: 460px;
+  }
+}
+/* "more regions" tile completes the regional grid */
+.region-more {
+  grid-column: 1 / -1;
+}
+.region-more-link {
+  display: grid;
+  align-content: center;
+  gap: 6px;
+  height: 100%;
+  min-height: 120px;
+  padding: 16px;
+  background: var(--navy);
+  color: var(--white);
+}
+.region-more-k {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+.region-more-list {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+}
+.region-more .more-link {
+  min-height: 32px;
+}
+@media (min-width: 900px) {
+  .region-more {
+    grid-column: span 2;
+  }
+  .region-more-link {
+    padding: 22px;
+  }
+}
+/* cinematic labels: keep the separator dots tidy when the row wraps */
+.cine-labels {
+  gap: 6px 10px;
+}
+.cine-labels > span + span:not(.state-tag)::before {
+  margin-inline-end: 10px;
+}
+@media (max-width: 479px) {
+  .cine-labels {
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+  }
+}
+/* figure captions sit on the page, not on the dark image frame */
+figure.photo {
+  background: none;
+  overflow: visible;
+}
+/* legibility of text laid over photographs */
+.watch-cine-in,
+.cine-hero-body,
+.prog-banner-in,
+.place-banner-in,
+.overlay-body,
+.region-tile-body {
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45);
+}
+.watch-cine {
+  min-height: min(64svh, 560px);
+}
+@media (min-width: 900px) {
+  .watch-cine {
+    min-height: min(78svh, 640px);
+  }
+}
+/* tighter Studios service list on phones */
+@media (max-width: 719px) {
+  .service {
+    padding: 16px 18px;
+  }
+  .service-title {
+    font-size: 1.15rem;
+    margin: 4px 0 4px;
   }
 }

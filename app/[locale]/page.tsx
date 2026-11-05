@@ -22,12 +22,15 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const lead = all[0];
   const briefing = all.slice(1, 6);
   const world = all.filter((s) => s.region === 'africa' || s.region === 'diaspora');
-  const pool = all.filter((s) => s.slug !== lead.slug && !world.includes(s));
+  // The first briefing item already sits beside the lead, so the card row starts after it.
+  const pool = all.filter((s) => s.slug !== lead.slug && s.slug !== briefing[0]?.slug && !world.includes(s));
   const withPhoto = pool.filter((s) => s.photo);
   const feature = withPhoto[0];
-  const sides = withPhoto.slice(1, 3);
-  const textStory = pool.find((s) => !s.photo) ?? withPhoto[3];
-  const stream = all.filter((s) => s.slug !== lead.slug).slice(0, 7);
+  const sides = withPhoto.slice(1, 4);
+  const textStory = pool.find((s) => !s.photo) ?? withPhoto[4];
+  // The stream lists what the cards above did not show, newest first.
+  const shown = new Set([lead, feature, ...sides, textStory, ...world].filter(Boolean).map((s) => s!.slug));
+  const stream = all.filter((s) => !shown.has(s.slug)).slice(0, 6);
   const [featured, ...others] = PROGRAMMES.filter((p) => p.slug !== 'lessentiel').concat(PROGRAMMES.filter((p) => p.slug === 'lessentiel'));
   const regionStories = (r: string) => all.filter((s) => s.region === r);
   const isLive = LIVE.status === 'live';
@@ -193,6 +196,15 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 </li>
               );
             })}
+            <li className="region-tile region-more">
+              <Link href="/regions" className="region-more-link">
+                <span className="region-more-k">{t('regions.future')}</span>
+                <span className="region-more-list">Diourbel · Fatick · Kaffrine · Kédougou · Kolda · Louga · Matam · Sédhiou</span>
+                <span className="more-link more-link-light">
+                  {t('nav.regions')} <ArrowIcon width={16} height={16} className="flip-rtl" />
+                </span>
+              </Link>
+            </li>
           </ul>
         </div>
       </section>

@@ -31,3 +31,9 @@ export function formatShortDate(iso: string, locale: Locale): string {
     return iso.slice(5, 10);
   }
 }
+
+/** French typography: a narrow no-break space before : ; ! ? » and after «, so punctuation never starts a line. */
+export function typo(text: string, lang: string): string {
+  if (lang !== 'fr') return text;
+  return text.replace(/\s+([:;!?»])/g, '\u202F$1').replace(/«\s+/g, '«\u202F');
+}

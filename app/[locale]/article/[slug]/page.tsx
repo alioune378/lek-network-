@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { REGION_NAMES, STORIES, hasVersion, programmeBySlug, related, storyBySlug, tx } from '@/lib/content';
-import { formatDate } from '@/lib/format';
+import { formatDate, typo } from '@/lib/format';
 import { dirOf, localeNames, locales, type Locale } from '@/lib/locales';
 import Cover from '@/components/Cover';
 import Photo from '@/components/Photo';
@@ -50,7 +50,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ locale
   const otherVersions = locales.filter((x) => x !== locale && hasVersion(s, x));
   const prog = s.programme ? programmeBySlug(s.programme) : undefined;
   const ph = photo(s.photo);
-  const pick = (v: Partial<Record<Locale, string>> & { fr: string }) => v[lang] ?? v.fr;
+  const pick = (v: Partial<Record<Locale, string>> & { fr: string }) => typo(v[lang] ?? v.fr, lang);
 
   return (
     <article className="article">
@@ -120,7 +120,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ locale
 
         <div className="article-body" lang={lang} dir={textDir}>
           {(s.body[lang] ?? s.body.fr).map((p, i) => (
-            <p key={i}>{p}</p>
+            <p key={i}>{typo(p, lang)}</p>
           ))}
         </div>
 

@@ -40,7 +40,8 @@ export default function Header({ locale }: { locale: Locale }) {
   useEffect(() => {
     document.documentElement.classList.toggle('drawer-open', open);
     if (open) {
-      closeRef.current?.focus();
+      // Wait a frame so the panel is visible (and focusable) before moving focus into it.
+      requestAnimationFrame(() => closeRef.current?.focus());
       wasOpen.current = true;
     } else if (wasOpen.current) {
       menuRef.current?.focus();
@@ -142,7 +143,7 @@ export default function Header({ locale }: { locale: Locale }) {
               {PRIMARY.map((k) => {
                 const n = NAV.find((x) => x.key === k)!;
                 return (
-                  <li key={k}>
+                  <li key={k} className={k === 'news' || k === 'studios' ? 'dp-wide' : undefined}>
                     <Link href={n.href} tabIndex={tab} aria-current={isOn(n.match) ? 'page' : undefined} className={`dp dp-${k}`}>
                       {k === 'live' && <span className={`live-dot ${live ? 'on' : ''}`} aria-hidden="true" />}
                       <span className="dp-label">{t(k)}</span>

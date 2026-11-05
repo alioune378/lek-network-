@@ -1,7 +1,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { REGION_NAMES, hasVersion, tx, type Story } from '@/lib/content';
-import { formatDate, formatShortDate, formatTime } from '@/lib/format';
+import { formatDate, formatShortDate, formatTime, typo } from '@/lib/format';
 import type { Locale } from '@/lib/locales';
 import Cover from './Cover';
 import Photo from './Photo';
@@ -35,15 +35,20 @@ export default function StoryCard({
   const href = `/article/${story.slug}`;
   // A French fallback inside an Arabic page keeps left-to-right direction.
   const d = lang !== locale ? (lang === 'ar' ? 'rtl' : 'ltr') : undefined;
-  const title = story.title[lang] ?? story.title.fr;
-  const dek = story.dek[lang] ?? story.dek.fr;
+  const title = typo(story.title[lang] ?? story.title.fr, lang);
+  const dek = typo(story.dek[lang] ?? story.dek.fr, lang);
+  const short = variant === 'side' || variant === 'row';
   const meta = (
     <p className="meta">
       <span>{tx(REGION_NAMES[story.region], locale)}</span>
       <span aria-hidden="true">·</span>
       <time dateTime={story.published}>{formatDate(story.published, locale)}</time>
-      <span aria-hidden="true">·</span>
-      <span>{t('common.minRead', { n: story.readTime })}</span>
+      {!short && (
+        <>
+          <span aria-hidden="true">·</span>
+          <span>{t('common.minRead', { n: story.readTime })}</span>
+        </>
+      )}
     </p>
   );
   const kicker = (
