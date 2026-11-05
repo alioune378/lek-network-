@@ -45,7 +45,7 @@ export default function Photo({ id, sizes = '100vw', priority, className, captio
   );
   if (caption === 'caption') {
     return (
-      <figure className={`photo ${className ?? ''}`}>
+      <figure className={`photo ${p.archive ? 'is-archive' : ''} ${className ?? ''}`}>
         <div className="photo-frame">{img}</div>
         <figcaption className="photo-cap">
           <span className="photo-tag">{p.archive ? t('archive') : t('illustration')}</span> {ptx(p.place, locale)}. {t('notOfStory')}{' '}
@@ -65,8 +65,13 @@ export default function Photo({ id, sizes = '100vw', priority, className, captio
     );
   }
   return (
-    <span className={`photo ${className ?? ''}`}>
+    <span className={`photo ${p.archive ? 'is-archive' : ''} ${className ?? ''}`}>
       {img}
+      {p.archive && (
+        <span className="archive-badge">
+          {t('archive')} · {p.year}
+        </span>
+      )}
       {caption === 'credit' && <span className="photo-overlay-credit">{credit}</span>}
     </span>
   );

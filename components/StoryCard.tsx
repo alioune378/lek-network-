@@ -1,6 +1,6 @@
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { REGION_NAMES, hasVersion, tx, type Story } from '@/lib/content';
+import { REGION_NAMES, hasVersion, programmeBySlug, tx, type Story } from '@/lib/content';
 import { formatDate, formatShortDate, formatTime, typo } from '@/lib/format';
 import type { Locale } from '@/lib/locales';
 import Cover from './Cover';
@@ -62,6 +62,16 @@ export default function StoryCard({
       <StoryMedia story={story} sizes={sizes} priority={priority} credit={credit} />
     </Link>
   );
+  // Journalism ↔ video: a story tied to a LËK Watch programme says so, and links to it.
+  const prog = story.programme ? programmeBySlug(story.programme) : undefined;
+  const watchLink = prog ? (
+    <Link href={`/watch/${prog.slug}`} className="watch-link">
+      <span className="watch-link-play" aria-hidden="true" />
+      <span className="watch-link-k">LËK Watch</span>
+      <span className="watch-link-name">{prog.name}</span>
+      <span className="watch-link-state">{t(`watch.states.${prog.state}`)}</span>
+    </Link>
+  ) : null;
   const heading = (cls: string) => (
     <H className={cls} lang={lang} dir={d}>
       <Link href={href} className="sc-link">
@@ -96,7 +106,14 @@ export default function StoryCard({
           {formatShortDate(story.published, locale)}
         </time>
         <div className="stream-body">
-          <p className="stream-kicker">{tx(story.kicker, locale)}</p>
+          <p className="stream-kicker">
+            {tx(story.kicker, locale)}
+            {prog && (
+              <span className="stream-video">
+                <span className="watch-link-play" aria-hidden="true" /> {t('home.hasVideo')}
+              </span>
+            )}
+          </p>
           <Link href={href} className="stream-link" lang={lang} dir={d}>
             {title}
           </Link>
@@ -162,14 +179,19 @@ export default function StoryCard({
   if (variant === 'lead') {
     return (
       <article className="lead-card">
-        {media('(min-width: 1024px) 66vw, 100vw', true)}
+        <div className="lead-stage">
+          {media('(min-width: 1024px) 66vw, 100vw', true)}
+          <div className="lead-over">
+            {kicker}
+            {heading('lead-title')}
+          </div>
+        </div>
         <div className="lead-body">
-          {kicker}
-          {heading('lead-title')}
           <p className="lead-dek" lang={lang} dir={d}>
             {dek}
           </p>
           {meta}
+          {watchLink}
         </div>
       </article>
     );
@@ -187,6 +209,7 @@ export default function StoryCard({
           </p>
         )}
         {meta}
+        {variant === 'feature' && watchLink}
       </div>
     </article>
   );

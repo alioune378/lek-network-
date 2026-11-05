@@ -4,8 +4,8 @@ import { LIVE } from '@/lib/live';
 import { formatDate } from '@/lib/format';
 import type { Locale } from '@/lib/locales';
 import Player from '@/components/Player';
-import Cover from '@/components/Cover';
 import Division from '@/components/Division';
+import Ident from '@/components/Ident';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -40,10 +40,10 @@ export default async function LivePage({ params }: { params: Promise<{ locale: s
         </header>
 
         {LIVE.status === 'live' ? (
-          <Player live src={LIVE.src} title={LIVE.title || t('title')} poster={<Cover pattern="rays" tone="night" seed="live" className="cover" />} />
+          <Player live src={LIVE.src} title={LIVE.title || t('title')} poster={<img src="/media/motion/lek-ident-end.webp" alt="" width={1280} height={720} className="ident-poster" />} />
         ) : (
           <div className="offline" role="status">
-            <Cover pattern="rings" tone="night" seed="live-offline" className="cover offline-art" />
+            <Ident className="offline-ident" />
             <div className="offline-body">
               <span className="live-state state-offline is-current">
                 <span className="live-dot" aria-hidden="true" />

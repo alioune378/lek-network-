@@ -4031,3 +4031,611 @@ figure.photo {
     margin: 4px 0 4px;
   }
 }
+
+/* ==========================================================================
+   v3 — art direction system, broadcast signature, mobile storytelling
+   Ratios:  editorial 3:2 · thumbnails 1:1 · video 16:9 · places 3:4
+   Grade:   one restrained treatment for every photograph; archive images in monochrome
+            with a visible ARCHIVE label; video images framed by gold viewfinder corners.
+   ========================================================================== */
+:root {
+  --r-edit: 3 / 2;
+  --r-thumb: 1 / 1;
+  --r-video: 16 / 9;
+  --r-place: 3 / 4;
+  --fs-display: clamp(1.9rem, 5.6vw, 3.4rem);
+  --fs-h2: clamp(1.45rem, 3vw, 2.05rem);
+  --fs-h3: clamp(1.3rem, 2.4vw, 1.65rem);
+  --fs-h4: 1.16rem;
+  --fs-h5: 1.02rem;
+  --space-section: clamp(32px, 6vw, 64px);
+  --grade: saturate(0.9) contrast(1.05) brightness(0.98);
+}
+
+/* ---------------------------------------------------------------- photo grade + archive */
+.photo img {
+  filter: var(--grade);
+}
+.ident-still img,
+.photo.is-archive img {
+  filter: none;
+}
+.photo.is-archive img {
+  filter: grayscale(1) contrast(1.05);
+}
+.archive-badge {
+  position: absolute;
+  inset-inline-start: 8px;
+  top: 8px;
+  z-index: 2;
+  padding: 3px 7px;
+  background: #f5f0e6;
+  color: #3a2608;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+html[lang='ar'] .archive-badge {
+  letter-spacing: 0;
+}
+
+/* ---------------------------------------------------------------- unified ratios */
+.lead-card .sc-media,
+.feature-card .sc-media,
+.story-card .sc-media,
+.region-card-media,
+.article-photo .photo-frame {
+  aspect-ratio: var(--r-edit);
+}
+.side-card .sc-media,
+.row-card .sc-media,
+.stream-thumb {
+  aspect-ratio: var(--r-thumb);
+}
+@media (min-width: 720px) {
+  .row-card .sc-media {
+    aspect-ratio: var(--r-edit);
+  }
+}
+.poster-media,
+.cine-card-media,
+.article-prog-media,
+.slate-media {
+  aspect-ratio: var(--r-video);
+}
+
+/* ---------------------------------------------------------------- video signature: viewfinder corners */
+.poster-media,
+.cine-card-media,
+.article-prog-media,
+.slate-media,
+.cine-hero,
+.ident-wrap {
+  --vf: rgba(212, 160, 23, 0.95);
+  position: relative;
+}
+.poster-media::after,
+.cine-card-media::after,
+.article-prog-media::after,
+.slate-media::after,
+.cine-hero > .vf {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--vf), var(--vf)) top left / 14px 2px,
+    linear-gradient(var(--vf), var(--vf)) top left / 2px 14px,
+    linear-gradient(var(--vf), var(--vf)) top right / 14px 2px,
+    linear-gradient(var(--vf), var(--vf)) top right / 2px 14px,
+    linear-gradient(var(--vf), var(--vf)) bottom left / 14px 2px,
+    linear-gradient(var(--vf), var(--vf)) bottom left / 2px 14px,
+    linear-gradient(var(--vf), var(--vf)) bottom right / 14px 2px,
+    linear-gradient(var(--vf), var(--vf)) bottom right / 2px 14px;
+  background-repeat: no-repeat;
+  opacity: 0.85;
+}
+.article-prog-media {
+  display: block;
+  overflow: hidden;
+}
+.article-prog {
+  grid-template-columns: 140px minmax(0, 1fr);
+}
+.poster-state,
+.cine-card-state {
+  top: 14px;
+  inset-inline-start: 14px;
+}
+.ident-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------------------------------------------------------------- journalism ↔ video link */
+.watch-link {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin-top: 12px;
+  min-height: 40px;
+  padding: 6px 12px 6px 10px;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 0.78rem;
+  border-radius: 2px;
+}
+[dir='rtl'] .watch-link {
+  padding: 6px 10px 6px 12px;
+}
+.watch-link:hover {
+  background: var(--navy-3);
+}
+.watch-link-play {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-block: 5px solid transparent;
+  border-inline-start: 8px solid var(--gold);
+}
+.watch-link-k {
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-size: 0.68rem;
+}
+.watch-link-name {
+  font-weight: 700;
+}
+.watch-link-state {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.7rem;
+}
+.stream-video {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-inline-start: 8px;
+  color: var(--navy);
+}
+.stream-video .watch-link-play {
+  border-inline-start-color: var(--gold-ink);
+}
+.from-newsroom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line-dark);
+  font-size: 0.9rem;
+}
+.from-newsroom-k {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  align-self: center;
+}
+.from-newsroom a {
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  text-decoration: underline;
+  text-decoration-color: rgba(212, 160, 23, 0.6);
+  text-underline-offset: 4px;
+}
+html[lang='ar'] .from-newsroom-k,
+html[lang='ar'] .watch-link-k {
+  letter-spacing: 0;
+}
+
+/* ---------------------------------------------------------------- headline hierarchy */
+.lead-title {
+  font-size: var(--fs-display);
+}
+.section-title {
+  font-size: var(--fs-h2);
+}
+.feature-title,
+.overlay-title {
+  font-size: var(--fs-h3);
+}
+.card-title,
+.text-title {
+  font-size: var(--fs-h4);
+}
+.side-title,
+.row-title,
+.stream-link,
+.brief-link {
+  font-size: var(--fs-h5);
+}
+@media (min-width: 720px) {
+  .row-title {
+    font-size: 1.25rem;
+  }
+}
+
+/* ---------------------------------------------------------------- hero (lead) */
+.lead-stage {
+  position: relative;
+}
+.lead-over {
+  padding-top: 14px;
+}
+.lead-body {
+  padding-top: 8px;
+}
+.lead-dek {
+  margin-top: 0;
+}
+@media (max-width: 719px) {
+  /* immersive phone hero: full-bleed 4:5 photograph, headline set on the image */
+  .front {
+    padding-top: 0;
+  }
+  .lead-card .sc-media {
+    aspect-ratio: 4 / 5;
+    max-height: 72svh;
+    width: auto;
+    margin-inline: calc(var(--gutter) * -1);
+  }
+  .lead-stage::after {
+    content: '';
+    position: absolute;
+    inset-inline: calc(var(--gutter) * -1);
+    bottom: 0;
+    height: 62%;
+    background: linear-gradient(0deg, rgba(11, 15, 26, 0.94) 0%, rgba(11, 15, 26, 0.6) 50%, rgba(11, 15, 26, 0) 100%);
+    pointer-events: none;
+  }
+  .lead-over {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 2;
+    padding: 0 0 18px;
+    color: var(--white);
+    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.4);
+  }
+  .lead-over .kicker {
+    color: var(--gold-soft);
+  }
+  .lead-over .demo-pill {
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .lead-card .photo-overlay-credit {
+    top: 0;
+    bottom: auto;
+  }
+  .lead-body {
+    padding-top: 12px;
+  }
+  .lead-dek {
+    font-size: 1.02rem;
+  }
+}
+
+/* ---------------------------------------------------------------- L’Essentiel as a timeline of the day */
+.brief-list {
+  position: relative;
+}
+.brief-item {
+  position: relative;
+  grid-template-columns: 34px minmax(0, 1fr);
+  border-top: 0;
+  padding-block: 10px;
+}
+.brief-list::before {
+  content: '';
+  position: absolute;
+  inset-block: 18px 18px;
+  inset-inline-start: 13px;
+  width: 2px;
+  background: linear-gradient(var(--gold), rgba(212, 160, 23, 0.25));
+}
+.brief-n {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2px solid var(--gold);
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--navy);
+}
+.brief-item:first-child .brief-n {
+  background: var(--gold);
+}
+.brief-meta {
+  font-size: 0.64rem;
+}
+.brief-meta time {
+  color: var(--gold-ink);
+  font-weight: 700;
+}
+@media (max-width: 719px) {
+  .briefing {
+    padding-top: 12px;
+  }
+  .briefing-title {
+    font-size: 1.45rem;
+  }
+  .brief-link {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* ---------------------------------------------------------------- Watch band: tighter, video-first */
+.watch-band {
+  padding-block: 28px 32px;
+}
+@media (max-width: 719px) {
+  .band-head {
+    margin-bottom: 14px;
+    align-items: center;
+  }
+  .band-title {
+    font-size: 1.12rem;
+    max-width: 24ch;
+  }
+  .watch-band .live-chip-lg {
+    min-height: 34px;
+    font-size: 0.72rem;
+  }
+  /* video stays 16:9 on phones; the copy sits below the frame */
+  .cine-hero {
+    aspect-ratio: auto;
+    max-height: none;
+    background: transparent;
+    overflow: visible;
+  }
+  .cine-hero > .photo {
+    position: relative;
+    display: block;
+    aspect-ratio: var(--r-video);
+  }
+  .cine-hero::after {
+    display: none;
+  }
+  .cine-hero-body {
+    position: static;
+    padding: 12px 0 0;
+    gap: 6px;
+  }
+  .cine-title {
+    font-size: 1.7rem;
+  }
+  .cine-logline {
+    font-size: 1rem;
+  }
+  .watch-band .poster-rail {
+    grid-auto-columns: 64%;
+  }
+  .poster-line {
+    display: none;
+  }
+  .poster-name {
+    font-size: 1rem;
+  }
+  .band-note {
+    margin-top: 12px;
+    font-size: 0.72rem;
+  }
+}
+.cine-hero > .photo::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--gold), var(--gold)) top left / 18px 2px,
+    linear-gradient(var(--gold), var(--gold)) top left / 2px 18px,
+    linear-gradient(var(--gold), var(--gold)) top right / 18px 2px,
+    linear-gradient(var(--gold), var(--gold)) top right / 2px 18px,
+    linear-gradient(var(--gold), var(--gold)) bottom left / 18px 2px,
+    linear-gradient(var(--gold), var(--gold)) bottom left / 2px 18px,
+    linear-gradient(var(--gold), var(--gold)) bottom right / 18px 2px,
+    linear-gradient(var(--gold), var(--gold)) bottom right / 2px 18px;
+  background-repeat: no-repeat;
+  opacity: 0.85;
+}
+
+/* ---------------------------------------------------------------- regions: a swipeable rail of places on phones */
+@media (max-width: 899px) {
+  .regions-band {
+    padding-block: 28px;
+  }
+  .regions-band .region-tiles {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    grid-auto-columns: 42%;
+    gap: 8px;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 4px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+  .regions-band .region-tiles::-webkit-scrollbar {
+    display: none;
+  }
+  .regions-band .region-tile {
+    scroll-snap-align: start;
+  }
+  .regions-band .region-tile.region-dakar {
+    grid-column: auto;
+  }
+  .regions-band .region-tile-link,
+  .regions-band .region-tile.region-dakar .region-tile-link {
+    aspect-ratio: var(--r-place);
+  }
+  .regions-band .region-dakar .region-tile-name {
+    font-size: 1.3rem;
+  }
+  .regions-band .region-tile-top {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 0.86rem;
+  }
+  .regions-band .region-tile:not(.region-dakar) .region-tile-top {
+    display: none;
+  }
+  .regions-band .region-more {
+    grid-column: auto;
+  }
+  .regions-band .region-more-link {
+    aspect-ratio: var(--r-place);
+    min-height: 0;
+    align-content: end;
+  }
+  .regions-band .region-more-list {
+    font-size: 0.74rem;
+  }
+}
+@media (min-width: 560px) and (max-width: 899px) {
+  .regions-band .region-tiles {
+    grid-auto-columns: 28%;
+  }
+}
+
+/* ---------------------------------------------------------------- shorter sections on phones */
+@media (max-width: 719px) {
+  .second-grid {
+    margin-top: 20px;
+    padding-top: 18px;
+    gap: 18px;
+  }
+  .feature-card .sc-media {
+    margin-inline: calc(var(--gutter) * -1);
+  }
+  .stream-grid {
+    gap: 24px;
+  }
+  .pledge-card {
+    padding: 18px;
+  }
+  .pledge-text {
+    font-size: 0.88rem;
+  }
+  .world-pair .overlay-card {
+    aspect-ratio: var(--r-edit);
+  }
+  .studios-band-photo {
+    aspect-ratio: var(--r-video);
+  }
+  .studios-band-in {
+    padding-block: 20px 32px;
+  }
+}
+
+/* ---------------------------------------------------------------- ident on the site */
+.ident-wrap {
+  position: relative;
+}
+.ident-replay {
+  position: absolute;
+  inset-inline-end: 10px;
+  bottom: 10px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background: rgba(11, 15, 26, 0.6);
+  color: var(--white);
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+.ident-replay:hover {
+  border-color: var(--gold);
+}
+.offline .offline-ident {
+  width: 100%;
+}
+.offline .offline-ident .ident {
+  aspect-ratio: 16 / 9;
+}
+
+/* Studios: on-air identity */
+.brand-motion {
+  background: #05070d;
+  color: var(--white);
+  padding-block: var(--space-section);
+}
+.brand-motion-in {
+  display: grid;
+  gap: 24px;
+}
+.brand-motion-copy {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+  color: rgba(255, 255, 255, 0.82);
+}
+.brand-motion-title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: var(--fs-h2);
+  color: var(--white);
+}
+.brand-motion-specs {
+  display: grid;
+  gap: 4px;
+  padding: 0;
+  font-size: 0.84rem;
+  color: var(--gold-soft);
+}
+.brand-motion-note {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+.brand-motion-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--r-video);
+  background: #0b0f1a;
+}
+.brand-motion-video figcaption {
+  margin-top: 8px;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+@media (min-width: 900px) {
+  .brand-motion-in {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+    gap: 48px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .regions-band .region-tiles,
+  .watch-band .poster-rail {
+    scroll-behavior: auto;
+  }
+}

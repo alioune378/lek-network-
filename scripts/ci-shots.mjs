@@ -225,7 +225,29 @@ report.checks.reducedMotion = await q.evaluate(() => {
   const img = document.querySelector('.sc-media img');
   return { drawerTransition: d ? getComputedStyle(d).transitionDuration : null, imageTransition: img ? getComputedStyle(img).transitionDuration : null };
 });
+await q.goto(`${BASE}/fr/live`, { waitUntil: 'networkidle' });
+report.checks.identReduced = await q.evaluate(() => ({
+  present: Boolean(document.querySelector('.ident svg')),
+  playing: Boolean(document.querySelector('.ident.is-playing')),
+  replayButton: Boolean(document.querySelector('.ident-replay')),
+}));
 await rm.close();
+
+// ident plays on the Live page with motion allowed; brand video files are served
+const mv = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const v = await mv.newPage();
+await v.goto(`${BASE}/en/live`, { waitUntil: 'networkidle' });
+await v.waitForTimeout(1800);
+await v.screenshot({ path: `${OUT}/check-ident-mid.png` });
+report.checks.identPlays = await v.evaluate(() => document.getAnimations().filter((a) => a.playState === 'running' || a.playState === 'finished').length);
+await v.waitForTimeout(5000);
+await v.screenshot({ path: `${OUT}/check-ident-end.png` });
+report.checks.motionFiles = {};
+for (const f of ['lek-ident-720p.mp4', 'lek-ident-16x9.mp4', 'lek-ident-end.webp']) {
+  const r = await v.request.get(`${BASE}/media/motion/${f}`);
+  report.checks.motionFiles[f] = r.status();
+}
+await mv.close();
 await browser.close();
 
 const c = report.checks;
@@ -237,6 +259,9 @@ if (!String(c.switchKeepsArticle).endsWith('/ar/article/dakar-espaces-publics') 
 if (!String(c.desktopSwitch).endsWith('/fr/watch/senegal-reel')) checkFail.push('desktop-language-switch');
 if (!c.anchorClear?.ok) checkFail.push('anchor-under-header');
 if (!/^0s/.test(c.reducedMotion?.drawerTransition ?? '') && c.reducedMotion?.drawerTransition !== '0s') checkFail.push('reduced-motion');
+if (!c.identReduced?.present || c.identReduced?.playing || c.identReduced?.replayButton) checkFail.push('ident-reduced-motion');
+if (!(c.identPlays > 0)) checkFail.push('ident-play');
+if (Object.values(c.motionFiles ?? {}).some((x) => x !== 200)) checkFail.push('motion-files');
 report.checks.failed = checkFail;
 
 writeFileSync('ci-artifacts/rendered-report.json', JSON.stringify(report, null, 2));

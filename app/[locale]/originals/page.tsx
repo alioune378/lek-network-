@@ -3,8 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { PROGRAMMES, tx } from '@/lib/content';
 import type { Locale } from '@/lib/locales';
-import Cover from '@/components/Cover';
-import Photo from '@/components/Photo';
+import ProgrammeImage from '@/components/ProgrammeImage';
 import Division from '@/components/Division';
 import { ArrowIcon } from '@/components/Icons';
 
@@ -33,7 +32,7 @@ export default async function OriginalsPage({ params }: { params: Promise<{ loca
               <Link href={`/watch/${p.slug}`} className="slate-link">
                 <span className="slate-n">{String(i + 1).padStart(2, '0')}</span>
                 <span className="slate-media">
-                  {p.photo ? <Photo id={p.photo} sizes="(min-width: 900px) 280px, 100vw" decorative className="media-fill" /> : <Cover {...p.cover} seed={p.slug} className="cover" />}
+                  <ProgrammeImage p={p} sizes="(min-width: 900px) 280px, 100vw" />
                 </span>
                 <span className="slate-body">
                   <span className="slate-name">{p.name}</span>

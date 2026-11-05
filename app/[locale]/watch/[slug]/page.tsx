@@ -4,8 +4,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { PROGRAMMES, STORIES, programmeBySlug, tx } from '@/lib/content';
 import type { Locale } from '@/lib/locales';
-import Cover from '@/components/Cover';
-import Photo from '@/components/Photo';
+import ProgrammeImage from '@/components/ProgrammeImage';
 import Division from '@/components/Division';
 import { photo, ptx } from '@/lib/media';
 import Player from '@/components/Player';
@@ -34,7 +33,9 @@ export default async function ProgrammePage({ params }: { params: Promise<{ loca
   return (
     <div className="dark-page">
       <section className="prog-banner">
-        {ph ? <Photo id={ph.id} sizes="100vw" priority decorative className="prog-banner-art" /> : <Cover {...p.cover} seed={p.slug} className="cover prog-banner-art" />}
+        <span className="prog-banner-art">
+          <ProgrammeImage p={p} sizes="100vw" priority />
+        </span>
         <div className="container prog-banner-in">
           <Link href="/watch" className="crumb-light">
             <Division name="watch" tone="dark" as="span" />
@@ -58,7 +59,7 @@ export default async function ProgrammePage({ params }: { params: Promise<{ loca
       <div className="container prog-layout">
         <div>
           <h2 className="sub-title">{t('watch.trailer')}</h2>
-          <Player title={`${p.name} — ${t('watch.trailer')}`} poster={<Cover {...p.cover} seed={`${p.slug}-trailer`} className="cover" />} />
+          <Player title={`${p.name} — ${t('watch.trailer')}`} poster={<img src="/media/motion/lek-ident-end.webp" alt="" width={1280} height={720} className="ident-poster" />} />
           <p className="prog-desc">{tx(p.description, locale)}</p>
 
           {p.seasons.map((season) => (

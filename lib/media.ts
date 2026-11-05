@@ -34,9 +34,7 @@ export type Photo = {
 export const ptx = (v: L3, locale: Locale) => (locale === 'fr' || locale === 'wo' ? v.fr : locale === 'ar' ? v.ar : v.en);
 
 const BY2 = 'https://creativecommons.org/licenses/by/2.0/';
-const BY3 = 'https://creativecommons.org/licenses/by/3.0/';
 const BY4 = 'https://creativecommons.org/licenses/by/4.0/';
-const SA2 = 'https://creativecommons.org/licenses/by-sa/2.0/';
 const SA4 = 'https://creativecommons.org/licenses/by-sa/4.0/';
 const C = 'https://commons.wikimedia.org/wiki/File:';
 const ALL = [640, 1200, 1800];
@@ -54,18 +52,6 @@ export const PHOTOS: Record<string, Photo> = {
     place: { fr: 'Car rapide, Dakar', en: 'Car rapide, Dakar', ar: 'كار رابيد، داكار' },
     author: 'Ewien van Bergeijk-Kwant', year: '2015', license: 'CC BY-SA 4.0', licenseUrl: SA4, source: `${C}Blessed_Journey.jpg`,
   },
-  'corniche-runners': {
-    id: 'corniche-runners', w: 1920, h: 1440, sizes: ALL,
-    alt: { fr: 'Des coureurs sur la corniche de Dakar au crépuscule, sous les palmiers', en: 'Runners on the Dakar Corniche at dusk, under palm trees', ar: 'عدّاؤون على كورنيش داكار عند الغسق تحت النخيل' },
-    place: { fr: 'Corniche de Dakar, en fin de journée', en: 'Dakar Corniche, early evening', ar: 'كورنيش داكار، في آخر النهار' },
-    author: 'Kateryna Serdiuk', year: '2019', license: 'CC BY-SA 4.0', licenseUrl: SA4, source: `${C}Runners_by_Serdiuk.jpg`,
-  },
-  'corniche-sunset': {
-    id: 'corniche-sunset', w: 1920, h: 1280, sizes: ALL,
-    alt: { fr: 'Coucher de soleil sur l’océan depuis la corniche de Dakar', en: 'Sunset over the ocean from the Dakar Corniche', ar: 'غروب الشمس على المحيط من كورنيش داكار' },
-    place: { fr: 'Corniche de Dakar', en: 'Dakar Corniche', ar: 'كورنيش داكار' },
-    author: 'Issiaga Photography', year: '2023', license: 'CC BY-SA 4.0', licenseUrl: SA4, source: `${C}Beautiful_sunset_dakar_corniche.jpg`,
-  },
   'thies-market': {
     id: 'thies-market', w: 1920, h: 1440, sizes: ALL,
     alt: { fr: 'Une rue commerçante du marché de Thiès, étals et passants', en: 'A street in Thiès market, with stalls and passers-by', ar: 'شارع تجاري في سوق تييس، بسطات ومارّة' },
@@ -77,12 +63,6 @@ export const PHOTOS: Record<string, Photo> = {
     alt: { fr: 'La gare ferroviaire de Thiès et ses voies', en: 'Thiès railway station and its tracks', ar: 'محطة قطار تييس وسككها' },
     place: { fr: 'Gare de Thiès', en: 'Thiès railway station', ar: 'محطة تييس' },
     author: 'Babacar Dioum', year: '2020', license: 'CC BY-SA 4.0', licenseUrl: SA4, source: `${C}La_gare_de_Thi%C3%A8s.jpg`,
-  },
-  'saint-louis-bridge': {
-    id: 'saint-louis-bridge', w: 1920, h: 1440, sizes: ALL,
-    alt: { fr: 'Le pont Faidherbe à Saint-Louis, à contre-jour sur le fleuve', en: 'The Faidherbe bridge in Saint-Louis, backlit over the river', ar: 'جسر فيدرب في سان لويس، في مواجهة الضوء فوق النهر' },
-    place: { fr: 'Pont Faidherbe, Saint-Louis', en: 'Faidherbe bridge, Saint-Louis', ar: 'جسر فيدرب، سان لويس' },
-    author: 'Gregor Rom', year: '2017', license: 'CC BY-SA 4.0', licenseUrl: SA4, source: `${C}Pont_Faidherbe_Saint_Louis.jpg`,
   },
   'saint-louis-sor': {
     id: 'saint-louis-sor', w: 1920, h: 1441, sizes: ALL,
@@ -102,12 +82,6 @@ export const PHOTOS: Record<string, Photo> = {
     place: { fr: 'Grande Mosquée de Touba', en: 'Great Mosque of Touba', ar: 'الجامع الكبير في طوبى' },
     author: 'Issathiome', year: '2025', license: 'CC BY-SA 4.0', licenseUrl: SA4, source: `${C}The_Grande_Mosqu%C3%A9e_de_Touba.jpg`,
   },
-  'casamance-rice': {
-    id: 'casamance-rice', w: 1417, h: 944, sizes: [640, 1200],
-    alt: { fr: 'Récolte du riz à Boucotte, en Casamance', en: 'Rice harvest in Boucotte, Casamance', ar: 'حصاد الأرز في بوكوت، كازامانس' },
-    place: { fr: 'Boucotte, Casamance', en: 'Boucotte, Casamance', ar: 'بوكوت، كازامانس' },
-    author: 'Olivier Epron', year: '2007', license: 'CC BY 3.0', licenseUrl: BY3, source: `${C}R%C3%A9colte_riz_boucotte.jpg`,
-  },
   'ziguinchor-pirogues': {
     id: 'ziguinchor-pirogues', w: 1920, h: 1280, sizes: ALL,
     alt: { fr: 'Pirogues sur la rive devant le pont de la Casamance à Ziguinchor', en: 'Pirogues on the bank before the Casamance bridge in Ziguinchor', ar: 'زوارق على الضفة أمام جسر كازامانس في زيغينشور' },
@@ -119,12 +93,6 @@ export const PHOTOS: Record<string, Photo> = {
     alt: { fr: 'Deux jeunes lutteurs au sol, entourés d’un public nombreux', en: 'Two young wrestlers on the sand, surrounded by a large crowd', ar: 'مصارعان شابان على الرمل يحيط بهما جمهور كبير' },
     place: { fr: 'Lutte au festival de Dialaw', en: 'Wrestling at the Dialaw festival', ar: 'مصارعة في مهرجان ديالاو' },
     author: 'Ibrahima Xaalil Ndiaye', year: '2026', license: 'CC BY-SA 4.0', licenseUrl: SA4, source: `${C}Jeune_Lutteur_du_Dialaw_Festival_20.jpg`,
-  },
-  'kaolack-market-1900': {
-    id: 'kaolack-market-1900', w: 1628, h: 1042, sizes: [640, 1200], archive: true,
-    alt: { fr: 'Carte postale ancienne du marché de Kaolack, début du XXe siècle', en: 'Early 20th-century postcard of Kaolack market', ar: 'بطاقة بريدية قديمة لسوق كاولاك، مطلع القرن العشرين' },
-    place: { fr: 'Marché de Kaolack, carte postale ancienne', en: 'Kaolack market, early postcard', ar: 'سوق كاولاك، بطاقة بريدية قديمة' },
-    author: 'Edmond Fortier', year: 'c. 1900–1910', license: 'Public domain', source: `${C}March%C3%A9_de_Kaolack_(AOF).jpg`,
   },
   'tambacounda-station': {
     id: 'tambacounda-station', w: 1920, h: 1431, sizes: ALL,
@@ -138,23 +106,11 @@ export const PHOTOS: Record<string, Photo> = {
     place: { fr: 'Abidjan, Côte d’Ivoire', en: 'Abidjan, Côte d’Ivoire', ar: 'أبيدجان، كوت ديفوار' },
     author: 'Edison McCullen', year: '2026', license: 'CC BY 4.0', licenseUrl: BY4, source: `${C}Le_Plateau_depuis_le_Pont_ADO_%E2%80%93_Abidjan.jpg`,
   },
-  'harlem-116': {
-    id: 'harlem-116', w: 1920, h: 1440, sizes: ALL,
-    alt: { fr: 'La 116e Rue à Harlem, quartier surnommé « Little Senegal », devant une mosquée ouest-africaine', en: '116th Street in Harlem, known as “Little Senegal”, outside a West African mosque', ar: 'الشارع 116 في هارلم، المعروف بـ«السنغال الصغيرة»، أمام مسجد لجالية غرب أفريقيا' },
-    place: { fr: 'Harlem, New York', en: 'Harlem, New York', ar: 'هارلم، نيويورك' },
-    author: 'greenpointlife (Flickr)', year: '2005', license: 'CC BY-SA 2.0', licenseUrl: SA2, source: `${C}Masjid_aqsa_-_NOI_mosque.jpg`,
-  },
   'dakar-port': {
     id: 'dakar-port', w: 1920, h: 1434, sizes: ALL,
     alt: { fr: 'Le port de commerce de Dakar et les immeubles du Plateau', en: 'Dakar’s commercial port and the buildings of the Plateau', ar: 'الميناء التجاري في داكار ومباني البلاتو' },
     place: { fr: 'Port de Dakar', en: 'Port of Dakar', ar: 'ميناء داكار' },
     author: 'Zarbialavi', year: '2011', license: 'CC BY-SA 4.0', licenseUrl: SA4, source: `${C}Dakar_Le_port_de_commerce.jpg`,
-  },
-  'dakar-harbour-aerial': {
-    id: 'dakar-harbour-aerial', w: 1920, h: 1440, sizes: ALL,
-    alt: { fr: 'Vue aérienne de la presqu’île de Dakar et de son port', en: 'Aerial view of the Dakar peninsula and its port', ar: 'منظر جوي لشبه جزيرة داكار ومينائها' },
-    place: { fr: 'Presqu’île de Dakar, vue aérienne', en: 'Dakar peninsula from the air', ar: 'شبه جزيرة داكار من الجو' },
-    author: 'KaBa', year: '2007', license: 'CC BY 3.0', licenseUrl: BY3, source: `${C}DakarHarbourAerial.JPG`,
   },
   'lac-rose': {
     id: 'lac-rose', w: 1920, h: 934, sizes: ALL,
@@ -180,6 +136,42 @@ export const PHOTOS: Record<string, Photo> = {
     place: { fr: 'Sur un tournage', en: 'On a film set', ar: 'في موقع تصوير' },
     author: 'Berbeture', year: '2017', license: 'CC BY-SA 4.0', licenseUrl: SA4, source: `${C}Directors_shot.jpg`,
   },
+  'brt-petersen': {
+    id: 'brt-petersen', w: 1920, h: 2560, sizes: ALL, pos: '50% 62%',
+    alt: { fr: 'Arrêt du BRT de Dakar à Petersen, avec le minaret de la Grande Mosquée au loin', en: 'A Dakar BRT bus stop at Petersen, with the Great Mosque minaret in the distance', ar: 'محطة الحافلات السريعة في داكار عند بيترسن، ومئذنة الجامع الكبير في الأفق' },
+    place: { fr: 'Arrêt BRT Papa Guèye Fall, Petersen, Dakar', en: 'Papa Guèye Fall BRT stop, Petersen, Dakar', ar: 'محطة BRT بابا غي فال، بيترسن، داكار' },
+    author: '4MAPS', year: '2026', license: 'CC BY 4.0', licenseUrl: BY4, source: `${C}Arr%C3%AAt_BRT_Papa_Gueye_Fall_(Petersen-Dakar).jpg`,
+  },
+  'saint-louis-fleet': {
+    id: 'saint-louis-fleet', w: 1920, h: 1280, sizes: ALL,
+    alt: { fr: 'Pirogues peintes et pavoisées à quai dans la baie de Saint-Louis', en: 'Painted pirogues flying flags, moored in the bay of Saint-Louis', ar: 'زوارق ملوّنة ترفع الأعلام راسية في خليج سان لويس' },
+    place: { fr: 'Flotte de pêche, Saint-Louis', en: 'Fishing fleet, Saint-Louis', ar: 'أسطول الصيد، سان لويس' },
+    author: 'Nsoderblom', year: '2020', license: 'CC BY-SA 4.0', licenseUrl: SA4, source: `${C}Fishing_Fleet,_Saint_Louis,_Senegal.jpg`,
+  },
+  'chateau-rouge': {
+    id: 'chateau-rouge', w: 1920, h: 1440, sizes: ALL,
+    alt: { fr: 'La place du Château-Rouge à Paris, quartier commerçant des diasporas africaines', en: 'Place du Château-Rouge in Paris, a shopping district for African diasporas', ar: 'ساحة شاتو روج في باريس، حي تجاري للجاليات الأفريقية' },
+    place: { fr: 'Château-Rouge, Paris', en: 'Château-Rouge, Paris', ar: 'شاتو روج، باريس' },
+    author: 'Chabe01', year: '2021', license: 'CC BY-SA 4.0', licenseUrl: SA4, source: `${C}Place_Ch%C3%A2teau_Rouge_-_Paris_XVIII_(FR75)_-_2021-08-03_-_2.jpg`,
+  },
+  'dakar-skyline': {
+    id: 'dakar-skyline', w: 1920, h: 864, sizes: ALL,
+    alt: { fr: 'Le port et les tours du centre de Dakar, un navire aux couleurs du Sénégal à quai', en: 'Dakar’s port and downtown towers, a ship in Senegal’s colours at the quay', ar: 'ميناء داكار وأبراج وسط المدينة، وسفينة بألوان السنغال على الرصيف' },
+    place: { fr: 'Port et centre-ville de Dakar', en: 'Dakar port and city centre', ar: 'ميناء داكار ووسط المدينة' },
+    author: 'Babacar Dioum', year: '2021', license: 'CC BY-SA 4.0', licenseUrl: SA4, source: `${C}Ville_de_Dakar.jpg`,
+  },
+  'kabrousse-rice': {
+    id: 'kabrousse-rice', w: 1897, h: 1174, sizes: ALL,
+    alt: { fr: 'Des cultivateurs travaillent la rizière au kayendo à Kabrousse, en Basse-Casamance', en: 'Farmers working a rice field with kayendo hoes in Kabrousse, Lower Casamance', ar: 'مزارعون يعملون في حقل أرز بمعاول الكايندو في كابروس، كازامانس السفلى' },
+    place: { fr: 'Rizières de Kabrousse, Casamance', en: 'Kabrousse rice fields, Casamance', ar: 'حقول أرز كابروس، كازامانس' },
+    author: 'Sembedekabrousse', year: '2023', license: 'CC BY-SA 4.0', licenseUrl: SA4, source: `${C}La_vie_dans_les_rizi%C3%A8res.jpg`,
+  },
+  'kaolack-street': {
+    id: 'kaolack-street', w: 1504, h: 1000, sizes: [640, 1200],
+    alt: { fr: 'La rue commerçante principale de Kaolack, entre la gare et le grand marché', en: 'Kaolack’s main shopping street, between the station and the big market', ar: 'الشارع التجاري الرئيسي في كاولاك بين المحطة والسوق الكبير' },
+    place: { fr: 'Rue principale, Kaolack', en: 'Main street, Kaolack', ar: 'الشارع الرئيسي، كاولاك' },
+    author: 'Komalick', year: '2018', license: 'CC BY-SA 4.0', licenseUrl: SA4, source: `${C}Main_street_in_Kaolack_(Senegal).jpg`,
+  },
 };
 
 export const photo = (id?: string) => (id ? PHOTOS[id] : undefined);
@@ -192,9 +184,9 @@ export const REGION_PHOTO: Record<string, string> = {
   thies: 'thies-station',
   'saint-louis': 'saint-louis-sor',
   touba: 'touba-mosque',
-  kaolack: 'kaolack-market-1900',
+  kaolack: 'kaolack-street',
   ziguinchor: 'ziguinchor-pirogues',
   tambacounda: 'tambacounda-station',
   africa: 'abidjan-plateau',
-  diaspora: 'harlem-116',
+  diaspora: 'chateau-rouge',
 };

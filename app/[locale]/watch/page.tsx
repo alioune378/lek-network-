@@ -6,7 +6,7 @@ import { photo, ptx } from '@/lib/media';
 import { LIVE } from '@/lib/live';
 import type { Locale } from '@/lib/locales';
 import Photo from '@/components/Photo';
-import Cover from '@/components/Cover';
+import ProgrammeImage from '@/components/ProgrammeImage';
 import Division from '@/components/Division';
 import { ArrowIcon } from '@/components/Icons';
 
@@ -33,7 +33,7 @@ export default async function WatchPage({ params }: { params: Promise<{ locale: 
   const card = (p: Programme, big = false) => (
     <Link href={`/watch/${p.slug}`} className={`cine-card ${big ? 'cine-card-big' : ''}`}>
       <span className="cine-card-media">
-        {p.photo ? <Photo id={p.photo} sizes={big ? '(min-width: 1024px) 60vw, 100vw' : '(min-width: 1024px) 30vw, 80vw'} decorative className="media-fill" /> : <Cover {...p.cover} seed={p.slug} className="cover media-fill" />}
+        <ProgrammeImage p={p} sizes={big ? '(min-width: 1024px) 60vw, 100vw' : '(min-width: 1024px) 30vw, 80vw'} />
         <span className="cine-card-state">{t(`watch.states.${p.state}`)}</span>
       </span>
       <span className="cine-card-body">

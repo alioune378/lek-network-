@@ -41,6 +41,33 @@ export default async function StudiosPage({ params }: { params: Promise<{ locale
         </ul>
       </section>
 
+      <section className="brand-motion" aria-labelledby="bm-h">
+        <div className="container brand-motion-in">
+          <div className="brand-motion-copy">
+            <Division name="studios" tone="dark" />
+            <h2 id="bm-h" className="brand-motion-title">
+              {t('motion.title')}
+            </h2>
+            <p>{t('motion.text')}</p>
+            <ul className="brand-motion-specs" role="list">
+              <li>{t('motion.spec1')}</li>
+              <li>{t('motion.spec2')}</li>
+              <li>{t('motion.spec3')}</li>
+            </ul>
+            <p className="brand-motion-note">{t('motion.note')}</p>
+            <a href="/media/motion/lek-ident-16x9.mp4" className="more-link more-link-light" download>
+              {t('motion.download')}
+            </a>
+          </div>
+          <figure className="brand-motion-video">
+            <video controls muted playsInline preload="none" poster="/media/motion/lek-ident-end.webp" width={1280} height={720}>
+              <source src="/media/motion/lek-ident-720p.mp4" type="video/mp4" />
+            </video>
+            <figcaption>{t('motion.caption')}</figcaption>
+          </figure>
+        </div>
+      </section>
+
       <section className="paper-band">
         <div className="container section studios-bottom">
           <div>

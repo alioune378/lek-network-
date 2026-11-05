@@ -86,7 +86,9 @@
     "studiosText": "A production division for brands, institutions and broadcasters, kept separate from the newsroom.",
     "discoverStudios": "Discover Studios",
     "briefingVideo": "L’Essentiel on video",
-    "watchNote": "LËK Watch images are freely licensed photographs of places: no episode has been filmed yet."
+    "watchNote": "LËK Watch images are freely licensed photographs of places: no episode has been filmed yet.",
+    "hasVideo": "Video",
+    "fromNewsroom": "From the newsroom:"
   },
   "article": {
     "sources": "Sources",
@@ -265,6 +267,16 @@
       "demoNotice": "Prototype: the request is checked but not yet sent. No data is transmitted or stored.",
       "okTitle": "Request checked",
       "okText": "Everything is in order. In the live version your request would go to the LËK Studios team. For now, nothing has been sent."
+    },
+    "motion": {
+      "title": "On-air identity",
+      "text": "LËK Network’s opening: a time line is drawn, the geometric hare leaps one step ahead, then the name and motto appear. Six silent seconds, built from the approved logo.",
+      "spec1": "1920 × 1080, 30 fps, 6 s, H.264",
+      "spec2": "Static version for the web and for viewers who reduce motion",
+      "spec3": "One source for the website and the video",
+      "note": "Brand graphics only: no news footage.",
+      "download": "Download the 1080p version",
+      "caption": "LËK Network animated opening, concept (v1)."
     }
   },
   "standards": {
@@ -437,5 +449,9 @@
         "text": "A full policy (data controller, retention periods, rights of access and deletion) will be published before any real data is collected."
       }
     }
+  },
+  "brand": {
+    "identLabel": "LËK Network — Always one step ahead. Animated channel identity.",
+    "replay": "Replay"
   }
 }

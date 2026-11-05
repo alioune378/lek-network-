@@ -86,7 +86,9 @@
     "studiosText": "Une division de production pour les marques, institutions et diffuseurs, séparée de la rédaction.",
     "discoverStudios": "Découvrir les Studios",
     "briefingVideo": "L’Essentiel en vidéo",
-    "watchNote": "Les images de LËK Watch sont des photos de lieux sous licence libre : aucun épisode n’a encore été tourné."
+    "watchNote": "Les images de LËK Watch sont des photos de lieux sous licence libre : aucun épisode n’a encore été tourné.",
+    "hasVideo": "Vidéo",
+    "fromNewsroom": "De la rédaction :"
   },
   "article": {
     "sources": "Sources",
@@ -265,6 +267,16 @@
       "demoNotice": "Prototype : la demande est vérifiée mais n’est pas encore envoyée. Aucune donnée n’est transmise ni enregistrée.",
       "okTitle": "Demande vérifiée",
       "okText": "Tout est correct. Dans la version en ligne, votre demande serait transmise à l’équipe LËK Studios. Pour l’instant, rien n’a été envoyé."
+    },
+    "motion": {
+      "title": "L’habillage antenne",
+      "text": "L’ouverture de LËK Network : une ligne de temps se trace, le lièvre géométrique s’élance un temps d’avance, puis le nom et la devise apparaissent. Six secondes, sans son, construites à partir du logo approuvé.",
+      "spec1": "1920 × 1080, 30 images/s, 6 s, H.264",
+      "spec2": "Version fixe pour le web et les spectateurs qui réduisent les animations",
+      "spec3": "Même source pour le site et la vidéo",
+      "note": "Graphisme de marque uniquement : aucune image de reportage.",
+      "download": "Télécharger la version 1080p",
+      "caption": "Concept d’ouverture animée de LËK Network (v1)."
     }
   },
   "standards": {
@@ -437,5 +449,9 @@
         "text": "Une politique complète (responsable du traitement, durées de conservation, droits d’accès et de suppression) sera publiée avant toute collecte réelle."
       }
     }
+  },
+  "brand": {
+    "identLabel": "LËK Network — Toujours un temps d’avance. Animation de l’identité de la chaîne.",
+    "replay": "Rejouer"
   }
 }

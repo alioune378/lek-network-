@@ -127,7 +127,7 @@ export const STORIES: Story[] = [
     category: 'society',
     region: 'dakar',
     cover: { pattern: 'rays', tone: 'ochre' },
-    photo: 'corniche-runners',
+    photo: 'brt-petersen',
     author: DEMO_AUTHOR,
     published: '2026-11-05T06:00:00Z',
     readTime: 3,
@@ -209,7 +209,7 @@ export const STORIES: Story[] = [
     category: 'culture',
     region: 'saint-louis',
     cover: { pattern: 'waves', tone: 'clay' },
-    photo: 'saint-louis-bridge',
+    photo: 'saint-louis-fleet',
     author: DEMO_AUTHOR,
     published: '2026-11-04T11:00:00Z',
     readTime: 4,
@@ -314,7 +314,7 @@ export const STORIES: Story[] = [
     category: 'environment',
     region: 'ziguinchor',
     cover: { pattern: 'waves', tone: 'forest' },
-    photo: 'casamance-rice',
+    photo: 'kabrousse-rice',
     author: DEMO_AUTHOR,
     published: '2026-11-02T13:30:00Z',
     readTime: 5,
@@ -453,7 +453,7 @@ export const STORIES: Story[] = [
     category: 'diaspora',
     region: 'diaspora',
     cover: { pattern: 'rings', tone: 'ochre' },
-    photo: 'harlem-116',
+    photo: 'chateau-rouge',
     author: DEMO_AUTHOR,
     published: '2026-10-30T19:00:00Z',
     readTime: 4,
@@ -549,6 +549,8 @@ export type Programme = {
   cover: { pattern: CoverPattern; tone: Tone };
   /** Mood image from lib/media — a location photograph, not a still from the programme. */
   photo?: string;
+  /** Use the LËK ident (brand motion) as the programme's image instead of a photograph. */
+  brandPoster?: boolean;
   /** Watch collection the programme belongs to. */
   kind: 'briefing' | 'documentary' | 'interview' | 'series' | 'investigation';
   /** Planned running time per episode, e.g. "5 min", "52 min". */
@@ -580,7 +582,7 @@ export const PROGRAMMES: Programme[] = [
       ar: 'موعد «LËK» اليومي: أخبار السنغال وأفريقيا، موثّقة المصادر ومشروحة، في فيديو قصير وصوت ونص.',
     },
     cover: { pattern: 'rays', tone: 'ochre' },
-    photo: 'corniche-sunset',
+    brandPoster: true,
     kind: 'briefing',
     runtime: '5 min',
     state: 'in-development',
@@ -656,7 +658,7 @@ export const PROGRAMMES: Programme[] = [
       ar: 'صحافة LËK الاستقصائية، لا تُنشر إلا بعد التحقق من الوثائق وحق الرد والمراجعة القانونية.',
     },
     cover: { pattern: 'weave', tone: 'night' },
-    photo: 'dakar-harbour-aerial',
+    photo: 'dakar-skyline',
     kind: 'investigation',
     runtime: '',
     state: 'in-development',

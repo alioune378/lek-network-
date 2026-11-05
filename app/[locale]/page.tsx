@@ -3,9 +3,11 @@ import { Link } from '@/i18n/navigation';
 import { PROGRAMMES, REGION_NAMES, SENEGAL_REGIONS, latest, tx } from '@/lib/content';
 import { REGION_PHOTO } from '@/lib/media';
 import { LIVE } from '@/lib/live';
+import { typo } from '@/lib/format';
 import type { Locale } from '@/lib/locales';
 import StoryCard from '@/components/StoryCard';
 import Photo from '@/components/Photo';
+import ProgrammeImage from '@/components/ProgrammeImage';
 import Division from '@/components/Division';
 import DemoBanner from '@/components/DemoBanner';
 import { ArrowIcon, PlayIcon } from '@/components/Icons';
@@ -32,6 +34,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const shown = new Set([lead, feature, ...sides, textStory, ...world].filter(Boolean).map((s) => s!.slug));
   const stream = all.filter((s) => !shown.has(s.slug)).slice(0, 6);
   const [featured, ...others] = PROGRAMMES.filter((p) => p.slug !== 'lessentiel').concat(PROGRAMMES.filter((p) => p.slug === 'lessentiel'));
+  const featuredStory = all.find((s) => s.programme === featured.slug);
   const regionStories = (r: string) => all.filter((s) => s.region === r);
   const isLive = LIVE.status === 'live';
 
@@ -95,7 +98,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </header>
 
           <Link href={`/watch/${featured.slug}`} className="cine-hero">
-            {featured.photo && <Photo id={featured.photo} sizes="(min-width: 1280px) 1200px, 100vw" decorative caption="credit" className="media-fill" />}
+            <ProgrammeImage p={featured} sizes="(min-width: 1280px) 1200px, 100vw" credit />
             <div className="cine-hero-body">
               <p className="cine-labels">
                 <span className="state-tag state-dev">{t(`watch.states.${featured.state}`)}</span>
@@ -110,12 +113,21 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </div>
           </Link>
 
+          {featuredStory && (
+            <p className="from-newsroom">
+              <span className="from-newsroom-k">{t('home.fromNewsroom')}</span>
+              <Link href={`/article/${featuredStory.slug}`} lang={featuredStory.title[locale] ? undefined : 'fr'} dir={featuredStory.title[locale] ? undefined : 'ltr'}>
+                {typo(featuredStory.title[locale] ?? featuredStory.title.fr, featuredStory.title[locale] ? locale : 'fr')}
+              </Link>
+            </p>
+          )}
+
           <ul className="poster-rail" role="list" aria-label={t('watch.programmes')}>
             {others.map((p) => (
               <li key={p.slug}>
                 <Link href={`/watch/${p.slug}`} className="poster">
                   <span className="poster-media">
-                    {p.photo && <Photo id={p.photo} sizes="(min-width: 1024px) 300px, 70vw" decorative className="media-fill" />}
+                    <ProgrammeImage p={p} sizes="(min-width: 1024px) 300px, 64vw" />
                     <span className="poster-state">{t(`watch.states.${p.state}`)}</span>
                   </span>
                   <span className="poster-kind">

@@ -7,6 +7,7 @@ import { formatDate, typo } from '@/lib/format';
 import { dirOf, localeNames, locales, type Locale } from '@/lib/locales';
 import Cover from '@/components/Cover';
 import Photo from '@/components/Photo';
+import ProgrammeImage from '@/components/ProgrammeImage';
 import { photo, ptx } from '@/lib/media';
 import StoryCard from '@/components/StoryCard';
 import ArticleTools from '@/components/ArticleTools';
@@ -140,7 +141,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ locale
 
         {prog && (
           <Link href={`/watch/${prog.slug}`} className="article-prog">
-            {prog.photo ? <Photo id={prog.photo} sizes="200px" decorative className="media-fill" /> : <Cover {...prog.cover} seed={prog.slug} className="cover" />}
+            <span className="article-prog-media">
+              <ProgrammeImage p={prog} sizes="200px" />
+            </span>
             <span className="article-prog-body">
               <span className="eyebrow eyebrow-gold">{t('article.relatedVideo')}</span>
               <span className="article-prog-name">
