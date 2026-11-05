@@ -5773,3 +5773,9 @@ html[lang='ar'] .cm-note-label {
     display: none;
   }
 }
+@media (max-width: 420px) {
+  .strip-in:has(.staging-badge) .live-chip,
+  .strip-in:has(.staging-badge) .strip-link {
+    display: none;
+  }
+}
