@@ -222,8 +222,12 @@ try {
   // Turnstile widget (Cloudflare test site key) must produce a token in the browser.
   await rp.waitForFunction(() => document.querySelector('[name="cf-turnstile-response"]')?.value, null, { timeout: 30000 });
   await rp.screenshot({ path: `${OUT}/shots/mobile-fr-register.png`, fullPage: true });
+  const regResp = rp.waitForResponse((r) => r.url().includes('/api/community/register'), { timeout: 20000 });
   await rp.getByRole('button', { name: 'Créer mon compte' }).click();
-  await rp.waitForSelector('.cm-card[role="status"]', { timeout: 10000 });
+  const rr = await regResp.catch(() => null);
+  const rrBody = rr ? await rr.text().catch(() => '') : 'no request sent';
+  await rp.waitForSelector('.cm-card[role="status"], .cm-error', { timeout: 10000 }).catch(() => {});
+  if (!(await rp.locator('.cm-card[role="status"]').count())) throw new Error(`UI registration did not complete: ${rr?.status()} ${rrBody} | ${(await rp.locator('.cm-error').allInnerTexts()).join(' / ')}`);
   check('Invited registration works on a 390px phone with the Turnstile widget, and asks to check the inbox (no delivery claim)', (await rp.locator('.cm-card').textContent()).includes('Si cette adresse'), availText);
   check('Registration page has no horizontal overflow (390px)', (await overflow(rp)) <= 1);
 
@@ -417,7 +421,10 @@ try {
   await fp.goto(`${BASE}/fr/feedback?article=${ARTICLE}`, { waitUntil: 'networkidle' });
   await fp.locator('.cm-cat').nth(1).click();
   await fp.locator('textarea').fill('Le chiffre de la population de Dakar cité au deuxième paragraphe semble daté de 2013.');
+  await fp.waitForFunction(() => document.querySelector('[name="cf-turnstile-response"]')?.value, null, { timeout: 30000 });
   await fp.screenshot({ path: `${OUT}/shots/mobile-fr-feedback.png`, fullPage: true });
+  const anonNoCaptcha = await call(await newCtx(), 'POST', '/api/community/feedback', { category: 'factual_error', message: 'Test sans vérification anti-robot, assez long.' });
+  check('Anonymous feedback also requires the Turnstile check server-side', anonNoCaptcha.status === 400 && anonNoCaptcha.data.error === 'captcha_required', anonNoCaptcha.data);
   await fp.getByRole('button', { name: 'Envoyer à la rédaction' }).click();
   await fp.waitForSelector('.cm-card[role="status"]');
   const refText = await fp.locator('.cm-card').textContent();

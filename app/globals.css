@@ -5767,3 +5767,9 @@ html[lang='ar'] .cm-note-label {
   border-bottom: 1px solid var(--line);
   font-size: 0.9rem;
 }
+@media (max-width: 640px) {
+  /* Staging only: the badge replaces the tagline on phones so the strip never overflows. */
+  .strip-in:has(.staging-badge) .strip-tag {
+    display: none;
+  }
+}
