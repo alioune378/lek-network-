@@ -35,7 +35,10 @@
       "africa": "Le continent vu de Dakar",
       "diaspora": "Les Sénégalais du monde",
       "studios": "Production pour marques et diffuseurs"
-    }
+    },
+    "community": "Communauté",
+    "feedback": "Votre voix compte",
+    "account": "Mon compte"
   },
   "common": {
     "demo": "Démo",
@@ -447,11 +450,470 @@
       "launch": {
         "title": "Avant le lancement",
         "text": "Une politique complète (responsable du traitement, durées de conservation, droits d’accès et de suppression) sera publiée avant toute collecte réelle."
+      },
+      "community": {
+        "title": "LËK Community (quand elle est ouverte)",
+        "text": "Pour commenter, il faut un compte : adresse e-mail vérifiée (jamais affichée publiquement), nom affiché, nom d’utilisateur, mot de passe chiffré par la bibliothèque d’authentification. Les commentaires, réactions, signalements et décisions de modération sont conservés selon la politique de conservation publiée. Les adresses IP ne sont gardées que sous forme chiffrée, 48 heures, pour limiter les abus. Vous pouvez supprimer votre compte à tout moment depuis « Mon compte »."
       }
     }
   },
   "brand": {
     "identLabel": "LËK Network — Toujours un temps d’avance. Animation de l’identité de la chaîne.",
     "replay": "Rejouer"
+  },
+  "community": {
+    "disabled": "LËK Community est en préparation. Les commentaires et les comptes ouvriront après les vérifications de sécurité et de confidentialité. Vous pouvez déjà écrire à la rédaction.",
+    "demoBanner": "Environnement de démonstration : comptes de test uniquement, données susceptibles d’être effacées, aucun e-mail réellement envoyé. N’y saisissez pas de données personnelles réelles.",
+    "loading": "Chargement…",
+    "nav": {
+      "about": "Découvrir LËK Community"
+    },
+    "comments": {
+      "title": "Discussion",
+      "count": "{n, plural, =0 {aucun commentaire} one {# commentaire} other {# commentaires}}",
+      "sortLabel": "Trier les commentaires",
+      "sort": {
+        "helpful": "Les plus utiles",
+        "newest": "Les plus récents"
+      },
+      "rules": "Règles de la communauté",
+      "feedbackLink": "Écrire à la rédaction (message privé)",
+      "join": "La lecture est libre. Pour participer à la discussion, il faut un compte vérifié.",
+      "closed": "Les commentaires sont fermés pour cet article.",
+      "until": "jusqu’au {date}.",
+      "seeDetails": "Voir les détails",
+      "postingAs": "Vous publiez en tant que {name}",
+      "replyTo": "Répondre à {name}",
+      "composerLabel": "Votre commentaire",
+      "placeholder": "Votre point de vue, une question, une précision…",
+      "writtenIn": "Langue",
+      "asStaffNote": "Publier comme note de la rédaction",
+      "post": "Publier",
+      "posting": "Envoi…",
+      "reply": "Répondre",
+      "cancel": "Annuler",
+      "edit": "Modifier",
+      "save": "Enregistrer",
+      "delete": "Supprimer",
+      "deleteConfirm": "Supprimer ce commentaire ?",
+      "posted": "Commentaire publié.",
+      "heldNotice": "Votre commentaire attend la vérification d’un modérateur.",
+      "saved": "Modification enregistrée.",
+      "deletedNotice": "Commentaire supprimé.",
+      "pending": "En attente de vérification par l’équipe de modération — visible par vous seul pour l’instant.",
+      "removed": "Commentaire retiré par la modération.",
+      "deleted": "Commentaire supprimé par son auteur.",
+      "reason": "Motif : {reason}",
+      "edited": "modifié",
+      "helpful": "Utile",
+      "report": "Signaler",
+      "staffBadge": "Rédaction LËK",
+      "staffNote": "Note de la rédaction",
+      "deletedAccount": "Compte supprimé",
+      "loadMore": "Afficher plus de commentaires",
+      "empty": "Aucun commentaire pour l’instant.",
+      "reportTitle": "Pourquoi signalez-vous ce commentaire ?",
+      "reportDetails": "Précisions (facultatif)",
+      "reportHint": "Un modérateur humain examinera le signalement. Un désaccord n’est pas une raison de signaler.",
+      "reportSend": "Envoyer le signalement",
+      "reported": "Merci. Un modérateur examinera ce commentaire.",
+      "alreadyReported": "Vous avez déjà signalé ce commentaire.",
+      "reasons": {
+        "spam": "Spam ou publicité",
+        "harassment": "Harcèlement ou attaque personnelle",
+        "threat": "Menace",
+        "private_info": "Informations privées",
+        "impersonation": "Usurpation d’identité",
+        "hate": "Discours haineux",
+        "off_topic": "Hors sujet",
+        "other": "Autre"
+      }
+    },
+    "errors": {
+      "generic": "Une erreur est survenue. Réessayez.",
+      "network": "Connexion impossible. Réessayez.",
+      "rate_limited": "Trop de tentatives en peu de temps. Réessayez un peu plus tard.",
+      "rejected": "Ce message ressemble à un envoi automatisé (trop de liens ou répétitions) et n’a pas été publié.",
+      "account_too_new": "Les comptes de moins d’une heure ne peuvent pas encore voter.",
+      "own_comment": "Vous ne pouvez pas faire cela sur votre propre commentaire.",
+      "edit_window_closed": "Ce commentaire ne peut plus être modifié (délai de 72 heures dépassé).",
+      "auth_required": "Connectez-vous pour continuer.",
+      "email_unverified": "Confirmez d’abord votre adresse e-mail grâce au lien reçu.",
+      "comment_restricted": "Votre droit de commenter est temporairement suspendu.",
+      "suspended": "Votre compte est suspendu.",
+      "comments_closed": "Les commentaires sont fermés.",
+      "not_found": "Introuvable.",
+      "parent_unavailable": "On ne peut plus répondre à ce commentaire.",
+      "forbidden": "Vous n’avez pas l’autorisation nécessaire.",
+      "conflict_of_interest": "Vous ne pouvez pas décider d’un dossier qui vous concerne.",
+      "already_decided": "Ce dossier a déjà été traité.",
+      "reason_required": "Indiquez un motif (il sera communiqué au membre).",
+      "same_reviewer": "Un recours doit être examiné par une autre personne que l’auteur de la décision.",
+      "already_appealed": "Un recours a déjà été déposé pour cette décision."
+    },
+    "fieldErrors": {
+      "displayName": {
+        "required": "Indiquez un nom affiché.",
+        "reserved": "Ce nom ne peut pas être utilisé (il pourrait faire croire à un compte officiel)."
+      },
+      "username": {
+        "format": "3 à 20 caractères : lettres minuscules, chiffres, tiret bas.",
+        "reserved": "Ce nom d’utilisateur est réservé.",
+        "taken": "Ce nom d’utilisateur est déjà pris."
+      },
+      "email": {
+        "invalid": "Adresse e-mail invalide."
+      },
+      "password": {
+        "length": "Entre 10 et 128 caractères.",
+        "weak": "Mot de passe refusé : choisissez-en un autre."
+      },
+      "acceptGuidelines": {
+        "required": "Vous devez accepter les règles de la communauté."
+      }
+    },
+    "auth": {
+      "signIn": "Se connecter",
+      "signOut": "Se déconnecter",
+      "register": "Créer un compte",
+      "registerTitle": "Rejoindre LËK Community",
+      "registerIntro": "Un compte vous permet de commenter et d’échanger. Votre identité publique peut être un pseudonyme : votre adresse e-mail n’est jamais affichée.",
+      "displayName": "Nom affiché",
+      "displayNameHint": "Visible par tous. Un pseudonyme est accepté.",
+      "username": "Nom d’utilisateur",
+      "usernameHint": "Unique et permanent, visible dans votre profil.",
+      "usernameStatus": {
+        "available": "Disponible",
+        "taken": "Déjà pris",
+        "reserved": "Réservé",
+        "format": "Format non valide"
+      },
+      "email": "Adresse e-mail",
+      "emailHint": "Privée. Sert à confirmer le compte et à le récupérer.",
+      "password": "Mot de passe",
+      "passwordHint": "Au moins 10 caractères. Une phrase facile à retenir est une bonne idée.",
+      "show": "Afficher",
+      "hide": "Masquer",
+      "notifyReplies": "Me prévenir quand on répond à mes commentaires",
+      "acceptGuidelines": "J’ai lu et j’accepte les <link>règles de la communauté</link>.",
+      "privacyNote": "Nous n’affichons jamais votre adresse e-mail et ne la partageons avec personne.",
+      "createAccount": "Créer mon compte",
+      "working": "Un instant…",
+      "haveAccount": "Déjà membre ?",
+      "checkInbox": "Vérifiez votre boîte de réception",
+      "checkInboxText": "Si cette adresse peut recevoir nos messages, un lien de confirmation vient d’y être envoyé. Il est valable 24 heures.",
+      "demoMail": "Démonstration : aucun e-mail n’est réellement envoyé.",
+      "notVerified": "Votre adresse n’est pas encore confirmée.",
+      "resend": "Renvoyer le lien de confirmation",
+      "resent": "Si un compte correspond, un nouveau lien a été envoyé.",
+      "badCredentials": "Adresse e-mail ou mot de passe incorrect.",
+      "forgot": "Mot de passe oublié",
+      "forgotIntro": "Indiquez votre adresse : si un compte y correspond, vous recevrez un lien pour choisir un nouveau mot de passe.",
+      "sendReset": "Envoyer le lien",
+      "resetSent": "Si un compte correspond à cette adresse, un lien de réinitialisation vient d’être envoyé. Il est valable une heure.",
+      "resetInvalid": "Ce lien n’est plus valable. Demandez-en un nouveau.",
+      "newPassword": "Nouveau mot de passe",
+      "saveNewPassword": "Enregistrer le mot de passe",
+      "resetDone": "Votre mot de passe a été modifié. Vos autres sessions ont été fermées.",
+      "signedOut": "Vous n’êtes pas connecté."
+    },
+    "account": {
+      "title": "Mon compte",
+      "verifiedNow": "Adresse confirmée. Bienvenue dans LËK Community.",
+      "privateEmail": "Adresse e-mail (privée) :",
+      "emailVerified": "Adresse confirmée.",
+      "viewPublic": "Voir mon profil public",
+      "notifications": "Notifications",
+      "noNotifications": "Aucune notification.",
+      "markRead": "Tout marquer comme lu",
+      "open": "Ouvrir",
+      "noteKinds": {
+        "reply": "Nouvelle réponse",
+        "moderation": "Décision de modération",
+        "appeal": "Décision sur votre recours",
+        "feedback_reply": "Réponse de la rédaction",
+        "staff": "Vérification professionnelle"
+      },
+      "profile": "Profil public",
+      "bio": "Présentation",
+      "bioHint": "280 caractères au plus.",
+      "region": "Pays ou région",
+      "language": "Langue préférée",
+      "interests": "Centres d’intérêt",
+      "interestsHint": "Séparés par des virgules (8 au plus).",
+      "privacy": "Confidentialité",
+      "showHistory": "Afficher l’historique de mes commentaires sur mon profil",
+      "save": "Enregistrer",
+      "saved": "Enregistré.",
+      "moderationRecord": "Décisions de modération vous concernant",
+      "moderationPrivate": "Ces informations ne sont visibles que par vous et l’équipe de modération.",
+      "appeal": "Contester cette décision",
+      "appealMessage": "Expliquez pourquoi la décision vous semble erronée",
+      "sendAppeal": "Envoyer le recours",
+      "appealSent": "Recours envoyé. Une autre personne de l’équipe l’examinera.",
+      "appealStatus": {
+        "pending": "Recours en cours",
+        "upheld": "Décision maintenue",
+        "overturned": "Décision annulée"
+      },
+      "session": "Session et compte",
+      "delete": "Supprimer mon compte",
+      "deleteExplain": "Votre profil, vos réactions et vos identifiants seront supprimés et vos commentaires masqués. Un lien interne est conservé 12 mois pour la modération et les demandes légales, puis effacé.",
+      "deleteConfirm": "Tapez votre nom d’utilisateur ({username}) pour confirmer",
+      "deleteForever": "Supprimer définitivement",
+      "reauth": "Pour votre sécurité, reconnectez-vous puis recommencez (connexion de moins de 15 minutes requise).",
+      "confirmMismatch": "Le nom d’utilisateur ne correspond pas."
+    },
+    "profile": {
+      "missing": "Ce profil n’existe pas ou n’est plus disponible.",
+      "joined": "Membre depuis {date}",
+      "comments": "Commentaires",
+      "replies": "Réponses reçues",
+      "helpful": "Mentions « utile »",
+      "history": "Commentaires récents",
+      "historyHidden": "Ce membre a choisi de ne pas afficher son historique."
+    },
+    "ladder": {
+      "educational_notice": "Message pédagogique",
+      "warning": "Avertissement",
+      "remove_comment": "Retrait du commentaire",
+      "restrict": "Restriction temporaire",
+      "suspend": "Suspension du compte",
+      "escalate": "Signalement grave transmis",
+      "restore_comment": "Commentaire rétabli",
+      "approve_comment": "Commentaire approuvé",
+      "dismiss": "Aucune infraction",
+      "lift_restriction": "Restriction levée",
+      "grant_staff": "Vérification professionnelle accordée",
+      "revoke_staff": "Vérification professionnelle retirée"
+    },
+    "about": {
+      "title": "LËK Community",
+      "intro": "Un espace pour débattre de l’actualité avec respect : exprimer un avis, contester, poser une question, corriger une erreur, apporter ce que l’on sait. Le désaccord est bienvenu ; le harcèlement ne l’est pas.",
+      "guidelinesTitle": "Les règles",
+      "rules": {
+        "respect": {
+          "title": "Visez les idées, pas les personnes",
+          "text": "Critiquez un argument, un article ou une décision publique aussi fermement que vous le voulez. Les insultes, le harcèlement et les attaques contre une personne ou un groupe ne sont pas acceptés."
+        },
+        "disagree": {
+          "title": "Le désaccord est bienvenu",
+          "text": "Contester la rédaction, défendre une position minoritaire ou critiquer un responsable public fait partie du débat. Signalez ce qui enfreint les règles, pas ce qui vous déplaît."
+        },
+        "facts": {
+          "title": "Distinguez faits et opinions",
+          "text": "Citez vos sources quand vous affirmez un fait. Pour signaler une erreur dans un article, utilisez « Votre voix compte » : la rédaction répond et corrige publiquement."
+        },
+        "privacy": {
+          "title": "Protégez la vie privée",
+          "text": "Ne publiez jamais l’adresse, le numéro de téléphone, l’e-mail ou les documents personnels de quelqu’un, ni les vôtres."
+        },
+        "noSpam": {
+          "title": "Pas de publicité ni de spam",
+          "text": "Pas de promotion, de liens répétés, de messages copiés-collés ni de comptes multiples pour amplifier un avis."
+        },
+        "identity": {
+          "title": "Pseudonyme oui, usurpation non",
+          "text": "Vous pouvez utiliser un pseudonyme. Vous ne pouvez pas vous faire passer pour une autre personne, pour LËK ou pour un membre de la rédaction."
+        },
+        "language": {
+          "title": "Toutes les langues sont bienvenues",
+          "text": "Écrivez en français, wolof, anglais, arabe ou dans votre langue. Les commentaires ne sont jamais traduits automatiquement sans l’indiquer, et le texte original est toujours conservé."
+        }
+      },
+      "neverTitle": "Ce que la modération ne retire jamais pour ce seul motif",
+      "never": {
+        "politics": "Une opinion politique, quelle qu’elle soit — les règles s’appliquent de la même façon à tous les bords.",
+        "officials": "La critique, même vive, de responsables publics, d’institutions ou de la rédaction de LËK.",
+        "satire": "La satire et l’humour, tant qu’ils ne visent pas à harceler une personne.",
+        "unpopular": "Un avis minoritaire ou impopulaire."
+      },
+      "ladderTitle": "Des mesures proportionnées",
+      "ladderIntro": "Chaque décision est prise par une personne, motivée et communiquée au membre. Les étapes ne sont pas obligatoirement successives : une menace grave peut entraîner directement une suspension.",
+      "ladderText": {
+        "educational_notice": "Un rappel des règles, sans conséquence.",
+        "warning": "Un avertissement formel, inscrit dans votre historique de modération (visible par vous seul).",
+        "remove_comment": "Le commentaire est masqué, avec le motif affiché à sa place.",
+        "restrict": "Impossible de commenter pendant 24 heures ou 7 jours ; la lecture reste libre.",
+        "suspend": "Le compte est suspendu 30 jours ou durablement.",
+        "escalate": "Les faits graves (menaces, mise en danger) sont transmis à la direction de la rédaction, et si nécessaire aux autorités compétentes."
+      },
+      "appeals": "Chaque décision peut être contestée une fois depuis « Mon compte ». Le recours est examiné par une autre personne que l’auteur de la décision. Il n’existe ni score de réputation caché ni notation des opinions politiques.",
+      "privacyTitle": "Votre vie privée",
+      "privacyText": "Un compte vérifié n’est pas une identité publique : votre adresse e-mail n’est jamais affichée et un pseudonyme suffit. Les détections automatiques ne servent qu’à alerter un modérateur humain ; elles ne sont jamais une preuve.",
+      "privacyLink": "Lire la page Confidentialité",
+      "staffTitle": "Journalistes vérifiés",
+      "staffText": "Le badge « Rédaction LËK » est attribué par la rédaction après vérification professionnelle, distincte de la simple confirmation de l’adresse e-mail. Les journalistes répondent aux questions, reconnaissent les erreurs et suivent les mêmes règles que tous."
+    },
+    "feedback": {
+      "title": "Votre voix compte",
+      "intro": "Un message privé à la rédaction : il n’est jamais publié. Pour débattre publiquement, utilisez les commentaires sous les articles.",
+      "category": "De quoi s’agit-il ?",
+      "cats": {
+        "article_feedback": {
+          "name": "Avis sur un article",
+          "hint": "Ce qui vous a plu, manqué ou dérangé."
+        },
+        "factual_error": {
+          "name": "Erreur factuelle",
+          "hint": "Une donnée, un nom, une date à corriger."
+        },
+        "story_idea": {
+          "name": "Idée de sujet",
+          "hint": "Ce que LËK devrait raconter."
+        },
+        "editorial_question": {
+          "name": "Question à la rédaction",
+          "hint": "Nos choix, nos sources, nos méthodes."
+        },
+        "technical": {
+          "name": "Problème technique",
+          "hint": "Le site ne fonctionne pas comme prévu."
+        },
+        "private_concern": {
+          "name": "Préoccupation privée",
+          "hint": "Un sujet qui vous concerne personnellement."
+        }
+      },
+      "secureTips": "Pour une information sensible (source à protéger, document confidentiel), n’utilisez pas ce formulaire. Un canal sécurisé est en cours de mise en place ; ses coordonnées seront publiées ici.",
+      "article": "Article concerné (facultatif)",
+      "noArticle": "Aucun article en particulier",
+      "message": "Votre message",
+      "email": "Adresse e-mail pour vous répondre (facultatif)",
+      "emailHint": "Visible uniquement par la rédaction. Sans adresse, nous ne pourrons pas vous répondre.",
+      "private": "Votre message est privé : seule la rédaction le lit.",
+      "send": "Envoyer à la rédaction",
+      "thanks": "Message reçu",
+      "reference": "Référence : {ref}. Conservez-la si vous nous recontactez.",
+      "replyAccount": "Une réponse éventuelle apparaîtra dans vos notifications.",
+      "replyEmail": "Une réponse éventuelle vous sera envoyée par e-mail, quand l’envoi d’e-mails sera activé.",
+      "replyNone": "Vous n’avez pas laissé d’adresse : nous lirons votre message sans pouvoir y répondre.",
+      "fixFields": "Vérifiez la catégorie, le message (10 caractères au moins) et l’adresse e-mail."
+    },
+    "mod": {
+      "title": "Modération",
+      "views": {
+        "open": "File d’attente",
+        "resolved": "Traités",
+        "appeals": "Recours",
+        "audit": "Journal",
+        "members": "Membres"
+      },
+      "principles": "Les détections automatiques signalent, elles ne prouvent rien. Jugez le comportement, pas l’opinion. Motivez chaque décision : le motif est communiqué au membre.",
+      "empty": "Rien à traiter.",
+      "severity": {
+        "low": "Faible",
+        "medium": "Moyenne",
+        "high": "Élevée",
+        "critical": "Critique"
+      },
+      "source": {
+        "reader": "Signalé par un lecteur",
+        "automatic": "Détection automatique",
+        "staff": "Équipe"
+      },
+      "signals": {
+        "dangerous_link": "Lien dangereux",
+        "link_flood": "Trop de liens",
+        "many_links": "Plusieurs liens",
+        "link_shortener": "Lien raccourci",
+        "ip_link": "Lien vers une adresse IP",
+        "new_account_link": "Lien posté par un compte récent",
+        "promotional": "Contenu promotionnel",
+        "private_info_email": "Adresse e-mail publiée",
+        "private_info_phone": "Numéro de téléphone publié",
+        "threat": "Menace possible",
+        "duplicate_flood": "Répétitions massives",
+        "duplicate": "Message répété",
+        "coordinated_duplicate": "Même texte publié par plusieurs comptes",
+        "all_caps": "Tout en majuscules",
+        "repeated_characters": "Caractères répétés",
+        "repeat_offender": "Infractions récentes"
+      },
+      "author": "Auteur :",
+      "prior": "{n, plural, =0 {aucune mesure récente} one {# mesure en 180 jours} other {# mesures en 180 jours}}",
+      "commentStatus": {
+        "published": "Publié",
+        "pending": "En attente",
+        "removed": "Retiré",
+        "deleted": "Supprimé par l’auteur"
+      },
+      "suggested": "Étape suggérée au vu de l’historique : {step}. Vous pouvez choisir une mesure plus légère ou plus forte.",
+      "commentDecision": "Commentaire",
+      "keep": "Laisser publié",
+      "approve": "Approuver et publier",
+      "memberDecision": "Mesure envers le membre",
+      "noAction": "Aucune mesure",
+      "duration": "Durée",
+      "durations": {
+        "24h": "24 heures",
+        "7d": "7 jours",
+        "30d": "30 jours",
+        "indefinite": "Durée indéterminée"
+      },
+      "reasonShown": "Motif (communiqué au membre)",
+      "record": "Enregistrer la décision",
+      "decided": "Décision enregistrée.",
+      "decidedBy": "Décidé par {who} le {when}",
+      "appeal": {
+        "none": "Pas de recours",
+        "pending": "Recours en cours",
+        "upheld": "Recours rejeté",
+        "overturned": "Décision annulée en recours"
+      },
+      "restore": "Rétablir le commentaire",
+      "restored": "Commentaire rétabli.",
+      "restoreDefault": "Rétabli après réexamen",
+      "uphold": "Maintenir la décision",
+      "overturn": "Annuler la décision",
+      "notYourAppeal": "Vous avez pris la décision contestée : un autre membre de l’équipe doit examiner ce recours.",
+      "when": "Date",
+      "actor": "Par",
+      "action": "Mesure",
+      "member": "Membre",
+      "reason": "Motif",
+      "system": "Système",
+      "memberAction": "Mesure directe envers un membre",
+      "staffTitle": "Vérification professionnelle",
+      "staffHint": "Réservé aux administrateurs. Le badge « Rédaction LËK » n’est accordé qu’après vérification de l’identité professionnelle.",
+      "role": "Rôle",
+      "roles": {
+        "journalist": "Journaliste",
+        "editor": "Éditeur ou éditrice",
+        "moderator": "Modérateur ou modératrice",
+        "admin": "Administration",
+        "revoke": "Retirer la vérification"
+      },
+      "staffTitleField": "Fonction affichée",
+      "saveStaff": "Enregistrer",
+      "staffSaved": "Vérification enregistrée."
+    },
+    "inbox": {
+      "title": "Votre voix compte — boîte de la rédaction",
+      "filter": "Filtrer",
+      "all": "Tout",
+      "status": {
+        "new": "Nouveau",
+        "in_progress": "En cours",
+        "answered": "Répondu",
+        "closed": "Clos"
+      },
+      "private": "Messages privés : ne jamais les publier ni les citer sans l’accord de leur auteur.",
+      "empty": "Aucun message.",
+      "anonymous": "Sans compte",
+      "statusLabel": "Statut",
+      "assignee": "Attribué à",
+      "note": "Notes de résolution (internes)",
+      "reply": "Répondre",
+      "replyAccount": "La réponse apparaîtra dans les notifications du membre.",
+      "replyEmail": "La réponse partira par e-mail si l’envoi est configuré ; sinon elle restera interne.",
+      "replyInternal": "Aucun moyen de répondre : la réponse restera une note interne.",
+      "send": "Envoyer",
+      "channel": {
+        "account": "visible dans le compte du membre",
+        "email": "envoyée par e-mail",
+        "internal": "note interne (non envoyée)"
+      }
+    }
   }
 }

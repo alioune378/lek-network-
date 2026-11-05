@@ -7,7 +7,7 @@ import type { Locale } from '@/lib/locales';
 import { LIVE } from '@/lib/live';
 import { CATEGORIES } from '@/lib/content';
 import LanguageMenu from './LanguageMenu';
-import { CloseIcon, MenuIcon, SearchIcon } from './Icons';
+import { CloseIcon, MenuIcon, SearchIcon, UserIcon } from './Icons';
 
 /** Public navigation. The newsroom tool is deliberately absent (see footer › prototype tools). */
 const NAV: { key: string; href: string; match: string }[] = [
@@ -20,6 +20,8 @@ const NAV: { key: string; href: string; match: string }[] = [
   { key: 'originals', href: '/originals', match: '/originals' },
   { key: 'studios', href: '/studios', match: '/studios' },
 ];
+const COMMUNITY_ON = (process.env.NEXT_PUBLIC_COMMUNITY_MODE ?? 'off') !== 'off';
+
 /** The seven sections the menu puts first. */
 const PRIMARY = ['news', 'watch', 'live', 'originals', 'africa', 'diaspora', 'studios'];
 
@@ -116,6 +118,11 @@ export default function Header({ locale }: { locale: Locale }) {
             <Link href="/search" className="icon-btn" aria-label={t('search')}>
               <SearchIcon />
             </Link>
+            {COMMUNITY_ON && (
+              <Link href="/account" className="icon-btn" aria-label={t('account')}>
+                <UserIcon />
+              </Link>
+            )}
             <LanguageMenu locale={locale} />
           </div>
         </div>
@@ -203,6 +210,23 @@ export default function Header({ locale }: { locale: Locale }) {
                 {t('credits')}
               </Link>
             </li>
+            <li>
+              <Link href="/community" tabIndex={tab}>
+                {t('community')}
+              </Link>
+            </li>
+            <li>
+              <Link href="/feedback" tabIndex={tab}>
+                {t('feedback')}
+              </Link>
+            </li>
+            {COMMUNITY_ON && (
+              <li>
+                <Link href="/account" tabIndex={tab}>
+                  {t('account')}
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>

@@ -11,6 +11,7 @@ import ProgrammeImage from '@/components/ProgrammeImage';
 import { photo, ptx } from '@/lib/media';
 import StoryCard from '@/components/StoryCard';
 import ArticleTools from '@/components/ArticleTools';
+import Comments from '@/components/community/Comments';
 import { ArrowIcon, PlayIcon } from '@/components/Icons';
 
 export function generateStaticParams() {
@@ -207,6 +208,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ locale
             {t('nav.standards')} <ArrowIcon width={16} height={16} className="flip-rtl" />
           </Link>
         </section>
+      </div>
+
+      <div className="container-narrow">
+        <Comments slug={s.slug} />
       </div>
 
       <section className="container section related" aria-labelledby="rel-h">

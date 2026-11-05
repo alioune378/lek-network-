@@ -35,7 +35,10 @@
       "africa": "The continent, seen from Dakar",
       "diaspora": "Senegalese around the world",
       "studios": "Production for brands and broadcasters"
-    }
+    },
+    "community": "Community",
+    "feedback": "Your voice counts",
+    "account": "My account"
   },
   "common": {
     "demo": "Demo",
@@ -447,11 +450,470 @@
       "launch": {
         "title": "Before launch",
         "text": "A full policy (data controller, retention periods, rights of access and deletion) will be published before any real data is collected."
+      },
+      "community": {
+        "title": "LËK Community (when open)",
+        "text": "Commenting requires an account: a verified email address (never shown publicly), a display name, a username and a password hashed by the authentication library. Comments, reactions, reports and moderation decisions are kept according to the published retention policy. IP addresses are kept only in hashed form, for 48 hours, to limit abuse. You can delete your account at any time from “My account”."
       }
     }
   },
   "brand": {
     "identLabel": "LËK Network — Always one step ahead. Animated channel identity.",
     "replay": "Replay"
+  },
+  "community": {
+    "disabled": "LËK Community is being prepared. Comments and accounts will open after security and privacy checks. You can already write to the newsroom.",
+    "demoBanner": "Demonstration environment: test accounts only, data may be erased, no email is actually sent. Do not enter real personal data.",
+    "loading": "Loading…",
+    "nav": {
+      "about": "About LËK Community"
+    },
+    "comments": {
+      "title": "Discussion",
+      "count": "{n, plural, =0 {no comments} one {# comment} other {# comments}}",
+      "sortLabel": "Sort comments",
+      "sort": {
+        "helpful": "Most helpful",
+        "newest": "Newest"
+      },
+      "rules": "Community guidelines",
+      "feedbackLink": "Write to the newsroom (private message)",
+      "join": "Reading is free. To join the discussion you need a verified account.",
+      "closed": "Comments are closed for this article.",
+      "until": "until {date}.",
+      "seeDetails": "See details",
+      "postingAs": "Posting as {name}",
+      "replyTo": "Reply to {name}",
+      "composerLabel": "Your comment",
+      "placeholder": "Your view, a question, a correction…",
+      "writtenIn": "Language",
+      "asStaffNote": "Publish as a newsroom note",
+      "post": "Post",
+      "posting": "Sending…",
+      "reply": "Reply",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "save": "Save",
+      "delete": "Delete",
+      "deleteConfirm": "Delete this comment?",
+      "posted": "Comment published.",
+      "heldNotice": "Your comment is waiting for a moderator’s review.",
+      "saved": "Edit saved.",
+      "deletedNotice": "Comment deleted.",
+      "pending": "Awaiting review by the moderation team — only you can see it for now.",
+      "removed": "Comment removed by moderation.",
+      "deleted": "Comment deleted by its author.",
+      "reason": "Reason: {reason}",
+      "edited": "edited",
+      "helpful": "Helpful",
+      "report": "Report",
+      "staffBadge": "LËK Newsroom",
+      "staffNote": "Newsroom note",
+      "deletedAccount": "Deleted account",
+      "loadMore": "Show more comments",
+      "empty": "No comments yet.",
+      "reportTitle": "Why are you reporting this comment?",
+      "reportDetails": "Details (optional)",
+      "reportHint": "A human moderator will review the report. Disagreement is not a reason to report.",
+      "reportSend": "Send report",
+      "reported": "Thank you. A moderator will review this comment.",
+      "alreadyReported": "You have already reported this comment.",
+      "reasons": {
+        "spam": "Spam or advertising",
+        "harassment": "Harassment or personal attack",
+        "threat": "Threat",
+        "private_info": "Private information",
+        "impersonation": "Impersonation",
+        "hate": "Hate speech",
+        "off_topic": "Off topic",
+        "other": "Other"
+      }
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "network": "Could not connect. Please try again.",
+      "rate_limited": "Too many attempts in a short time. Please try again a little later.",
+      "rejected": "This looks like an automated message (too many links or repeats) and was not published.",
+      "account_too_new": "Accounts less than an hour old cannot vote yet.",
+      "own_comment": "You cannot do that on your own comment.",
+      "edit_window_closed": "This comment can no longer be edited (72-hour limit passed).",
+      "auth_required": "Sign in to continue.",
+      "email_unverified": "First confirm your email address with the link you received.",
+      "comment_restricted": "Your ability to comment is temporarily restricted.",
+      "suspended": "Your account is suspended.",
+      "comments_closed": "Comments are closed.",
+      "not_found": "Not found.",
+      "parent_unavailable": "This comment can no longer be replied to.",
+      "forbidden": "You do not have the required permission.",
+      "conflict_of_interest": "You cannot decide a case that concerns you.",
+      "already_decided": "This case has already been handled.",
+      "reason_required": "Give a reason (it will be shown to the member).",
+      "same_reviewer": "An appeal must be reviewed by someone other than the person who made the decision.",
+      "already_appealed": "An appeal has already been filed for this decision."
+    },
+    "fieldErrors": {
+      "displayName": {
+        "required": "Enter a display name.",
+        "reserved": "This name cannot be used (it could look like an official account)."
+      },
+      "username": {
+        "format": "3 to 20 characters: lower-case letters, digits, underscore.",
+        "reserved": "This username is reserved.",
+        "taken": "This username is already taken."
+      },
+      "email": {
+        "invalid": "Invalid email address."
+      },
+      "password": {
+        "length": "Between 10 and 128 characters.",
+        "weak": "Password refused: please choose another."
+      },
+      "acceptGuidelines": {
+        "required": "You must accept the community guidelines."
+      }
+    },
+    "auth": {
+      "signIn": "Sign in",
+      "signOut": "Sign out",
+      "register": "Create an account",
+      "registerTitle": "Join LËK Community",
+      "registerIntro": "An account lets you comment and take part. Your public identity can be a pseudonym: your email address is never shown.",
+      "displayName": "Display name",
+      "displayNameHint": "Visible to everyone. A pseudonym is fine.",
+      "username": "Username",
+      "usernameHint": "Unique and permanent, shown on your profile.",
+      "usernameStatus": {
+        "available": "Available",
+        "taken": "Already taken",
+        "reserved": "Reserved",
+        "format": "Invalid format"
+      },
+      "email": "Email address",
+      "emailHint": "Private. Used to confirm and recover your account.",
+      "password": "Password",
+      "passwordHint": "At least 10 characters. An easy-to-remember phrase is a good idea.",
+      "show": "Show",
+      "hide": "Hide",
+      "notifyReplies": "Tell me when someone replies to my comments",
+      "acceptGuidelines": "I have read and accept the <link>community guidelines</link>.",
+      "privacyNote": "We never display your email address and never share it with anyone.",
+      "createAccount": "Create my account",
+      "working": "One moment…",
+      "haveAccount": "Already a member?",
+      "checkInbox": "Check your inbox",
+      "checkInboxText": "If this address can receive our messages, a confirmation link has just been sent to it. It is valid for 24 hours.",
+      "demoMail": "Demonstration: no email is actually sent.",
+      "notVerified": "Your address is not confirmed yet.",
+      "resend": "Send the confirmation link again",
+      "resent": "If an account matches, a new link has been sent.",
+      "badCredentials": "Incorrect email address or password.",
+      "forgot": "Forgotten password",
+      "forgotIntro": "Enter your address: if an account matches it, you will receive a link to choose a new password.",
+      "sendReset": "Send the link",
+      "resetSent": "If an account matches this address, a reset link has just been sent. It is valid for one hour.",
+      "resetInvalid": "This link is no longer valid. Ask for a new one.",
+      "newPassword": "New password",
+      "saveNewPassword": "Save password",
+      "resetDone": "Your password has been changed. Your other sessions have been signed out.",
+      "signedOut": "You are not signed in."
+    },
+    "account": {
+      "title": "My account",
+      "verifiedNow": "Address confirmed. Welcome to LËK Community.",
+      "privateEmail": "Email address (private):",
+      "emailVerified": "Address confirmed.",
+      "viewPublic": "View my public profile",
+      "notifications": "Notifications",
+      "noNotifications": "No notifications.",
+      "markRead": "Mark all as read",
+      "open": "Open",
+      "noteKinds": {
+        "reply": "New reply",
+        "moderation": "Moderation decision",
+        "appeal": "Decision on your appeal",
+        "feedback_reply": "Reply from the newsroom",
+        "staff": "Professional verification"
+      },
+      "profile": "Public profile",
+      "bio": "About you",
+      "bioHint": "280 characters at most.",
+      "region": "Country or region",
+      "language": "Preferred language",
+      "interests": "Interests",
+      "interestsHint": "Separated by commas (8 at most).",
+      "privacy": "Privacy",
+      "showHistory": "Show my comment history on my profile",
+      "save": "Save",
+      "saved": "Saved.",
+      "moderationRecord": "Moderation decisions about you",
+      "moderationPrivate": "Only you and the moderation team can see this.",
+      "appeal": "Appeal this decision",
+      "appealMessage": "Explain why you think the decision is wrong",
+      "sendAppeal": "Send appeal",
+      "appealSent": "Appeal sent. Another member of the team will review it.",
+      "appealStatus": {
+        "pending": "Appeal in progress",
+        "upheld": "Decision upheld",
+        "overturned": "Decision overturned"
+      },
+      "session": "Session and account",
+      "delete": "Delete my account",
+      "deleteExplain": "Your profile, reactions and credentials will be deleted and your comments hidden. An internal link is kept for 12 months for moderation and legal requests, then erased.",
+      "deleteConfirm": "Type your username ({username}) to confirm",
+      "deleteForever": "Delete permanently",
+      "reauth": "For your security, sign in again and retry (a sign-in less than 15 minutes old is required).",
+      "confirmMismatch": "The username does not match."
+    },
+    "profile": {
+      "missing": "This profile does not exist or is no longer available.",
+      "joined": "Member since {date}",
+      "comments": "Comments",
+      "replies": "Replies received",
+      "helpful": "“Helpful” marks",
+      "history": "Recent comments",
+      "historyHidden": "This member has chosen not to show their history."
+    },
+    "ladder": {
+      "educational_notice": "Educational notice",
+      "warning": "Formal warning",
+      "remove_comment": "Comment removal",
+      "restrict": "Temporary restriction",
+      "suspend": "Account suspension",
+      "escalate": "Serious-violation escalation",
+      "restore_comment": "Comment restored",
+      "approve_comment": "Comment approved",
+      "dismiss": "No violation",
+      "lift_restriction": "Restriction lifted",
+      "grant_staff": "Professional verification granted",
+      "revoke_staff": "Professional verification revoked"
+    },
+    "about": {
+      "title": "LËK Community",
+      "intro": "A place to discuss the news with respect: give your view, challenge, ask, correct a mistake, share what you know. Disagreement is welcome; harassment is not.",
+      "guidelinesTitle": "The guidelines",
+      "rules": {
+        "respect": {
+          "title": "Target ideas, not people",
+          "text": "Criticise an argument, an article or a public decision as firmly as you like. Insults, harassment and attacks on a person or a group are not accepted."
+        },
+        "disagree": {
+          "title": "Disagreement is welcome",
+          "text": "Challenging the newsroom, defending a minority view or criticising a public official is part of debate. Report what breaks the rules, not what you dislike."
+        },
+        "facts": {
+          "title": "Separate facts from opinions",
+          "text": "Cite your sources when you state a fact. To report an error in an article, use “Your voice counts”: the newsroom replies and corrects publicly."
+        },
+        "privacy": {
+          "title": "Protect privacy",
+          "text": "Never post someone’s address, phone number, email or personal documents — or your own."
+        },
+        "noSpam": {
+          "title": "No advertising or spam",
+          "text": "No promotion, repeated links, copy-pasted messages or multiple accounts to amplify a view."
+        },
+        "identity": {
+          "title": "Pseudonyms yes, impersonation no",
+          "text": "You may use a pseudonym. You may not pretend to be another person, LËK or a member of the newsroom."
+        },
+        "language": {
+          "title": "Every language is welcome",
+          "text": "Write in French, Wolof, English, Arabic or your own language. Comments are never machine-translated without saying so, and the original text is always kept."
+        }
+      },
+      "neverTitle": "What moderation never removes for that reason alone",
+      "never": {
+        "politics": "A political opinion, whatever it is — the rules apply the same way to every side.",
+        "officials": "Criticism, even sharp, of public officials, institutions or LËK’s newsroom.",
+        "satire": "Satire and humour, as long as they do not aim to harass a person.",
+        "unpopular": "A minority or unpopular view."
+      },
+      "ladderTitle": "Proportionate measures",
+      "ladderIntro": "Every decision is made by a person, explained and communicated to the member. The steps are not necessarily sequential: a serious threat can lead straight to suspension.",
+      "ladderText": {
+        "educational_notice": "A reminder of the rules, with no consequence.",
+        "warning": "A formal warning, recorded in your moderation history (visible only to you).",
+        "remove_comment": "The comment is hidden, with the reason shown in its place.",
+        "restrict": "No commenting for 24 hours or 7 days; reading stays free.",
+        "suspend": "The account is suspended for 30 days or indefinitely.",
+        "escalate": "Serious matters (threats, endangerment) go to the newsroom’s leadership and, where necessary, to the competent authorities."
+      },
+      "appeals": "Every decision can be appealed once from “My account”. The appeal is reviewed by someone other than the person who made the decision. There is no hidden reputation score and no rating of political opinions.",
+      "privacyTitle": "Your privacy",
+      "privacyText": "A verified account is not a public identity: your email address is never shown and a pseudonym is enough. Automatic detections only alert a human moderator; they are never proof.",
+      "privacyLink": "Read the Privacy page",
+      "staffTitle": "Verified journalists",
+      "staffText": "The “LËK Newsroom” badge is granted by the newsroom after professional verification, separate from simple email confirmation. Journalists answer questions, acknowledge mistakes and follow the same rules as everyone."
+    },
+    "feedback": {
+      "title": "Your voice counts",
+      "intro": "A private message to the newsroom: it is never published. To debate publicly, use the comments under articles.",
+      "category": "What is it about?",
+      "cats": {
+        "article_feedback": {
+          "name": "Feedback on an article",
+          "hint": "What you liked, missed or disliked."
+        },
+        "factual_error": {
+          "name": "Factual error",
+          "hint": "A figure, name or date to correct."
+        },
+        "story_idea": {
+          "name": "Story idea",
+          "hint": "What LËK should report."
+        },
+        "editorial_question": {
+          "name": "Question for the newsroom",
+          "hint": "Our choices, sources and methods."
+        },
+        "technical": {
+          "name": "Technical problem",
+          "hint": "The site is not working as expected."
+        },
+        "private_concern": {
+          "name": "Private concern",
+          "hint": "Something that concerns you personally."
+        }
+      },
+      "secureTips": "For sensitive information (a source to protect, a confidential document), do not use this form. A secure channel is being set up; its details will be published here.",
+      "article": "Related article (optional)",
+      "noArticle": "No particular article",
+      "message": "Your message",
+      "email": "Email address for a reply (optional)",
+      "emailHint": "Seen only by the newsroom. Without an address we cannot reply.",
+      "private": "Your message is private: only the newsroom reads it.",
+      "send": "Send to the newsroom",
+      "thanks": "Message received",
+      "reference": "Reference: {ref}. Keep it if you contact us again.",
+      "replyAccount": "Any reply will appear in your notifications.",
+      "replyEmail": "Any reply will be emailed to you once email sending is enabled.",
+      "replyNone": "You left no address: we will read your message but cannot reply.",
+      "fixFields": "Check the category, the message (at least 10 characters) and the email address."
+    },
+    "mod": {
+      "title": "Moderation",
+      "views": {
+        "open": "Queue",
+        "resolved": "Handled",
+        "appeals": "Appeals",
+        "audit": "Audit log",
+        "members": "Members"
+      },
+      "principles": "Automatic detections flag; they prove nothing. Judge conduct, not opinion. Give a reason for every decision: it is shown to the member.",
+      "empty": "Nothing to handle.",
+      "severity": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "critical": "Critical"
+      },
+      "source": {
+        "reader": "Reported by a reader",
+        "automatic": "Automatic detection",
+        "staff": "Team"
+      },
+      "signals": {
+        "dangerous_link": "Dangerous link",
+        "link_flood": "Too many links",
+        "many_links": "Several links",
+        "link_shortener": "Shortened link",
+        "ip_link": "Link to an IP address",
+        "new_account_link": "Link posted by a new account",
+        "promotional": "Promotional content",
+        "private_info_email": "Email address posted",
+        "private_info_phone": "Phone number posted",
+        "threat": "Possible threat",
+        "duplicate_flood": "Mass repetition",
+        "duplicate": "Repeated message",
+        "coordinated_duplicate": "Same text from several accounts",
+        "all_caps": "All capitals",
+        "repeated_characters": "Repeated characters",
+        "repeat_offender": "Recent violations"
+      },
+      "author": "Author:",
+      "prior": "{n, plural, =0 {no recent measures} one {# measure in 180 days} other {# measures in 180 days}}",
+      "commentStatus": {
+        "published": "Published",
+        "pending": "Pending",
+        "removed": "Removed",
+        "deleted": "Deleted by author"
+      },
+      "suggested": "Suggested step given the history: {step}. You may choose a lighter or stronger measure.",
+      "commentDecision": "Comment",
+      "keep": "Keep published",
+      "approve": "Approve and publish",
+      "memberDecision": "Measure for the member",
+      "noAction": "No measure",
+      "duration": "Duration",
+      "durations": {
+        "24h": "24 hours",
+        "7d": "7 days",
+        "30d": "30 days",
+        "indefinite": "Indefinite"
+      },
+      "reasonShown": "Reason (shown to the member)",
+      "record": "Record decision",
+      "decided": "Decision recorded.",
+      "decidedBy": "Decided by {who} on {when}",
+      "appeal": {
+        "none": "No appeal",
+        "pending": "Appeal in progress",
+        "upheld": "Appeal rejected",
+        "overturned": "Overturned on appeal"
+      },
+      "restore": "Restore comment",
+      "restored": "Comment restored.",
+      "restoreDefault": "Restored after review",
+      "uphold": "Uphold decision",
+      "overturn": "Overturn decision",
+      "notYourAppeal": "You made the decision being appealed: another team member must review this appeal.",
+      "when": "Date",
+      "actor": "By",
+      "action": "Measure",
+      "member": "Member",
+      "reason": "Reason",
+      "system": "System",
+      "memberAction": "Direct measure for a member",
+      "staffTitle": "Professional verification",
+      "staffHint": "Administrators only. The “LËK Newsroom” badge is granted only after the person’s professional identity has been checked.",
+      "role": "Role",
+      "roles": {
+        "journalist": "Journalist",
+        "editor": "Editor",
+        "moderator": "Moderator",
+        "admin": "Administrator",
+        "revoke": "Revoke verification"
+      },
+      "staffTitleField": "Displayed title",
+      "saveStaff": "Save",
+      "staffSaved": "Verification saved."
+    },
+    "inbox": {
+      "title": "Your voice counts — newsroom inbox",
+      "filter": "Filter",
+      "all": "All",
+      "status": {
+        "new": "New",
+        "in_progress": "In progress",
+        "answered": "Answered",
+        "closed": "Closed"
+      },
+      "private": "Private messages: never publish or quote them without their author’s consent.",
+      "empty": "No messages.",
+      "anonymous": "No account",
+      "statusLabel": "Status",
+      "assignee": "Assigned to",
+      "note": "Resolution notes (internal)",
+      "reply": "Reply",
+      "replyAccount": "The reply will appear in the member’s notifications.",
+      "replyEmail": "The reply will be emailed if sending is configured; otherwise it stays internal.",
+      "replyInternal": "No way to reply: the reply will stay an internal note.",
+      "send": "Send",
+      "channel": {
+        "account": "visible in the member’s account",
+        "email": "sent by email",
+        "internal": "internal note (not sent)"
+      }
+    }
   }
 }

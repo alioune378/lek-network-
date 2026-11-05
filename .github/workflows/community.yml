@@ -1,0 +1,93 @@
+name: Community (demo environment tests)
+
+# Builds the site with LËK Community switched on (COMMUNITY_MODE=demo) against a throwaway Postgres,
+# runs unit tests and the acceptance suite, and publishes results to the ci-community branch.
+# Production is not affected: it builds without COMMUNITY_MODE (community off).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: community-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  community:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: lek
+          POSTGRES_PASSWORD: lek-ci-only
+          POSTGRES_DB: lek_community
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U lek" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      DATABASE_URL: postgres://lek:lek-ci-only@localhost:5432/lek_community
+      COMMUNITY_MODE: demo
+      NEXT_PUBLIC_COMMUNITY_MODE: demo
+      MAIL_CAPTURE: '1'
+      BETTER_AUTH_URL: http://localhost:3000
+      COMMUNITY_REGISTER_LIMIT: '200'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Secrets for this run only
+        run: |
+          echo "BETTER_AUTH_SECRET=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+          echo "TEST_MAIL_TOKEN=$(openssl rand -hex 16)" >> "$GITHUB_ENV"
+      - name: Install
+        run: |
+          mkdir -p ci-artifacts/community
+          set -o pipefail
+          npm install --no-audit --no-fund 2>&1 | tee ci-artifacts/community/01-install.log
+      - name: Unit tests (moderation rules, names)
+        run: |
+          set -o pipefail
+          npm run test:community 2>&1 | tee ci-artifacts/community/02-unit.log
+      - name: Type check and lint
+        run: |
+          set -o pipefail
+          (npm run typecheck && npm run lint) 2>&1 | tee ci-artifacts/community/03-checks.log
+      - name: Database migrations
+        run: |
+          set -o pipefail
+          npm run community:migrate 2>&1 | tee ci-artifacts/community/04-migrate.log
+          npm run community:migrate 2>&1 | tee -a ci-artifacts/community/04-migrate.log
+      - name: Production build (community on, demo)
+        run: |
+          set -o pipefail
+          npm run build 2>&1 | tee ci-artifacts/community/05-build.log
+      - name: Acceptance tests
+        run: |
+          set -o pipefail
+          npm install --no-save --no-audit --no-fund playwright@1.49.1 > /dev/null
+          npx playwright install --with-deps chromium > /dev/null
+          (npm start -- -p 3000 > ci-artifacts/community/06-server.log 2>&1 &)
+          npx --yes wait-on@8 http://localhost:3000/fr -t 60000
+          node scripts/community/acceptance.mjs 2>&1 | tee ci-artifacts/community/07-acceptance.log
+      - name: Publish results to the ci-community branch
+        if: always()
+        run: |
+          echo "commit=${GITHUB_SHA}" > ci-artifacts/community/00-commit.txt
+          echo "run=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" >> ci-artifacts/community/00-commit.txt
+          echo "outcome=${{ job.status }}" >> ci-artifacts/community/00-commit.txt
+          grep -v -i "secret\|token" ci-artifacts/community/06-server.log > /tmp/s.log || true; mv /tmp/s.log ci-artifacts/community/06-server.log
+          cd ci-artifacts/community
+          git init -q
+          git config user.name "lek-ci"
+          git config user.email "lek-ci@users.noreply.github.com"
+          git checkout -q -b ci-community
+          git add -A
+          git commit -q -m "Community results for ${GITHUB_SHA}"
+          git push -q -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" ci-community

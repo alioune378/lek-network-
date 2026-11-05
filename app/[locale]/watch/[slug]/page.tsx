@@ -9,6 +9,7 @@ import Division from '@/components/Division';
 import { photo, ptx } from '@/lib/media';
 import Player from '@/components/Player';
 import StoryCard from '@/components/StoryCard';
+import Comments from '@/components/community/Comments';
 
 export function generateStaticParams() {
   return PROGRAMMES.map((p) => ({ slug: p.slug }));
@@ -111,6 +112,10 @@ export default async function ProgrammePage({ params }: { params: Promise<{ loca
             </div>
           </dl>
         </aside>
+      </div>
+
+      <div className="container-narrow cm-dark">
+        <Comments slug={p.slug} />
       </div>
 
       {stories.length > 0 && (

@@ -19,5 +19,26 @@
     "text": "Jàng LËK ci {language} ?",
     "switch": "Waaw, jël {language}",
     "stay": "Déedéet, des ci {current}"
+  },
+  "community": {
+    "_review": "Wolof: ay baat yu jëkk rekk, ñu war leen a seetlu ab bindkat bu làkk wolof. Termes à faire valider par un journaliste wolophone.",
+    "comments": {
+      "title": "Waxtaan",
+      "reply": "Tontu",
+      "report": "Yëgle",
+      "helpful": "Am njariñ",
+      "post": "Yónne",
+      "cancel": "Neenal"
+    },
+    "feedback": {
+      "title": "Sa baat am solo"
+    },
+    "auth": {
+      "signIn": "Dugg",
+      "register": "Sos sa kont"
+    },
+    "account": {
+      "title": "Sama kont"
+    }
   }
 }

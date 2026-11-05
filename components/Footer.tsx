@@ -73,6 +73,12 @@ export default function Footer() {
             <li>
               <Link href="/credits">{t('nav.credits')}</Link>
             </li>
+            <li>
+              <Link href="/community">{t('nav.community')}</Link>
+            </li>
+            <li>
+              <Link href="/feedback">{t('nav.feedback')}</Link>
+            </li>
           </ul>
         </nav>
       </div>

@@ -14,6 +14,9 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('privacy');
+  // With the community open, "nothing collected" is no longer true: that item is replaced by the community's data practices.
+  const on = (process.env.NEXT_PUBLIC_COMMUNITY_MODE ?? 'off') !== 'off';
+  const items: string[] = on ? [...ITEMS.filter((x) => x !== 'collected'), 'community'] : [...ITEMS];
   return (
     <div className="container-narrow page standards">
       <header className="page-head">
@@ -25,7 +28,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
         </p>
       </header>
       <ol className="charter">
-        {ITEMS.map((s, i) => (
+        {items.map((s, i) => (
           <li key={s} id={s}>
             <span className="charter-n">{String(i + 1).padStart(2, '0')}</span>
             <div>

@@ -5,3 +5,13 @@
 [build.environment]
   NODE_VERSION = "22"
   NEXT_TELEMETRY_DISABLED = "1"
+
+# Security headers (all pages). Community APIs also send Cache-Control: no-store.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    Content-Security-Policy = "frame-ancestors 'none'"
+    X-Frame-Options = "DENY"

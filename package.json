@@ -1,6 +1,6 @@
 {
   "name": "lek-network",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,14 +8,19 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "check:i18n": "node scripts/check-messages.mjs"
+    "check:i18n": "node scripts/check-messages.mjs",
+    "test:community": "tsx --test tests/community/*.test.ts",
+    "community:migrate": "tsx scripts/community/migrate.mjs",
+    "community:grant-staff": "tsx scripts/community/grant-staff.mjs"
   },
   "dependencies": {
     "hls.js": "^1.5.0",
     "next": "^15.5.0",
     "next-intl": "^4.3.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "better-auth": "^1.6.0",
+    "pg": "^8.16.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
@@ -24,7 +29,9 @@
     "@types/react-dom": "^19.1.0",
     "eslint": "^9.30.0",
     "eslint-config-next": "^15.5.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "@types/pg": "^8.15.0",
+    "tsx": "^4.20.0"
   },
   "engines": {
     "node": ">=20.9"

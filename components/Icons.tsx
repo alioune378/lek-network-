@@ -49,3 +49,9 @@ export const LinkIcon = (p: P) => (
     <path d="M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1" />
   </svg>
 );
+export const UserIcon = (p: P) => (
+  <svg {...base(p)}>
+    <circle cx="12" cy="8.5" r="3.6" />
+    <path d="M4.8 20c.9-3.6 3.8-5.6 7.2-5.6s6.3 2 7.2 5.6" />
+  </svg>
+);
