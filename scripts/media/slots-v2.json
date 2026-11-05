@@ -1,0 +1,12 @@
+{
+  "dakar-today": {"q": ["BRT Dakar bus", "Dakar Plateau rue", "Dakar Place de l'Obélisque", "Dakar street 2023", "Dakar Médina marché"], "minYear": 2018},
+  "saint-louis-life": {"q": ["Guet Ndar pirogues", "Saint-Louis Sénégal pêcheurs", "Saint-Louis Sénégal rue"], "minYear": 2016},
+  "technology": {"q": ["Sénégal numérique", "Dakar startup", "Diamniadio parc numérique", "Senegal mobile money", "Dakar coworking", "Senegal students computer"], "minYear": 2016},
+  "tambacounda-now": {"q": ["Tambacounda ville", "Tambacounda marché", "Tambacounda hôpital"], "minYear": 2015},
+  "diaspora-now": {"q": ["Château Rouge Paris", "Little Senegal Harlem", "Senegalese community New York", "Sénégalais Paris"], "minYear": 2015},
+  "investigation-now": {"q": ["Dakar Plateau building", "Palais de justice Dakar", "Dakar Port 2022", "Dakar centre-ville"], "minYear": 2017},
+  "casamance-now": {"q": ["Casamance rizière", "Ziguinchor marché", "Casamance femmes riz"], "minYear": 2015},
+  "kaolack-now": {"q": ["Kaolack ville", "Kaolack Senegal", "Kaolack marché central", "Saloum Kaolack"], "minYear": 2012},
+  "studio-now": {"q": ["Dakar tournage", "Senegal film shooting", "African film crew camera", "Dakar television studio"], "minYear": 2015},
+  "essentiel-now": {"q": ["Dakar morning commute", "TER Dakar gare", "Dakar newspapers kiosk", "Dakar Corniche Ouest"], "minYear": 2018}
+}

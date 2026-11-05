@@ -1,6 +1,10 @@
 name: Media candidates
 on:
   workflow_dispatch:
+    inputs:
+      slots:
+        description: Slots file
+        default: scripts/media/slots.json
 permissions:
   contents: write
 jobs:
@@ -12,7 +16,7 @@ jobs:
         with:
           node-version: 22
       - run: npm install --no-save sharp@0.33.5
-      - run: node scripts/media/fetch-candidates.mjs /tmp/media-candidates
+      - run: node scripts/media/fetch-candidates.mjs /tmp/media-candidates ${{ inputs.slots }}
       - name: Push candidates to media-candidates branch
         run: |
           cd /tmp/media-candidates

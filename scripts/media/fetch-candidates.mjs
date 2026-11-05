@@ -26,9 +26,13 @@ async function search(q) {
   return Object.values(j.query?.pages ?? {}).sort((a, b) => a.index - b.index);
 }
 
-const slots = JSON.parse(await fs.readFile(new URL('./slots.json', import.meta.url)));
+const slotsFile = process.argv[3] ? path.resolve(process.argv[3]) : new URL('./slots.json', import.meta.url);
+const slots = JSON.parse(await fs.readFile(slotsFile));
 const all = {};
-for (const [slot, queries] of Object.entries(slots)) {
+for (const [slot, spec] of Object.entries(slots)) {
+  // A slot is either a list of queries or { q: [...], minYear } to keep only recent photographs.
+  const queries = Array.isArray(spec) ? spec : spec.q;
+  const minYear = Array.isArray(spec) ? 0 : spec.minYear ?? 0;
   const dir = path.join(OUT, slot);
   await fs.mkdir(dir, { recursive: true });
   const picked = [];
@@ -46,6 +50,8 @@ for (const [slot, queries] of Object.entries(slots)) {
       if (!/jpe?g/i.test(ii.mime) || ii.width < 1400 || ii.height < 800) continue;
       if (!FREE.test(lic) || BAD.test(lic)) continue;
       if (AI.test(cats) || AI.test(desc) || AI.test(p.title)) continue;
+      const year = Number((strip(m.DateTimeOriginal?.value).match(/(19|20)\d\d/) ?? [])[0] ?? 0);
+      if (minYear && year < minYear) continue;
       const n = picked.length + 1;
       const file = `${String(n).padStart(2, '0')}.jpg`;
       const img = await fetch(ii.thumburl ?? ii.url, { headers: { 'User-Agent': UA } });
