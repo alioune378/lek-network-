@@ -1,0 +1,28 @@
+name: Brand motion render
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Tools
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+          npm install --no-save --no-audit --no-fund playwright@1.49.1 > /dev/null
+          npx playwright install --with-deps chromium > /dev/null
+      - name: Render ident (30 fps)
+        run: node --experimental-strip-types scripts/brand/render-ident.mjs /tmp/ident 30
+      - name: Push to brand-motion branch
+        run: |
+          cd /tmp/ident && rm -rf frames
+          ls -la
+          git init -q -b brand-motion && git add -A
+          git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -q -m "Ident render for ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${GITHUB_REPOSITORY}.git" brand-motion
