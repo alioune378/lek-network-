@@ -20,4 +20,14 @@ export function formatTime(iso: string, locale: Locale): string {
   }
 }
 
-export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://lek-network.netlify.app').replace(/\/$/, '');
+export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://leknetwork.netlify.app').replace(/\/$/, '');
+
+/** Day and short month, e.g. "5 nov." — for compact news streams. */
+export function formatShortDate(iso: string, locale: Locale): string {
+  const opts: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', timeZone: 'Africa/Dakar' };
+  try {
+    return new Intl.DateTimeFormat(intlTag[locale], opts).format(new Date(iso));
+  } catch {
+    return iso.slice(5, 10);
+  }
+}

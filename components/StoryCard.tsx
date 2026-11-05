@@ -1,14 +1,33 @@
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { REGION_NAMES, hasVersion, tx, type Story } from '@/lib/content';
-import { formatDate, formatTime } from '@/lib/format';
+import { formatDate, formatShortDate, formatTime } from '@/lib/format';
 import type { Locale } from '@/lib/locales';
 import Cover from './Cover';
+import Photo from './Photo';
 
-type Variant = 'lead' | 'card' | 'row' | 'brief' | 'compact';
+type Variant = 'lead' | 'feature' | 'card' | 'side' | 'text' | 'overlay' | 'row' | 'brief' | 'compact' | 'stream';
+
+/** Story image: the licensed illustrative photo when one is assigned, otherwise the brand's abstract cover. */
+export function StoryMedia({ story, sizes, priority, credit }: { story: Story; sizes?: string; priority?: boolean; credit?: boolean }) {
+  if (story.photo) return <Photo id={story.photo} sizes={sizes} priority={priority} decorative caption={credit ? 'credit' : 'none'} className="media-fill" />;
+  return <Cover {...story.cover} seed={story.slug} className="cover media-fill" />;
+}
 
 /** One story, in the layouts the homepage and listings need. Text falls back to French when no version exists. */
-export default function StoryCard({ story, variant = 'card', index, headingLevel = 3 }: { story: Story; variant?: Variant; index?: number; headingLevel?: 2 | 3 }) {
+export default function StoryCard({
+  story,
+  variant = 'card',
+  index,
+  headingLevel = 3,
+  priority,
+}: {
+  story: Story;
+  variant?: Variant;
+  index?: number;
+  headingLevel?: 2 | 3;
+  priority?: boolean;
+}) {
   const locale = useLocale() as Locale;
   const t = useTranslations();
   const H = headingLevel === 2 ? 'h2' : 'h3';
@@ -33,6 +52,18 @@ export default function StoryCard({ story, variant = 'card', index, headingLevel
       <span className="demo-pill">{t('common.demo')}</span>
     </p>
   );
+  const media = (sizes: string, credit = false) => (
+    <Link href={href} className="sc-media" tabIndex={-1} aria-hidden="true">
+      <StoryMedia story={story} sizes={sizes} priority={priority} credit={credit} />
+    </Link>
+  );
+  const heading = (cls: string) => (
+    <H className={cls} lang={lang} dir={d}>
+      <Link href={href} className="sc-link">
+        {title}
+      </Link>
+    </H>
+  );
 
   if (variant === 'brief') {
     return (
@@ -40,10 +71,11 @@ export default function StoryCard({ story, variant = 'card', index, headingLevel
         <span className="brief-n" aria-hidden="true">
           {String((index ?? 0) + 1).padStart(2, '0')}
         </span>
-        <div>
-          <time className="brief-time" dateTime={story.published}>
-            {formatTime(story.published, locale)}
-          </time>
+        <div className="brief-body">
+          <p className="brief-meta">
+            <span>{tx(story.kicker, locale)}</span>
+            <time dateTime={story.published}>{formatTime(story.published, locale)}</time>
+          </p>
           <Link href={href} className="brief-link" lang={lang} dir={d}>
             {title}
           </Link>
@@ -52,20 +84,22 @@ export default function StoryCard({ story, variant = 'card', index, headingLevel
     );
   }
 
-  if (variant === 'row') {
+  if (variant === 'stream') {
     return (
-      <article className="row-card">
-        <Link href={href} className="row-media" tabIndex={-1} aria-hidden="true">
-          <Cover {...story.cover} seed={story.slug} className="cover" />
-        </Link>
-        <div>
-          {kicker}
-          <H className="row-title" lang={lang} dir={d}>
-            <Link href={href}>{title}</Link>
-          </H>
-          {meta}
+      <li className="stream-item">
+        <time className="stream-time" dateTime={story.published}>
+          {formatShortDate(story.published, locale)}
+        </time>
+        <div className="stream-body">
+          <p className="stream-kicker">{tx(story.kicker, locale)}</p>
+          <Link href={href} className="stream-link" lang={lang} dir={d}>
+            {title}
+          </Link>
         </div>
-      </article>
+        <Link href={href} className="stream-thumb" tabIndex={-1} aria-hidden="true">
+          <StoryMedia story={story} sizes="96px" />
+        </Link>
+      </li>
     );
   }
 
@@ -73,27 +107,82 @@ export default function StoryCard({ story, variant = 'card', index, headingLevel
     return (
       <article className="compact-card">
         {kicker}
-        <H className="compact-title" lang={lang} dir={d}>
-          <Link href={href}>{title}</Link>
-        </H>
+        {heading('compact-title')}
         {meta}
       </article>
     );
   }
 
+  if (variant === 'text') {
+    return (
+      <article className="text-card">
+        {kicker}
+        {heading('text-title')}
+        <p className="text-dek" lang={lang} dir={d}>
+          {dek}
+        </p>
+        {meta}
+      </article>
+    );
+  }
+
+  if (variant === 'row' || variant === 'side') {
+    return (
+      <article className={variant === 'row' ? 'row-card' : 'side-card'}>
+        {media(variant === 'row' ? '(min-width: 720px) 220px, 120px' : '140px')}
+        <div className="sc-body">
+          {kicker}
+          {heading(variant === 'row' ? 'row-title' : 'side-title')}
+          {meta}
+        </div>
+      </article>
+    );
+  }
+
+  if (variant === 'overlay') {
+    return (
+      <article className="overlay-card">
+        <StoryMedia story={story} sizes="(min-width: 900px) 50vw, 100vw" credit />
+        <div className="overlay-body">
+          {kicker}
+          {heading('overlay-title')}
+          <p className="overlay-dek" lang={lang} dir={d}>
+            {dek}
+          </p>
+        </div>
+      </article>
+    );
+  }
+
+  if (variant === 'lead') {
+    return (
+      <article className="lead-card">
+        {media('(min-width: 1024px) 66vw, 100vw', true)}
+        <div className="lead-body">
+          {kicker}
+          {heading('lead-title')}
+          <p className="lead-dek" lang={lang} dir={d}>
+            {dek}
+          </p>
+          {meta}
+        </div>
+      </article>
+    );
+  }
+
   return (
-    <article className={variant === 'lead' ? 'lead-card' : 'story-card'}>
-      <Link href={href} className="card-media" tabIndex={-1} aria-hidden="true">
-        <Cover {...story.cover} seed={story.slug} className="cover" />
-      </Link>
-      {kicker}
-      <H className={variant === 'lead' ? 'lead-title' : 'card-title'} lang={lang} dir={d}>
-        <Link href={href}>{title}</Link>
-      </H>
-      <p className={variant === 'lead' ? 'lead-dek' : 'card-dek'} lang={lang} dir={d}>
-        {dek}
-      </p>
-      {meta}
+    <article className={variant === 'feature' ? 'feature-card' : 'story-card'}>
+      {media(variant === 'feature' ? '(min-width: 1024px) 40vw, 100vw' : '(min-width: 1024px) 25vw, (min-width: 720px) 45vw, 100vw')}
+      <div className="sc-body">
+        {kicker}
+        {heading(variant === 'feature' ? 'feature-title' : 'card-title')}
+        {variant === 'feature' && (
+          <p className="card-dek" lang={lang} dir={d}>
+            {dek}
+          </p>
+        )}
+        {meta}
+      </div>
     </article>
   );
 }

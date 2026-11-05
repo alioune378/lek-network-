@@ -21,7 +21,21 @@
     "close": "Fermer",
     "language": "Langue",
     "skip": "Aller au contenu",
-    "main": "Navigation principale"
+    "main": "Navigation principale",
+    "contact": "Contact",
+    "privacy": "Confidentialité",
+    "credits": "Crédits photo",
+    "sections": "Rubriques",
+    "searchPlaceholder": "Rechercher un sujet, une région…",
+    "hint": {
+      "news": "Le fil de la rédaction",
+      "watch": "Documentaires, entretiens, séries",
+      "live": "Le direct de LËK",
+      "originals": "Nos productions en développement",
+      "africa": "Le continent vu de Dakar",
+      "diaspora": "Les Sénégalais du monde",
+      "studios": "Production pour marques et diffuseurs"
+    }
   },
   "common": {
     "demo": "Démo",
@@ -70,7 +84,9 @@
     "readCharter": "Lire notre charte",
     "studiosTitle": "LËK Studios",
     "studiosText": "Une division de production pour les marques, institutions et diffuseurs, séparée de la rédaction.",
-    "discoverStudios": "Découvrir les Studios"
+    "discoverStudios": "Découvrir les Studios",
+    "briefingVideo": "L’Essentiel en vidéo",
+    "watchNote": "Les images de LËK Watch sont des photos de lieux sous licence libre : aucun épisode n’a encore été tourné."
   },
   "article": {
     "sources": "Sources",
@@ -135,7 +151,36 @@
     "unavailableTitle": "Pas encore de vidéo",
     "unavailableText": "Ce programme est en préparation. La lecture apparaîtra ici dès qu’un épisode sera publié avec ses droits confirmés.",
     "play": "Lire la vidéo",
-    "soundOff": "Le son reste coupé jusqu’à ce que vous l’activiez."
+    "soundOff": "Le son reste coupé jusqu’à ce que vous l’activiez.",
+    "kinds": {
+      "briefing": "Briefing",
+      "documentary": "Documentaire",
+      "interview": "Entretiens",
+      "series": "Magazine",
+      "investigation": "Enquête"
+    },
+    "plannedEpisodes": "{n, plural, one {# épisode prévu} other {# épisodes prévus}}",
+    "moodImage": "Image d’ambiance : {place}. Ce n’est pas une image du programme",
+    "availability": "Disponibilité",
+    "stateHelp": {
+      "available": "Épisodes publiés, droits vérifiés.",
+      "in-production": "Tournage ou montage en cours.",
+      "in-development": "Projet écrit, pas encore tourné."
+    },
+    "collections": {
+      "documentaries": {
+        "title": "Documentaires et enquêtes",
+        "intro": "Le temps long : raconter le pays, vérifier les faits."
+      },
+      "interviews": {
+        "title": "Entretiens",
+        "intro": "Des voix qui façonnent le Sénégal et l’Afrique."
+      },
+      "series": {
+        "title": "Séries et briefings",
+        "intro": "Des rendez-vous courts et réguliers."
+      }
+    }
   },
   "live": {
     "title": "LËK Live",
@@ -269,7 +314,9 @@
     "sections": "Rubriques",
     "network": "Le réseau",
     "prototype": "Prototype de démonstration — contenus fictifs.",
-    "rights": "© {year} LËK Network"
+    "rights": "© {year} LËK Network",
+    "institution": "LËK Network",
+    "tools": "Outils du prototype :"
   },
   "newsroom": {
     "title": "Rédaction LËK",
@@ -338,5 +385,57 @@
     "rights": "Droits confirmés",
     "addVideo": "Ajouter la fiche",
     "subtitles": "Sous-titres"
+  },
+  "divisions": {
+    "news": "Info",
+    "watch": "Watch",
+    "live": "Live",
+    "originals": "Originals",
+    "studios": "Studios"
+  },
+  "media": {
+    "illustration": "Photo d’illustration",
+    "archive": "Archive",
+    "notOfStory": "Image d’un lieu, sans lien avec les faits décrits.",
+    "photoBy": "Photo :",
+    "publicDomain": "Domaine public"
+  },
+  "credits": {
+    "title": "Crédits photo",
+    "intro": "Toutes les photographies du site proviennent de Wikimedia Commons, sous licence libre ou dans le domaine public. Elles illustrent des lieux et la vie quotidienne.",
+    "rule": "Aucune de ces images ne documente les articles fictifs du prototype, et aucune n’a été générée ou modifiée par intelligence artificielle. Chaque légende l’indique.",
+    "brandTitle": "Illustrations de la marque",
+    "brandText": "Les motifs géométriques or et nuit sont des illustrations abstraites créées pour LËK Network. Ce ne sont pas des photographies."
+  },
+  "privacy": {
+    "title": "Confidentialité",
+    "intro": "Ce que fait réellement ce prototype de vos données.",
+    "status": "Document de travail du prototype, à remplacer par une politique validée avant le lancement.",
+    "items": {
+      "collected": {
+        "title": "Aucune collecte",
+        "text": "Le prototype n’a ni compte utilisateur, ni mesure d’audience, ni publicité. Il ne transmet aucune donnée personnelle à LËK."
+      },
+      "storage": {
+        "title": "Ce qui reste dans votre navigateur",
+        "text": "Votre choix de langue (un cookie de langue et une préférence locale) et la taille du texte des articles. Vous pouvez les effacer depuis votre navigateur."
+      },
+      "forms": {
+        "title": "Formulaire LËK Studios",
+        "text": "Le formulaire vérifie votre demande mais ne l’envoie pas : rien n’est transmis ni conservé."
+      },
+      "newsroom": {
+        "title": "Démonstration de rédaction",
+        "text": "Les brouillons de la démonstration restent dans votre navigateur uniquement. Il n’y a ni serveur ni base de données."
+      },
+      "thirdParty": {
+        "title": "Services tiers",
+        "text": "Le site est hébergé par Netlify, qui traite les données techniques de connexion nécessaires à l’hébergement. Les polices sont servies par le site lui-même. Les liens vers Wikimedia Commons ne s’ouvrent que si vous cliquez."
+      },
+      "launch": {
+        "title": "Avant le lancement",
+        "text": "Une politique complète (responsable du traitement, durées de conservation, droits d’accès et de suppression) sera publiée avant toute collecte réelle."
+      }
+    }
   }
 }

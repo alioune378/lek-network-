@@ -34,7 +34,7 @@ export default async function StandardsPage({ params }: { params: Promise<{ loca
           </li>
         ))}
       </ol>
-      <section className="transparency" aria-labelledby="err-h">
+      <section className="transparency" id="contact" aria-labelledby="err-h">
         <h2 id="err-h" className="box-title">
           {t('contact')}
         </h2>

@@ -3,7 +3,7 @@ import type { CoverPattern, Tone } from '@/lib/content';
 
 /**
  * Abstract editorial cover, drawn in SVG from the brand palette.
- * Deliberately not a photograph: the prototype has no licensed news images, and no image here pretends to document an event.
+ * Deliberately not a photograph. Used where no licensed photo fits (see lib/media) and as an occasional brand element.
  */
 const TONES: Record<Tone, { a: string; b: string; line: string; accent: string }> = {
   night: { a: '#0B0F1A', b: '#1B2440', line: 'rgba(212,160,23,.42)', accent: '#D4A017' },

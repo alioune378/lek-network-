@@ -21,7 +21,21 @@
     "close": "Close",
     "language": "Language",
     "skip": "Skip to content",
-    "main": "Main navigation"
+    "main": "Main navigation",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "credits": "Photo credits",
+    "sections": "Sections",
+    "searchPlaceholder": "Search a topic, a region…",
+    "hint": {
+      "news": "The newsroom’s latest",
+      "watch": "Documentaries, interviews, series",
+      "live": "LËK’s live channel",
+      "originals": "Our productions in development",
+      "africa": "The continent, seen from Dakar",
+      "diaspora": "Senegalese around the world",
+      "studios": "Production for brands and broadcasters"
+    }
   },
   "common": {
     "demo": "Demo",
@@ -70,7 +84,9 @@
     "readCharter": "Read our standards",
     "studiosTitle": "LËK Studios",
     "studiosText": "A production division for brands, institutions and broadcasters, kept separate from the newsroom.",
-    "discoverStudios": "Discover Studios"
+    "discoverStudios": "Discover Studios",
+    "briefingVideo": "L’Essentiel on video",
+    "watchNote": "LËK Watch images are freely licensed photographs of places: no episode has been filmed yet."
   },
   "article": {
     "sources": "Sources",
@@ -135,7 +151,36 @@
     "unavailableTitle": "No video yet",
     "unavailableText": "This programme is in preparation. Playback will appear here once an episode is published with cleared rights.",
     "play": "Play video",
-    "soundOff": "Sound stays off until you turn it on."
+    "soundOff": "Sound stays off until you turn it on.",
+    "kinds": {
+      "briefing": "Briefing",
+      "documentary": "Documentary",
+      "interview": "Interviews",
+      "series": "Magazine",
+      "investigation": "Investigation"
+    },
+    "plannedEpisodes": "{n, plural, one {# episode planned} other {# episodes planned}}",
+    "moodImage": "Mood image: {place}. Not an image from the programme",
+    "availability": "Availability",
+    "stateHelp": {
+      "available": "Episodes published, rights cleared.",
+      "in-production": "Filming or editing under way.",
+      "in-development": "Written, not yet filmed."
+    },
+    "collections": {
+      "documentaries": {
+        "title": "Documentaries and investigations",
+        "intro": "The long view: telling the country, checking the facts."
+      },
+      "interviews": {
+        "title": "Interviews",
+        "intro": "Voices shaping Senegal and Africa."
+      },
+      "series": {
+        "title": "Series and briefings",
+        "intro": "Short, regular appointments."
+      }
+    }
   },
   "live": {
     "title": "LËK Live",
@@ -269,7 +314,9 @@
     "sections": "Sections",
     "network": "The network",
     "prototype": "Demonstration prototype — fictional content.",
-    "rights": "© {year} LËK Network"
+    "rights": "© {year} LËK Network",
+    "institution": "LËK Network",
+    "tools": "Prototype tools:"
   },
   "newsroom": {
     "title": "LËK Newsroom",
@@ -338,5 +385,57 @@
     "rights": "Rights cleared",
     "addVideo": "Add record",
     "subtitles": "Subtitles"
+  },
+  "divisions": {
+    "news": "News",
+    "watch": "Watch",
+    "live": "Live",
+    "originals": "Originals",
+    "studios": "Studios"
+  },
+  "media": {
+    "illustration": "Illustrative photo",
+    "archive": "Archive",
+    "notOfStory": "A picture of the place, unrelated to the events described.",
+    "photoBy": "Photo:",
+    "publicDomain": "Public domain"
+  },
+  "credits": {
+    "title": "Photo credits",
+    "intro": "Every photograph on this site comes from Wikimedia Commons, under a free licence or in the public domain. They show places and everyday life.",
+    "rule": "None of these images documents the prototype’s fictional articles, and none was generated or altered by artificial intelligence. Every caption says so.",
+    "brandTitle": "Brand illustrations",
+    "brandText": "The gold-and-night geometric patterns are abstract illustrations made for LËK Network. They are not photographs."
+  },
+  "privacy": {
+    "title": "Privacy",
+    "intro": "What this prototype actually does with your data.",
+    "status": "Prototype working document, to be replaced by an approved policy before launch.",
+    "items": {
+      "collected": {
+        "title": "Nothing collected",
+        "text": "The prototype has no user accounts, no audience measurement and no advertising. It sends no personal data to LËK."
+      },
+      "storage": {
+        "title": "What stays in your browser",
+        "text": "Your language choice (a language cookie and a local preference) and your article text size. You can clear them from your browser."
+      },
+      "forms": {
+        "title": "LËK Studios form",
+        "text": "The form checks your request but does not send it: nothing is transmitted or stored."
+      },
+      "newsroom": {
+        "title": "Newsroom demonstration",
+        "text": "Demonstration drafts stay in your browser only. There is no server and no database."
+      },
+      "thirdParty": {
+        "title": "Third-party services",
+        "text": "The site is hosted by Netlify, which processes the technical connection data hosting requires. Fonts are served by the site itself. Links to Wikimedia Commons open only if you click them."
+      },
+      "launch": {
+        "title": "Before launch",
+        "text": "A full policy (data controller, retention periods, rights of access and deletion) will be published before any real data is collected."
+      }
+    }
   }
 }

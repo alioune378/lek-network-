@@ -4,6 +4,8 @@ import { Link } from '@/i18n/navigation';
 import { REGION_NAMES, SENEGAL_REGIONS, STORIES, latest, tx } from '@/lib/content';
 import type { Locale } from '@/lib/locales';
 import StoryCard from '@/components/StoryCard';
+import Photo from '@/components/Photo';
+import { REGION_PHOTO } from '@/lib/media';
 import { ArrowIcon } from '@/components/Icons';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -30,10 +32,13 @@ export default async function RegionsPage({ params }: { params: Promise<{ locale
           const n = STORIES.filter((s) => s.region === r).length;
           return (
             <section key={r} className="region-card" aria-labelledby={`r-${r}`}>
+              <Link href={`/region/${r}`} className="region-card-media" tabIndex={-1} aria-hidden="true">
+                <Photo id={REGION_PHOTO[r]} sizes="(min-width: 1024px) 30vw, 100vw" decorative className="media-fill" />
+              </Link>
               <header>
                 <h2 id={`r-${r}`} className="region-card-title">
                   <Link href={`/region/${r}`}>
-                    {tx(REGION_NAMES[r], locale)} <ArrowIcon width={18} height={18} />
+                    {tx(REGION_NAMES[r], locale)} <ArrowIcon width={18} height={18} className="flip-rtl" />
                   </Link>
                 </h2>
                 <p className="meta">{t('regions.count', { n })}</p>

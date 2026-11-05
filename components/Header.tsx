@@ -1,13 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
 import type { Locale } from '@/lib/locales';
 import { LIVE } from '@/lib/live';
+import { CATEGORIES } from '@/lib/content';
 import LanguageMenu from './LanguageMenu';
 import { CloseIcon, MenuIcon, SearchIcon } from './Icons';
 
+/** Public navigation. The newsroom tool is deliberately absent (see footer › prototype tools). */
 const NAV: { key: string; href: string; match: string }[] = [
   { key: 'news', href: '/category/all', match: '/category' },
   { key: 'regions', href: '/regions', match: '/region' },
@@ -18,20 +20,50 @@ const NAV: { key: string; href: string; match: string }[] = [
   { key: 'originals', href: '/originals', match: '/originals' },
   { key: 'studios', href: '/studios', match: '/studios' },
 ];
+/** The seven sections the menu puts first. */
+const PRIMARY = ['news', 'watch', 'live', 'originals', 'africa', 'diaspora', 'studios'];
 
 export default function Header({ locale }: { locale: Locale }) {
   const t = useTranslations('nav');
+  const tc = useTranslations('categories');
   const tl = useTranslations('live.status');
   const tm = useTranslations('meta');
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const wasOpen = useRef(false);
 
   // Close the drawer on navigation; lock page scroll while it is open.
   useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
     document.documentElement.classList.toggle('drawer-open', open);
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
-    if (open) document.addEventListener('keydown', onKey);
+    if (open) {
+      closeRef.current?.focus();
+      wasOpen.current = true;
+    } else if (wasOpen.current) {
+      menuRef.current?.focus();
+      wasOpen.current = false;
+    }
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+      // Keep keyboard focus inside the open menu.
+      if (e.key === 'Tab' && panelRef.current) {
+        const f = panelRef.current.querySelectorAll<HTMLElement>('a[href], button, input');
+        const first = f[0];
+        const last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, [open]);
 
@@ -40,6 +72,7 @@ export default function Header({ locale }: { locale: Locale }) {
     return pathname.startsWith(m);
   };
   const live = LIVE.status === 'live';
+  const tab = open ? 0 : -1;
 
   return (
     <>
@@ -48,7 +81,9 @@ export default function Header({ locale }: { locale: Locale }) {
       </a>
       <div className="strip">
         <div className="container strip-in">
-          <span className="strip-tag" lang="fr" dir="ltr">{tm('tagline')}</span>
+          <span className="strip-tag" lang="fr" dir="ltr">
+            {tm('tagline')}
+          </span>
           <span className="strip-right">
             <Link href="/live" className={`live-chip ${live ? 'is-live' : ''}`}>
               <span className="live-dot" aria-hidden="true" />
@@ -62,7 +97,7 @@ export default function Header({ locale }: { locale: Locale }) {
       </div>
       <header className="masthead">
         <div className="container masthead-in">
-          <button type="button" className="icon-btn menu-btn" aria-expanded={open} aria-controls="drawer" onClick={() => setOpen(true)}>
+          <button ref={menuRef} type="button" className="icon-btn menu-btn" aria-expanded={open} aria-controls="drawer" onClick={() => setOpen(true)}>
             <MenuIcon />
             <span className="sr-only">{t('menu')}</span>
           </button>
@@ -85,37 +120,89 @@ export default function Header({ locale }: { locale: Locale }) {
         </div>
       </header>
 
-      <div id="drawer" className={`drawer ${open ? 'is-open' : ''}`} aria-hidden={!open} role="dialog" aria-modal="true" aria-label={t('menu')}>
+      <div id="drawer" ref={panelRef} className={`drawer ${open ? 'is-open' : ''}`} aria-hidden={!open} role="dialog" aria-modal="true" aria-label={t('menu')}>
         <div className="drawer-head">
-          <img src="/brand/lek-horizontal-light.svg" alt="" width={1352} height={557} className="drawer-logo" />
-          <button type="button" className="icon-btn" onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
+          <Link href="/" className="drawer-brand" tabIndex={tab} aria-label="LËK Network">
+            <img src="/brand/lek-horizontal-light.svg" alt="" width={1352} height={557} className="drawer-logo" />
+          </Link>
+          <button ref={closeRef} type="button" className="drawer-close" onClick={() => setOpen(false)} tabIndex={tab}>
             <CloseIcon />
-            <span className="sr-only">{t('close')}</span>
+            <span>{t('close')}</span>
           </button>
         </div>
-        <form className="drawer-search" action={`/${locale}/search`} role="search">
-          <SearchIcon />
-          <input name="q" type="search" placeholder={t('search')} aria-label={t('search')} tabIndex={open ? 0 : -1} />
-        </form>
-        <nav className="drawer-nav" aria-label={t('main')}>
-          <Link href="/" tabIndex={open ? 0 : -1}>
-            {t('home')}
-          </Link>
-          {NAV.map((n) => (
-            <Link key={n.key} href={n.href} tabIndex={open ? 0 : -1} aria-current={isOn(n.match) ? 'page' : undefined}>
-              {t(n.key)}
-            </Link>
-          ))}
-          <Link href="/standards" tabIndex={open ? 0 : -1}>
-            {t('standards')}
-          </Link>
-          <Link href="/newsroom" tabIndex={open ? 0 : -1}>
-            {t('newsroom')}
-          </Link>
-        </nav>
-        <div className="drawer-lang">
-          <p className="drawer-k">{t('language')}</p>
-          {open && <LanguageMenu locale={locale} variant="list" onDone={() => setOpen(false)} />}
+
+        <div className="drawer-scroll">
+          <form className="drawer-search" action={`/${locale}/search`} role="search">
+            <SearchIcon />
+            <input name="q" type="search" placeholder={t('searchPlaceholder')} aria-label={t('search')} tabIndex={tab} enterKeyHint="search" />
+          </form>
+
+          <nav aria-label={t('main')}>
+            <ul className="drawer-primary" role="list">
+              {PRIMARY.map((k) => {
+                const n = NAV.find((x) => x.key === k)!;
+                return (
+                  <li key={k}>
+                    <Link href={n.href} tabIndex={tab} aria-current={isOn(n.match) ? 'page' : undefined} className={`dp dp-${k}`}>
+                      {k === 'live' && <span className={`live-dot ${live ? 'on' : ''}`} aria-hidden="true" />}
+                      <span className="dp-label">{t(k)}</span>
+                      <span className="dp-hint">{t(`hint.${k}`)}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+
+          <section className="drawer-sec" aria-labelledby="drawer-cats">
+            <h2 id="drawer-cats" className="drawer-k">
+              {t('sections')}
+            </h2>
+            <ul className="drawer-chips" role="list">
+              {CATEGORIES.filter((c) => c !== 'africa' && c !== 'diaspora').map((c) => (
+                <li key={c}>
+                  <Link href={`/category/${c}`} tabIndex={tab}>
+                    {tc(c)}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href="/regions" tabIndex={tab}>
+                  {t('regions')}
+                </Link>
+              </li>
+            </ul>
+          </section>
+
+          <section className="drawer-sec" aria-labelledby="drawer-lang">
+            <h2 id="drawer-lang" className="drawer-k">
+              {t('language')}
+            </h2>
+            {open && <LanguageMenu locale={locale} variant="list" onDone={() => setOpen(false)} />}
+          </section>
+
+          <ul className="drawer-secondary" role="list">
+            <li>
+              <Link href="/standards" tabIndex={tab}>
+                {t('standards')}
+              </Link>
+            </li>
+            <li>
+              <Link href="/standards#contact" tabIndex={tab}>
+                {t('contact')}
+              </Link>
+            </li>
+            <li>
+              <Link href="/privacy" tabIndex={tab}>
+                {t('privacy')}
+              </Link>
+            </li>
+            <li>
+              <Link href="/credits" tabIndex={tab}>
+                {t('credits')}
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
       {open && <div className="drawer-scrim" onClick={() => setOpen(false)} aria-hidden="true" />}

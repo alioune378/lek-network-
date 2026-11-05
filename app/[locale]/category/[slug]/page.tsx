@@ -5,6 +5,7 @@ import { Link } from '@/i18n/navigation';
 import { CATEGORIES, latest, type Category } from '@/lib/content';
 import StoryCard from '@/components/StoryCard';
 import DemoBanner from '@/components/DemoBanner';
+import Division from '@/components/Division';
 
 const isCat = (s: string): s is Category => (CATEGORIES as string[]).includes(s);
 
@@ -31,7 +32,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
       <DemoBanner />
       <div className="container page">
         <header className="page-head">
-          <p className="eyebrow">{t('nav.news')}</p>
+          <Division name="news" />
           <h1 className="page-title">{slug === 'all' ? t('categories.all') : t(`categories.${slug}`)}</h1>
         </header>
         <nav className="chips" aria-label={t('search.category')}>

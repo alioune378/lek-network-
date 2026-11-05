@@ -2,7 +2,8 @@
  * LËK Network — editorial content model (prototype).
  *
  * EVERY STORY BELOW IS FICTIONAL DEMONSTRATION CONTENT, written to test layouts and workflows.
- * None reports a real event, person, figure or accusation. Covers are abstract illustrations, not photographs.
+ * None reports a real event, person, figure or accusation. Images are either licensed photographs of places
+ * (lib/media, captioned as illustrations unrelated to the story) or the brand's abstract covers.
  *
  * Translations: an article is shown in a language only if that version exists here.
  * `translation` records its review state; anything not "reviewed" is labelled on the page.
@@ -19,6 +20,8 @@ export type Story = {
   region: RegionSlug;
   /** Abstract cover: pattern + palette, rendered as SVG (see components/Cover). */
   cover: { pattern: CoverPattern; tone: Tone };
+  /** Illustrative photograph from lib/media (licensed, credited, never presented as documenting the story). */
+  photo?: string;
   author: string;
   published: string;
   updated?: string;
@@ -66,6 +69,7 @@ export const STORIES: Story[] = [
     category: 'society',
     region: 'dakar',
     cover: { pattern: 'grid', tone: 'night' },
+    photo: 'dakar-aerial',
     author: DEMO_AUTHOR,
     published: '2026-11-05T07:30:00Z',
     updated: '2026-11-05T10:10:00Z',
@@ -123,6 +127,7 @@ export const STORIES: Story[] = [
     category: 'society',
     region: 'dakar',
     cover: { pattern: 'rays', tone: 'ochre' },
+    photo: 'corniche-runners',
     author: DEMO_AUTHOR,
     published: '2026-11-05T06:00:00Z',
     readTime: 3,
@@ -163,6 +168,7 @@ export const STORIES: Story[] = [
     category: 'economy',
     region: 'thies',
     cover: { pattern: 'diamonds', tone: 'sand' },
+    photo: 'thies-market',
     author: DEMO_AUTHOR,
     published: '2026-11-04T16:20:00Z',
     readTime: 5,
@@ -203,6 +209,7 @@ export const STORIES: Story[] = [
     category: 'culture',
     region: 'saint-louis',
     cover: { pattern: 'waves', tone: 'clay' },
+    photo: 'saint-louis-bridge',
     author: DEMO_AUTHOR,
     published: '2026-11-04T11:00:00Z',
     readTime: 4,
@@ -272,6 +279,7 @@ export const STORIES: Story[] = [
     category: 'society',
     region: 'touba',
     cover: { pattern: 'weave', tone: 'forest' },
+    photo: 'touba-mosque',
     author: DEMO_AUTHOR,
     published: '2026-11-03T09:10:00Z',
     readTime: 5,
@@ -306,6 +314,7 @@ export const STORIES: Story[] = [
     category: 'environment',
     region: 'ziguinchor',
     cover: { pattern: 'waves', tone: 'forest' },
+    photo: 'casamance-rice',
     author: DEMO_AUTHOR,
     published: '2026-11-02T13:30:00Z',
     readTime: 5,
@@ -340,6 +349,7 @@ export const STORIES: Story[] = [
     category: 'sport',
     region: 'kaolack',
     cover: { pattern: 'rays', tone: 'clay' },
+    photo: 'laamb-dialaw',
     author: DEMO_AUTHOR,
     published: '2026-11-02T08:00:00Z',
     readTime: 3,
@@ -372,6 +382,7 @@ export const STORIES: Story[] = [
     category: 'health',
     region: 'tambacounda',
     cover: { pattern: 'grid', tone: 'sand' },
+    photo: 'tambacounda-station',
     author: DEMO_AUTHOR,
     published: '2026-11-01T10:00:00Z',
     readTime: 4,
@@ -404,6 +415,7 @@ export const STORIES: Story[] = [
     category: 'africa',
     region: 'africa',
     cover: { pattern: 'diamonds', tone: 'indigo' },
+    photo: 'abidjan-plateau',
     author: DEMO_AUTHOR,
     published: '2026-10-31T17:00:00Z',
     readTime: 5,
@@ -441,6 +453,7 @@ export const STORIES: Story[] = [
     category: 'diaspora',
     region: 'diaspora',
     cover: { pattern: 'rings', tone: 'ochre' },
+    photo: 'harlem-116',
     author: DEMO_AUTHOR,
     published: '2026-10-30T19:00:00Z',
     readTime: 4,
@@ -473,6 +486,7 @@ export const STORIES: Story[] = [
     category: 'society',
     region: 'dakar',
     cover: { pattern: 'grid', tone: 'night' },
+    photo: 'dakar-port',
     author: DEMO_AUTHOR,
     published: '2026-10-29T12:00:00Z',
     readTime: 7,
@@ -533,6 +547,12 @@ export type Programme = {
   logline: Localized;
   description: Localized;
   cover: { pattern: CoverPattern; tone: Tone };
+  /** Mood image from lib/media — a location photograph, not a still from the programme. */
+  photo?: string;
+  /** Watch collection the programme belongs to. */
+  kind: 'briefing' | 'documentary' | 'interview' | 'series' | 'investigation';
+  /** Planned running time per episode, e.g. "5 min", "52 min". */
+  runtime: string;
   state: ProgrammeState;
   seasons: { n: number; episodes: Episode[] }[];
   credits: { role: Localized; name: string }[];
@@ -560,6 +580,9 @@ export const PROGRAMMES: Programme[] = [
       ar: 'موعد «LËK» اليومي: أخبار السنغال وأفريقيا، موثّقة المصادر ومشروحة، في فيديو قصير وصوت ونص.',
     },
     cover: { pattern: 'rays', tone: 'ochre' },
+    photo: 'corniche-sunset',
+    kind: 'briefing',
+    runtime: '5 min',
     state: 'in-development',
     seasons: [{ n: 1, episodes: devEpisodes(3) }],
     credits: devCredits(),
@@ -576,6 +599,9 @@ export const PROGRAMMES: Programme[] = [
       ar: 'أفلام وثائقية تُصوَّر في الجهات الأربع عشرة، بنفَس العمل الميداني الطويل وأصوات السكان.',
     },
     cover: { pattern: 'grid', tone: 'night' },
+    photo: 'lac-rose',
+    kind: 'documentary',
+    runtime: '26 min',
     state: 'in-development',
     seasons: [{ n: 1, episodes: devEpisodes(6) }],
     credits: devCredits(),
@@ -592,6 +618,9 @@ export const PROGRAMMES: Programme[] = [
       ar: 'حوارات مطوّلة مع من يفكرون ويبدعون ويبنون أفريقيا اليوم.',
     },
     cover: { pattern: 'waves', tone: 'clay' },
+    photo: 'goree',
+    kind: 'interview',
+    runtime: '45 min',
     state: 'in-development',
     seasons: [{ n: 1, episodes: devEpisodes(4) }],
     credits: devCredits(),
@@ -608,6 +637,9 @@ export const PROGRAMMES: Programme[] = [
       ar: 'مجلة عن مبتكري الحلول، بأرقام مُتحقَّق منها ونظرة نقدية.',
     },
     cover: { pattern: 'diamonds', tone: 'sand' },
+    photo: 'ter-dakar',
+    kind: 'series',
+    runtime: '13 min',
     state: 'in-development',
     seasons: [{ n: 1, episodes: devEpisodes(4) }],
     credits: devCredits(),
@@ -624,6 +656,9 @@ export const PROGRAMMES: Programme[] = [
       ar: 'صحافة LËK الاستقصائية، لا تُنشر إلا بعد التحقق من الوثائق وحق الرد والمراجعة القانونية.',
     },
     cover: { pattern: 'weave', tone: 'night' },
+    photo: 'dakar-harbour-aerial',
+    kind: 'investigation',
+    runtime: '',
     state: 'in-development',
     seasons: [{ n: 1, episodes: devEpisodes(2) }],
     credits: devCredits(),

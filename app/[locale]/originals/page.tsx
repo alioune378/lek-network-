@@ -4,6 +4,8 @@ import { Link } from '@/i18n/navigation';
 import { PROGRAMMES, tx } from '@/lib/content';
 import type { Locale } from '@/lib/locales';
 import Cover from '@/components/Cover';
+import Photo from '@/components/Photo';
+import Division from '@/components/Division';
 import { ArrowIcon } from '@/components/Icons';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -21,7 +23,7 @@ export default async function OriginalsPage({ params }: { params: Promise<{ loca
     <div className="dark-page">
       <div className="container page">
         <header className="page-head">
-          <p className="eyebrow eyebrow-gold">LËK ORIGINALS</p>
+          <Division name="originals" tone="dark" />
           <h1 className="page-title">{t('originals.title')}</h1>
           <p className="page-intro">{t('originals.intro')}</p>
         </header>
@@ -31,21 +33,23 @@ export default async function OriginalsPage({ params }: { params: Promise<{ loca
               <Link href={`/watch/${p.slug}`} className="slate-link">
                 <span className="slate-n">{String(i + 1).padStart(2, '0')}</span>
                 <span className="slate-media">
-                  <Cover {...p.cover} seed={p.slug} className="cover" />
+                  {p.photo ? <Photo id={p.photo} sizes="(min-width: 900px) 280px, 100vw" decorative className="media-fill" /> : <Cover {...p.cover} seed={p.slug} className="cover" />}
                 </span>
                 <span className="slate-body">
                   <span className="slate-name">{p.name}</span>
                   <span className="slate-log">{tx(p.logline, locale)}</span>
                   <span className="slate-desc">{tx(p.description, locale)}</span>
-                  <span className="prog-format">
-                    {tx(p.format, locale)} · {t(`watch.states.${p.state}`)}
+                  <span className="cine-labels">
+                    <span className="state-tag state-dev">{t(`watch.states.${p.state}`)}</span>
+                    <span>{tx(p.format, locale)}</span>
                   </span>
                 </span>
-                <ArrowIcon width={22} height={22} className="slate-arrow" />
+                <ArrowIcon width={22} height={22} className="slate-arrow flip-rtl" />
               </Link>
             </li>
           ))}
         </ol>
+        <p className="band-note">{t('home.watchNote')}</p>
       </div>
     </div>
   );

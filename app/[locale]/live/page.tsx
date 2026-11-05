@@ -5,6 +5,7 @@ import { formatDate } from '@/lib/format';
 import type { Locale } from '@/lib/locales';
 import Player from '@/components/Player';
 import Cover from '@/components/Cover';
+import Division from '@/components/Division';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -24,7 +25,7 @@ export default async function LivePage({ params }: { params: Promise<{ locale: s
       <div className="container page">
         <header className="page-head live-head">
           <div>
-            <p className="eyebrow eyebrow-gold">LËK LIVE</p>
+            <Division name="live" tone="dark" live={LIVE.status === 'live'} />
             <h1 className="page-title">{t('title')}</h1>
             <p className="page-intro">{t('intro')}</p>
           </div>

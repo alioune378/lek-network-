@@ -6,6 +6,8 @@ import { REGION_NAMES, STORIES, hasVersion, programmeBySlug, related, storyBySlu
 import { formatDate } from '@/lib/format';
 import { dirOf, localeNames, locales, type Locale } from '@/lib/locales';
 import Cover from '@/components/Cover';
+import Photo from '@/components/Photo';
+import { photo, ptx } from '@/lib/media';
 import StoryCard from '@/components/StoryCard';
 import ArticleTools from '@/components/ArticleTools';
 import { ArrowIcon, PlayIcon } from '@/components/Icons';
@@ -28,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       // Only languages with an actual version of the article are offered as alternates.
       languages: Object.fromEntries(locales.filter((x) => hasVersion(s, x)).map((x) => [x, `/${x}/article/${s.slug}`])),
     },
-    openGraph: { type: 'article', publishedTime: s.published, modifiedTime: s.updated },
+    openGraph: { type: 'article', publishedTime: s.published, modifiedTime: s.updated, images: s.photo ? [`/media/photos/${s.photo}-1200.webp`] : undefined },
   };
 }
 
@@ -47,6 +49,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ locale
   const state = s.translation[lang];
   const otherVersions = locales.filter((x) => x !== locale && hasVersion(s, x));
   const prog = s.programme ? programmeBySlug(s.programme) : undefined;
+  const ph = photo(s.photo);
   const pick = (v: Partial<Record<Locale, string>> & { fr: string }) => v[lang] ?? v.fr;
 
   return (
@@ -85,12 +88,18 @@ export default async function ArticlePage({ params }: { params: Promise<{ locale
         </div>
       </header>
 
-      <figure className="article-figure">
-        <Cover {...s.cover} seed={s.slug} className="cover" label={t('common.illustration')} />
-        <figcaption className="container-narrow">
-          {t('common.illustration')} · {t('article.credit')}: LËK Network
-        </figcaption>
-      </figure>
+      {ph ? (
+        <div className="article-figure article-photo">
+          <Photo id={ph.id} sizes="(min-width: 1280px) 1200px, 100vw" priority caption="caption" />
+        </div>
+      ) : (
+        <figure className="article-figure">
+          <Cover {...s.cover} seed={s.slug} className="cover" label={t('common.illustration')} />
+          <figcaption className="container-narrow">
+            {t('common.illustration')} · {t('article.credit')}: LËK Network
+          </figcaption>
+        </figure>
+      )}
 
       <div className="container-narrow article-main">
         <ArticleTools title={pick(s.title)} />
@@ -131,7 +140,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ locale
 
         {prog && (
           <Link href={`/watch/${prog.slug}`} className="article-prog">
-            <Cover {...prog.cover} seed={prog.slug} className="cover" />
+            {prog.photo ? <Photo id={prog.photo} sizes="200px" decorative className="media-fill" /> : <Cover {...prog.cover} seed={prog.slug} className="cover" />}
             <span className="article-prog-body">
               <span className="eyebrow eyebrow-gold">{t('article.relatedVideo')}</span>
               <span className="article-prog-name">
@@ -163,7 +172,16 @@ export default async function ArticlePage({ params }: { params: Promise<{ locale
             </div>
             <div>
               <dt>{t('article.credit')}</dt>
-              <dd>{t('common.illustration')}</dd>
+              <dd>
+                {ph ? (
+                  <>
+                    {ptx(ph.place, locale)} — {ph.author}, {ph.license} ·{' '}
+                    <Link href="/credits">{t('nav.credits')}</Link>
+                  </>
+                ) : (
+                  t('common.illustration')
+                )}
+              </dd>
             </div>
             <div id="corrections">
               <dt>{t('article.corrections')}</dt>
@@ -183,7 +201,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ locale
             </div>
           </dl>
           <Link href="/standards" className="more-link">
-            {t('nav.standards')} <ArrowIcon width={16} height={16} />
+            {t('nav.standards')} <ArrowIcon width={16} height={16} className="flip-rtl" />
           </Link>
         </section>
       </div>
@@ -192,7 +210,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ locale
         <h2 id="rel-h" className="section-title">
           {t('article.related')}
         </h2>
-        <div className="secondary-grid">
+        <div className="related-grid">
           {related(s).map((r) => (
             <StoryCard key={r.slug} story={r} />
           ))}

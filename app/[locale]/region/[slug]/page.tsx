@@ -5,6 +5,8 @@ import { Link } from '@/i18n/navigation';
 import { REGION_NAMES, SENEGAL_REGIONS, latest, tx, type RegionSlug } from '@/lib/content';
 import type { Locale } from '@/lib/locales';
 import StoryCard from '@/components/StoryCard';
+import Photo from '@/components/Photo';
+import { REGION_PHOTO, photo, ptx } from '@/lib/media';
 import DemoBanner from '@/components/DemoBanner';
 
 const ALL = Object.keys(REGION_NAMES) as RegionSlug[];
@@ -27,16 +29,25 @@ export default async function RegionPage({ params }: { params: Promise<{ locale:
   const t = await getTranslations();
   const items = latest().filter((s) => s.region === slug);
   const world = slug === 'africa' || slug === 'diaspora';
+  const ph = photo(REGION_PHOTO[slug]);
 
   return (
     <>
       <DemoBanner />
-      <div className="container page">
-        <header className="page-head">
-          <p className="eyebrow">{world ? t('home.world') : `${t('regions.title')} · ${t('regions.senegal')}`}</p>
-          <h1 className="page-title">{tx(REGION_NAMES[slug], locale)}</h1>
-          <p className="page-intro">{world ? t('home.worldIntro') : t('regions.intro')}</p>
-        </header>
+      <header className="place-banner">
+        {ph && <Photo id={ph.id} sizes="100vw" priority decorative className="place-banner-photo" />}
+        <div className="container place-banner-in">
+          <p className="eyebrow eyebrow-light">{world ? t('home.world') : `${t('regions.title')} · ${t('regions.senegal')}`}</p>
+          <h1 className="place-banner-title">{tx(REGION_NAMES[slug], locale)}</h1>
+          <p className="place-banner-intro">{world ? t('home.worldIntro') : t('regions.intro')}</p>
+          {ph && (
+            <p className="place-banner-credit">
+              {ptx(ph.place, locale)} · {ph.author}, {ph.license === 'Public domain' ? t('media.publicDomain') : ph.license}
+            </p>
+          )}
+        </div>
+      </header>
+      <div className="container page page-after-banner">
         {!world && (
           <nav className="chips" aria-label={t('regions.title')}>
             {SENEGAL_REGIONS.map((r) => (

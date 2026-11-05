@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import StudiosForm from '@/components/StudiosForm';
-import Cover from '@/components/Cover';
+import Photo from '@/components/Photo';
+import Division from '@/components/Division';
 
 const SERVICES = ['brand', 'corporate', 'film', 'events', 'ads', 'interviews', 'post'] as const;
 const STEPS = ['brief', 'proposal', 'production', 'delivery'] as const;
@@ -19,10 +20,9 @@ export default async function StudiosPage({ params }: { params: Promise<{ locale
   return (
     <>
       <section className="studios-hero">
-        <Cover pattern="weave" tone="night" seed="studios" className="cover studios-hero-art" />
+        <Photo id="film-set" sizes="(min-width: 900px) 50vw, 100vw" priority caption="credit" className="studios-hero-photo" />
         <div className="container studios-hero-in">
-          <img src="/brand/lek-icon-light.svg" alt="" width={800} height={800} className="studios-hero-mark" />
-          <p className="eyebrow eyebrow-gold">{t('title')}</p>
+          <Division name="studios" tone="dark" />
           <h1 className="studios-title">{t('headline')}</h1>
           <p className="studios-lede">{t('intro')}</p>
           <p className="studios-sep">{t('independence')}</p>

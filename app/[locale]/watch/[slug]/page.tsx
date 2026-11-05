@@ -5,6 +5,9 @@ import { Link } from '@/i18n/navigation';
 import { PROGRAMMES, STORIES, programmeBySlug, tx } from '@/lib/content';
 import type { Locale } from '@/lib/locales';
 import Cover from '@/components/Cover';
+import Photo from '@/components/Photo';
+import Division from '@/components/Division';
+import { photo, ptx } from '@/lib/media';
 import Player from '@/components/Player';
 import StoryCard from '@/components/StoryCard';
 
@@ -25,19 +28,30 @@ export default async function ProgrammePage({ params }: { params: Promise<{ loca
   const p = programmeBySlug(slug);
   if (!p) notFound();
   const t = await getTranslations();
+  const ph = photo(p.photo);
   const stories = STORIES.filter((s) => s.programme === p.slug);
 
   return (
     <div className="dark-page">
       <section className="prog-banner">
-        <Cover {...p.cover} seed={p.slug} className="cover prog-banner-art" />
+        {ph ? <Photo id={ph.id} sizes="100vw" priority decorative className="prog-banner-art" /> : <Cover {...p.cover} seed={p.slug} className="cover prog-banner-art" />}
         <div className="container prog-banner-in">
           <Link href="/watch" className="crumb-light">
-            LËK Watch
+            <Division name="watch" tone="dark" as="span" />
           </Link>
-          <span className="state-pill">{t(`watch.states.${p.state}`)}</span>
+          <p className="cine-labels">
+            <span className="state-tag state-dev">{t(`watch.states.${p.state}`)}</span>
+            <span>{t(`watch.kinds.${p.kind}`)}</span>
+            {p.runtime && <span>{p.runtime}</span>}
+          </p>
           <h1 className="prog-banner-title">{p.name}</h1>
           <p className="prog-banner-log">{tx(p.logline, locale)}</p>
+          {ph && (
+            <p className="watch-cine-note">
+              {t('watch.moodImage', { place: ptx(ph.place, locale) })} · {ph.author}, {ph.license} ·{' '}
+              <Link href="/credits">{t('nav.credits')}</Link>
+            </p>
+          )}
         </div>
       </section>
 
@@ -102,7 +116,7 @@ export default async function ProgrammePage({ params }: { params: Promise<{ loca
         <section className="paper-band">
           <div className="container section">
             <h2 className="section-title">{t('article.related')}</h2>
-            <div className="secondary-grid">
+            <div className="related-grid">
               {stories.map((s) => (
                 <StoryCard key={s.slug} story={s} />
               ))}
