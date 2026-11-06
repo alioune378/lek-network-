@@ -117,13 +117,13 @@ Updated after each milestone. "Verified" means checked by the CI run recorded on
 - **Staging site**: `leknetwork-staging` was created with team-login protection on all deploys and the non-secret variables set. It is **not functional yet**: the founder must link the repo (branch `staging`), create the database, and set the secrets (`docs/STAGING.md` §2).
 - **Not yet proven**: real email delivery (Resend) and Turnstile with real keys. These need the end-to-end test in `docs/STAGING.md` §5.
 
-## Milestone 10 — Brand migration phase 1: LËK Info (staging branch only)
+## Milestone 10 — Brand migration: LËK Info (live since 5 Nov 2026)
 - The news publication is now **LËK Info**, a LËK Network publication. It uses the founder's logo package
   (`public/brand/lek-info`); the hare emblem and the two gold dots are unchanged.
 - New group page `/group` for LËK Network. No URL changed. `Programme.division` lets future LËK Media programmes
   leave LËK Info without duplication.
 - Verified on `staging` (commit aff8741, identical to the tested 67a6971): CI 90 screenshots, 204 audited page loads, all checks; community
-  95/95. The public site (`main`) is unchanged.
+  95/95. Approved by the founder and deployed to the public site (Netlify deploy 6aed1e17…, commit b8abac6).
 - Details, changed references and remaining work: `docs/BRAND-MIGRATION.md`.
 
 ## Verification log

@@ -1,7 +1,8 @@
 # LËK brand migration: phase 1 (LËK Network → LËK Info)
 
-Status: done on the `staging` branch. **Not on the public site.** `main`, which deploys
-leknetwork.netlify.app, is unchanged. Merge `staging` into `main` only after founder approval.
+Status: **live on the public site** since 2026-11-06 00:24 UTC (5 Nov, 19:24 New York). The founder approved it after
+reviewing the staging screenshots; Netlify production deploy `6aed1e1787cd372cd48916df`, commit `b8abac6`. It was
+tested on the `staging` branch first.
 
 ## Confirmed architecture (founder, 2026-11-05)
 
@@ -121,7 +122,7 @@ The staging Netlify site is not linked yet (see `docs/STAGING.md` §2), so the t
 
 ## Remaining work
 
-- [ ] Founder reviews the staging screenshots, then approves merging `staging` into `main` (phase 2, public site).
+- [x] Founder reviewed the staging screenshots and approved; `staging` merged into `main` and deployed (phase 2 done, 5 Nov 2026).
 - [ ] Choose a LËK Info tagline. For now the strip says "Un média de LËK Network"; the motto belongs to the group.
 - [ ] Translate the group page and meta description into wo, es, de, it, pt, tr, zh (they fall back to
       French/English).
