@@ -7,7 +7,7 @@ name: Community (private pilot configuration tests)
 # Production is not affected: it builds without COMMUNITY_MODE (community off).
 on:
   push:
-    branches: [main]
+    branches: [main, staging]
   workflow_dispatch:
 
 permissions:
@@ -99,7 +99,8 @@ jobs:
           git init -q
           git config user.name "lek-ci"
           git config user.email "lek-ci@users.noreply.github.com"
-          git checkout -q -b ci-community
+          RESULTS=ci-community; [ "${GITHUB_REF_NAME}" = "staging" ] && RESULTS=ci-community-staging
+          git checkout -q -b "$RESULTS"
           git add -A
           git commit -q -m "Community results for ${GITHUB_SHA}"
-          git push -q -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" ci-community
+          git push -q -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" "$RESULTS"

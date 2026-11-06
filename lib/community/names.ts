@@ -1,7 +1,7 @@
 /** Usernames: 3–20 characters, lower-case letters, digits and underscore. Reserved words prevent impersonation. */
 export const USERNAME_RE = /^[a-z0-9_]{3,20}$/;
 
-const RESERVED = ['admin', 'administrator', 'administrateur', 'moderator', 'moderateur', 'moderation', 'mod', 'staff', 'support', 'help', 'aide', 'official', 'officiel', 'newsroom', 'redaction', 'redac', 'editor', 'editeur', 'journalist', 'journaliste', 'root', 'system', 'systeme', 'null', 'undefined', 'anonymous', 'anonyme', 'deleted', 'supprime', 'lek', 'leknetwork', 'lek_network', 'lekstudios', 'lekwatch', 'leklive'];
+const RESERVED = ['admin', 'administrator', 'administrateur', 'moderator', 'moderateur', 'moderation', 'mod', 'staff', 'support', 'help', 'aide', 'official', 'officiel', 'newsroom', 'redaction', 'redac', 'editor', 'editeur', 'journalist', 'journaliste', 'root', 'system', 'systeme', 'null', 'undefined', 'anonymous', 'anonyme', 'deleted', 'supprime', 'lek', 'leknetwork', 'lek_network', 'lekinfo', 'lek_info', 'lekmedia', 'lek_media', 'lekproductions', 'lek_productions', 'lekstudios', 'lekwatch', 'leklive'];
 
 const fold = (s: string) =>
   s

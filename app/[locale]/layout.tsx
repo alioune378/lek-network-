@@ -33,11 +33,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const t = await getTranslations({ locale, namespace: 'meta' });
   return {
     metadataBase: new URL(siteUrl),
-    title: { default: t('title'), template: `%s · LËK Network` },
+    title: { default: t('title'), template: `%s · LËK Info` },
     description: t('description'),
     alternates: { canonical: `/${locale}`, languages: Object.fromEntries(locales.map((l) => [l, `/${l}`])) },
-    icons: { icon: '/favicon.ico', apple: '/brand/lek-icon-512.png' },
-    openGraph: { siteName: 'LËK Network', type: 'website', locale, images: ['/brand/lek-icon-512.png'] },
+    icons: { icon: '/favicon.ico', apple: '/brand/lek-info/lek-info-icon-light.png' },
+    openGraph: { siteName: 'LËK Info', type: 'website', locale, images: ['/brand/lek-info/lek-info-icon-light.png'] },
     // Prototype: keep search engines away until real journalism is published.
     robots: { index: false, follow: false },
   };

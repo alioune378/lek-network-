@@ -28,6 +28,7 @@ const PAGES = [
   ['privacy', '/privacy'],
   ['credits', '/credits'],
   ['newsroom', '/newsroom'],
+  ['group', '/group'],
 ];
 const LOCALES = ['fr', 'en', 'ar'];
 const SHOT_VIEWPORTS = [
@@ -146,6 +147,16 @@ report.checks.logo = await p.evaluate(() => {
   return { loaded: i.complete && i.naturalWidth > 0, width: Math.round(r.width), height: Math.round(r.height), ratio: +(r.width / r.height).toFixed(2) };
 });
 
+// brand (migration phase 1): the publication is LËK Info, published by LËK Network
+report.checks.brand = await p.evaluate(() => ({
+  title: document.title,
+  siteName: document.querySelector('meta[property="og:site_name"]')?.getAttribute('content') ?? null,
+  headerLogo: document.querySelector('.brand-logo')?.getAttribute('src') ?? null,
+  headerAlt: document.querySelector('.brand-logo')?.getAttribute('alt') ?? null,
+  publisher: document.querySelector('.strip-parent')?.textContent?.trim() ?? null,
+  footerLogo: document.querySelector('.footer-logo')?.getAttribute('src') ?? null,
+}));
+
 // menu: opens, locks page scroll, moves focus inside, closes with Escape and returns focus
 await p.locator('.menu-btn').click();
 await p.waitForTimeout(450);
@@ -252,7 +263,12 @@ await browser.close();
 
 const c = report.checks;
 const checkFail = [];
-if (!c.logo?.loaded || Math.abs((c.logo?.ratio ?? 0) - 2.43) > 0.05) checkFail.push('logo');
+{
+  const b = c.brand ?? {};
+  if (!/LËK Info/.test(b.title ?? '') || b.siteName !== 'LËK Info' || !/lek-info-horizontal-light/.test(b.headerLogo ?? '') || b.headerAlt !== 'LËK Info' || !/LËK Network/.test(b.publisher ?? '') || !/lek-info-stacked-dark/.test(b.footerLogo ?? '')) checkFail.push('brand');
+}
+// LËK Info horizontal logo (web framing 976 × 382 → 2.55)
+if (!c.logo?.loaded || Math.abs((c.logo?.ratio ?? 0) - 2.55) > 0.05) checkFail.push('logo');
 if (!c.drawer?.open || !c.drawer?.pageLocked || !c.drawer?.focusInside || c.drawer?.newsroomInMenu || c.drawer?.contained !== 'contain') checkFail.push('drawer');
 if (!c.drawerClosed?.closed || !c.drawerClosed?.focusBack || !c.drawerClosed?.pageUnlocked) checkFail.push('drawer-close');
 if (!String(c.switchKeepsArticle).endsWith('/ar/article/dakar-espaces-publics') || c.arDir !== 'rtl') checkFail.push('language-switch');

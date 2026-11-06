@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { CATEGORIES } from '@/lib/content';
+import { LOGO, PUBLICATION } from '@/lib/brand';
 
 export default function Footer() {
   const t = useTranslations();
@@ -8,9 +9,9 @@ export default function Footer() {
     <footer className="footer">
       <div className="container footer-grid">
         <div className="footer-brand">
-          <img src="/brand/lek-horizontal-light.svg" alt="LËK Network" width={1352} height={557} className="footer-logo" />
-          <p className="footer-tag" lang="fr" dir="ltr">
-            {t('meta.tagline')}
+          <img src={LOGO.stackedOnDark.src} alt={PUBLICATION} width={LOGO.stackedOnDark.width} height={LOGO.stackedOnDark.height} className="footer-logo" />
+          <p className="footer-tag">
+            <Link href="/group">{t('meta.publisher')}</Link>
           </p>
           <p className="footer-about">{t('footer.about')}</p>
         </div>
@@ -61,6 +62,9 @@ export default function Footer() {
             {t('footer.institution')}
           </h2>
           <ul role="list">
+            <li>
+              <Link href="/group">{t('footer.group')}</Link>
+            </li>
             <li>
               <Link href="/standards">{t('nav.standards')}</Link>
             </li>

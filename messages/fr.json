@@ -1,8 +1,9 @@
 {
   "meta": {
-    "title": "LËK Network — Toujours un temps d’avance",
-    "description": "Média indépendant sénégalais : actualité, documentaires, entretiens et direct. Prototype.",
-    "tagline": "Toujours un temps d’avance."
+    "title": "LËK Info — Actualité du Sénégal, de l’Afrique et de la diaspora",
+    "description": "LËK Info, le média d’information de LËK Network : actualité, documentaires, entretiens et direct, depuis le Sénégal. Prototype.",
+    "tagline": "Toujours un temps d’avance.",
+    "publisher": "Un média de LËK Network"
   },
   "nav": {
     "home": "Accueil",
@@ -330,8 +331,9 @@
     "network": "Le réseau",
     "prototype": "Prototype de démonstration — contenus fictifs.",
     "rights": "© {year} LËK Network",
-    "institution": "LËK Network",
-    "tools": "Outils du prototype :"
+    "institution": "LËK Info",
+    "tools": "Outils du prototype :",
+    "group": "Le groupe LËK Network"
   },
   "newsroom": {
     "title": "Rédaction LËK",
@@ -1139,5 +1141,25 @@
       "saved": "Merci ! Vos réponses sont enregistrées. Vous pouvez les modifier à tout moment.",
       "needRatings": "Répondez au moins aux questions de notation avant d’enregistrer."
     }
+  },
+  "group": {
+    "title": "LËK Network",
+    "eyebrow": "LE GROUPE",
+    "intro": "LËK Network est la société mère de LËK. Le groupe réunit des marques distinctes, chacune avec son propre rôle.",
+    "divisionsTitle": "Les divisions",
+    "status": {
+      "live": "En ligne",
+      "planned": "En préparation"
+    },
+    "here": "Vous êtes ici.",
+    "roles": {
+      "info": "Le média d’information : actualité, régions, vidéo (LËK Watch), direct (LËK Live), programmes originaux et la communauté des lecteurs.",
+      "media": "Divertissement, culture et programmes numériques.",
+      "productions": "Production audiovisuelle professionnelle : documentaires, cinéma et projets commerciaux."
+    },
+    "studios": "L’offre de production actuelle est présentée sur la page LËK Studios.",
+    "studiosLink": "Voir LËK Studios",
+    "clearance": "Les noms des divisions sont des propositions en cours de vérification juridique (marques).",
+    "contact": "Contact et partenariats"
   }
 }

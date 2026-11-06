@@ -1,5 +1,5 @@
 /**
- * LËK Network — photo library (prototype).
+ * LËK Info — photo library (prototype).
  *
  * Every photograph comes from Wikimedia Commons under a free licence (CC0, CC BY, CC BY-SA or public domain),
  * selected by scripts/media (search + licence filter, AI-generated files excluded) and reviewed by eye.

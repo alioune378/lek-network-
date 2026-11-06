@@ -153,6 +153,8 @@ try {
     boot1.data,
   );
   const newest = await mailLink(FOUNDER, 'invite', 0);
+  const founderMail = (await (await fetch(`${BASE}/api/community/test-mail?to=${encodeURIComponent(FOUNDER)}`, { headers: { 'x-test-token': TOKEN } })).json()).items?.find((m) => m.kind === 'invite');
+  check('Community emails are signed by LËK Info, a LËK Network publication', /LËK Info · un média de LËK Network/.test(founderMail?.body ?? ''), (founderMail?.body ?? '').split('\n').slice(-1)[0]);
   const older = await mailLink(FOUNDER, 'invite', 1);
   const olderCheck = (await call(fctx, 'GET', `/api/community/invites/check?token=${tokenOf(older)}`)).data;
   const newestCheck = (await call(fctx, 'GET', `/api/community/invites/check?token=${tokenOf(newest)}`)).data;

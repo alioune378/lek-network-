@@ -3,9 +3,9 @@ const pick = (l?: string): L => (l === 'en' || l === 'ar' ? l : l === 'fr' || l 
 
 const T = {
   verify: {
-    fr: ['Confirmez votre adresse — LËK Community', 'Bonjour,\n\nPour activer votre compte LËK Community, ouvrez ce lien (valable 24 heures) :\n{url}\n\nSi vous n’avez rien demandé, ignorez ce message.\n\nLËK Network — Toujours un temps d’avance.'],
-    en: ['Confirm your address — LËK Community', 'Hello,\n\nTo activate your LËK Community account, open this link (valid for 24 hours):\n{url}\n\nIf you did not ask for this, ignore this message.\n\nLËK Network'],
-    ar: ['أكّد عنوانك — LËK Community', 'مرحباً،\n\nلتفعيل حسابك في LËK Community افتح هذا الرابط (صالح 24 ساعة):\n{url}\n\nإذا لم تطلب ذلك فتجاهل هذه الرسالة.\n\nLËK Network'],
+    fr: ['Confirmez votre adresse — LËK Community', 'Bonjour,\n\nPour activer votre compte LËK Community, ouvrez ce lien (valable 24 heures) :\n{url}\n\nSi vous n’avez rien demandé, ignorez ce message.\n\nLËK Info · un média de LËK Network'],
+    en: ['Confirm your address — LËK Community', 'Hello,\n\nTo activate your LËK Community account, open this link (valid for 24 hours):\n{url}\n\nIf you did not ask for this, ignore this message.\n\nLËK Info · LËK Network'],
+    ar: ['أكّد عنوانك — LËK Community', 'مرحباً،\n\nلتفعيل حسابك في LËK Community افتح هذا الرابط (صالح 24 ساعة):\n{url}\n\nإذا لم تطلب ذلك فتجاهل هذه الرسالة.\n\nLËK Info · LËK Network'],
   },
   reset: {
     fr: ['Réinitialiser votre mot de passe — LËK', 'Bonjour,\n\nPour choisir un nouveau mot de passe, ouvrez ce lien (valable 1 heure) :\n{url}\n\nSi vous n’avez rien demandé, ignorez ce message : votre mot de passe ne change pas.'],
@@ -18,9 +18,9 @@ const T = {
     ar: ['محاولة تسجيل — LËK Community', 'مرحباً،\n\nحاول أحدهم إنشاء حساب في LËK Community بعنوانك، وهو مرتبط بحساب موجود. إن كنت أنت فسجّل الدخول أو أعد تعيين كلمة المرور:\n{url}\n\nوإلا فتجاهل هذه الرسالة.'],
   },
   invite: {
-    fr: ['Votre invitation — LËK Community', 'Bonjour,\n\nVous êtes invité·e à rejoindre LËK Community ({purpose}). Ouvrez ce lien personnel (valable jusqu’au {expires}, utilisable une fois) :\n{url}\n\nNe le transférez pas. Si vous n’attendiez pas ce message, ignorez-le.\n\nLËK Network — Toujours un temps d’avance.'],
-    en: ['Your invitation — LËK Community', 'Hello,\n\nYou are invited to join LËK Community ({purpose}). Open this personal link (valid until {expires}, single use):\n{url}\n\nDo not forward it. If you were not expecting this message, ignore it.\n\nLËK Network'],
-    ar: ['دعوتك — LËK Community', 'مرحباً،\n\nأنت مدعو للانضمام إلى LËK Community ({purpose}). افتح هذا الرابط الشخصي (صالح حتى {expires}، لاستخدام واحد):\n{url}\n\nلا تُعِد توجيهه. إذا لم تكن تنتظر هذه الرسالة فتجاهلها.\n\nLËK Network'],
+    fr: ['Votre invitation — LËK Community', 'Bonjour,\n\nVous êtes invité·e à rejoindre LËK Community ({purpose}). Ouvrez ce lien personnel (valable jusqu’au {expires}, utilisable une fois) :\n{url}\n\nNe le transférez pas. Si vous n’attendiez pas ce message, ignorez-le.\n\nLËK Info · un média de LËK Network'],
+    en: ['Your invitation — LËK Community', 'Hello,\n\nYou are invited to join LËK Community ({purpose}). Open this personal link (valid until {expires}, single use):\n{url}\n\nDo not forward it. If you were not expecting this message, ignore it.\n\nLËK Info · LËK Network'],
+    ar: ['دعوتك — LËK Community', 'مرحباً،\n\nأنت مدعو للانضمام إلى LËK Community ({purpose}). افتح هذا الرابط الشخصي (صالح حتى {expires}، لاستخدام واحد):\n{url}\n\nلا تُعِد توجيهه. إذا لم تكن تنتظر هذه الرسالة فتجاهلها.\n\nLËK Info · LËK Network'],
   },
 } as const;
 

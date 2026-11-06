@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, staging]
   workflow_dispatch:
 
 permissions:
@@ -71,7 +71,8 @@ jobs:
           git init -q
           git config user.name "lek-ci"
           git config user.email "lek-ci@users.noreply.github.com"
-          git checkout -q -b ci-artifacts
+          RESULTS=ci-artifacts; [ "${GITHUB_REF_NAME}" = "staging" ] && RESULTS=ci-artifacts-staging
+          git checkout -q -b "$RESULTS"
           git add -A
           git commit -q -m "CI results for ${GITHUB_SHA}"
-          git push -q -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" ci-artifacts
+          git push -q -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" "$RESULTS"

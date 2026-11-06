@@ -8,6 +8,7 @@ import { LIVE } from '@/lib/live';
 import { CATEGORIES } from '@/lib/content';
 import LanguageMenu from './LanguageMenu';
 import { CloseIcon, MenuIcon, SearchIcon, UserIcon } from './Icons';
+import { LOGO, PUBLICATION } from '@/lib/brand';
 
 /** Public navigation. The newsroom tool is deliberately absent (see footer › prototype tools). */
 const NAV: { key: string; href: string; match: string }[] = [
@@ -86,8 +87,10 @@ export default function Header({ locale }: { locale: Locale }) {
       </a>
       <div className="strip">
         <div className="container strip-in">
-          <span className="strip-tag" lang="fr" dir="ltr">
-            {tm('tagline')}
+          <span className="strip-tag">
+            <Link href="/group" className="strip-parent">
+              {tm('publisher')}
+            </Link>
           </span>
           <span className="strip-right">
             {STAGING && (
@@ -111,8 +114,8 @@ export default function Header({ locale }: { locale: Locale }) {
             <MenuIcon />
             <span className="sr-only">{t('menu')}</span>
           </button>
-          <Link href="/" className="brand" aria-label="LËK Network">
-            <img src="/brand/lek-horizontal-navy.svg" alt="LËK Network" width={1352} height={557} className="brand-logo" />
+          <Link href="/" className="brand" aria-label={PUBLICATION}>
+            <img src={LOGO.horizontalOnLight.src} alt={PUBLICATION} width={LOGO.horizontalOnLight.width} height={LOGO.horizontalOnLight.height} className="brand-logo" />
           </Link>
           <nav className="mainnav" aria-label={t('main')}>
             {NAV.map((n) => (
@@ -137,8 +140,8 @@ export default function Header({ locale }: { locale: Locale }) {
 
       <div id="drawer" ref={panelRef} className={`drawer ${open ? 'is-open' : ''}`} aria-hidden={!open} role="dialog" aria-modal="true" aria-label={t('menu')}>
         <div className="drawer-head">
-          <Link href="/" className="drawer-brand" tabIndex={tab} aria-label="LËK Network">
-            <img src="/brand/lek-horizontal-light.svg" alt="" width={1352} height={557} className="drawer-logo" />
+          <Link href="/" className="drawer-brand" tabIndex={tab} aria-label={PUBLICATION}>
+            <img src={LOGO.horizontalOnDark.src} alt="" width={LOGO.horizontalOnDark.width} height={LOGO.horizontalOnDark.height} className="drawer-logo" />
           </Link>
           <button ref={closeRef} type="button" className="drawer-close" onClick={() => setOpen(false)} tabIndex={tab}>
             <CloseIcon />

@@ -98,7 +98,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ locale
         <figure className="article-figure">
           <Cover {...s.cover} seed={s.slug} className="cover" label={t('common.illustration')} />
           <figcaption className="container-narrow">
-            {t('common.illustration')} · {t('article.credit')}: LËK Network
+            {t('common.illustration')} · {t('article.credit')}: LËK Info
           </figcaption>
         </figure>
       )}

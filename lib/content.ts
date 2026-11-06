@@ -1,5 +1,5 @@
 /**
- * LËK Network — editorial content model (prototype).
+ * LËK Info — editorial content model (prototype).
  *
  * EVERY STORY BELOW IS FICTIONAL DEMONSTRATION CONTENT, written to test layouts and workflows.
  * None reports a real event, person, figure or accusation. Images are either licensed photographs of places
@@ -8,6 +8,7 @@
  * Translations: an article is shown in a language only if that version exists here.
  * `translation` records its review state; anything not "reviewed" is labelled on the page.
  */
+import { SITE_DIVISION, type Division } from './brand';
 import type { Locale } from './locales';
 
 export type Category = 'society' | 'economy' | 'culture' | 'technology' | 'sport' | 'africa' | 'diaspora' | 'environment' | 'health';
@@ -559,6 +560,12 @@ export type Programme = {
   seasons: { n: number; episodes: Episode[] }[];
   credits: { role: Localized; name: string }[];
   distribution: Localized;
+  /**
+   * The LËK division that publishes the programme. Defaults to "info" (LËK Info, this site).
+   * Assign "media" to future entertainment programming: it then leaves every LËK Info listing, page and sitemap
+   * automatically, so a programme is never published by two divisions at once.
+   */
+  division?: Division;
 };
 
 const TBC = 'À confirmer';
@@ -570,7 +577,8 @@ const devCredits = () => [
   { role: { fr: 'Rédaction en chef', en: 'Editor', ar: 'رئاسة التحرير' }, name: TBC },
 ];
 
-export const PROGRAMMES: Programme[] = [
+/** Every programme LËK holds, whatever its division. Pages use PROGRAMMES (this site's division only). */
+export const ALL_PROGRAMMES: Programme[] = [
   {
     slug: 'lessentiel',
     name: 'L’ESSENTIEL',
@@ -668,4 +676,9 @@ export const PROGRAMMES: Programme[] = [
   },
 ];
 
+export const divisionOf = (p: Programme): Division => p.division ?? 'info';
+/** Programmes published by this site (LËK Info). */
+export const PROGRAMMES: Programme[] = ALL_PROGRAMMES.filter((p) => divisionOf(p) === SITE_DIVISION);
+/** Programmes assigned to another division (none yet): candidates for redirects once that division has a site. */
+export const PROGRAMMES_ELSEWHERE: Programme[] = ALL_PROGRAMMES.filter((p) => divisionOf(p) !== SITE_DIVISION);
 export const programmeBySlug = (slug: string) => PROGRAMMES.find((p) => p.slug === slug);

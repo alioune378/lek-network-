@@ -1,8 +1,9 @@
 {
   "meta": {
-    "title": "LËK Network — Always one step ahead",
-    "description": "Independent Senegalese media: news, documentaries, interviews and live broadcasts. Prototype.",
-    "tagline": "Toujours un temps d’avance."
+    "title": "LËK Info — News from Senegal, Africa and the diaspora",
+    "description": "LËK Info, the news publication of LËK Network: news, documentaries, interviews and live broadcasts from Senegal. Prototype.",
+    "tagline": "Toujours un temps d’avance.",
+    "publisher": "A LËK Network publication"
   },
   "nav": {
     "home": "Home",
@@ -330,8 +331,9 @@
     "network": "The network",
     "prototype": "Demonstration prototype — fictional content.",
     "rights": "© {year} LËK Network",
-    "institution": "LËK Network",
-    "tools": "Prototype tools:"
+    "institution": "LËK Info",
+    "tools": "Prototype tools:",
+    "group": "The LËK Network group"
   },
   "newsroom": {
     "title": "LËK Newsroom",
@@ -1139,5 +1141,25 @@
       "saved": "Thank you! Your answers are saved. You can change them at any time.",
       "needRatings": "Please answer at least the rating questions before saving."
     }
+  },
+  "group": {
+    "title": "LËK Network",
+    "eyebrow": "THE GROUP",
+    "intro": "LËK Network is LËK’s parent company. The group brings together distinct brands, each with its own role.",
+    "divisionsTitle": "The divisions",
+    "status": {
+      "live": "Live",
+      "planned": "In preparation"
+    },
+    "here": "You are here.",
+    "roles": {
+      "info": "The news publication: news, regions, video (LËK Watch), live (LËK Live), original programmes and the reader community.",
+      "media": "Entertainment, culture and digital programming.",
+      "productions": "Professional audiovisual production: documentaries, film and commercial projects."
+    },
+    "studios": "The current production offer is presented on the LËK Studios page.",
+    "studiosLink": "See LËK Studios",
+    "clearance": "Division names are proposals still under legal (trademark) review.",
+    "contact": "Contact and partnerships"
   }
 }

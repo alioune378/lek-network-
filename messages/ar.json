@@ -1,9 +1,10 @@
 {
   "_review": "Arabic interface: prototype translation, to be reviewed by a native-speaking editor before launch.",
   "meta": {
-    "title": "LËK Network — دائمًا بخطوة إلى الأمام",
-    "description": "وسيلة إعلام سنغالية مستقلة: أخبار، أفلام وثائقية، حوارات وبث مباشر. نموذج أولي.",
-    "tagline": "Toujours un temps d’avance."
+    "title": "LËK Info — أخبار السنغال وأفريقيا والمهجر",
+    "description": "LËK Info، المنصة الإخبارية لـ LËK Network: أخبار وأفلام وثائقية وحوارات وبث مباشر من السنغال. نموذج أولي.",
+    "tagline": "Toujours un temps d’avance.",
+    "publisher": "منصة إعلامية تابعة لـ LËK Network"
   },
   "nav": {
     "home": "الرئيسية",
@@ -331,8 +332,9 @@
     "network": "الشبكة",
     "prototype": "نموذج تجريبي — محتوى خيالي.",
     "rights": "© {year} LËK Network",
-    "institution": "LËK Network",
-    "tools": "أدوات النموذج الأولي:"
+    "institution": "LËK Info",
+    "tools": "أدوات النموذج الأولي:",
+    "group": "مجموعة LËK Network"
   },
   "divisions": {
     "news": "News",
@@ -1072,5 +1074,25 @@
       "saved": "شكرًا! حُفظت إجاباتك. يمكنك تعديلها في أي وقت.",
       "needRatings": "يُرجى الإجابة على أسئلة التقييم على الأقل قبل الحفظ."
     }
+  },
+  "group": {
+    "title": "LËK Network",
+    "eyebrow": "المجموعة",
+    "intro": "LËK Network هي الشركة الأم لـ LËK. تضم المجموعة علامات مستقلة، لكل منها دورها الخاص.",
+    "divisionsTitle": "الأقسام",
+    "status": {
+      "live": "متاح",
+      "planned": "قيد الإعداد"
+    },
+    "here": "أنت هنا.",
+    "roles": {
+      "info": "المنصة الإخبارية: الأخبار والمناطق والفيديو (LËK Watch) والبث المباشر (LËK Live) والبرامج الأصلية ومجتمع القرّاء.",
+      "media": "الترفيه والثقافة والبرامج الرقمية.",
+      "productions": "الإنتاج السمعي البصري الاحترافي: الأفلام الوثائقية والسينما والمشاريع التجارية."
+    },
+    "studios": "يُعرض عرض الإنتاج الحالي على صفحة LËK Studios.",
+    "studiosLink": "زيارة LËK Studios",
+    "clearance": "أسماء الأقسام مقترحات لا تزال قيد المراجعة القانونية (العلامات التجارية).",
+    "contact": "التواصل والشراكات"
   }
 }
