@@ -1,0 +1,65 @@
+screenshots: 90, audited: 204, page problems: 0, failed checks: none
+checks {
+  "suggestionShown": true,
+  "logo": {
+    "loaded": true,
+    "width": 112,
+    "height": 44,
+    "ratio": 2.55
+  },
+  "brand": {
+    "title": "Dakar et ses espaces publics : à qui appartient la ville ? · LËK Info",
+    "siteName": "LËK Info",
+    "headerLogo": "/brand/lek-info/lek-info-horizontal-light-web.svg",
+    "headerAlt": "LËK Info",
+    "publisher": "Un média de LËK Network",
+    "footerLogo": "/brand/lek-info/lek-info-stacked-dark-web.svg"
+  },
+  "drawer": {
+    "open": true,
+    "pageLocked": true,
+    "focusInside": true,
+    "contained": "contain",
+    "primaryLinks": 7,
+    "newsroomInMenu": false,
+    "smallestTarget": 40
+  },
+  "drawerClosed": {
+    "closed": true,
+    "focusBack": true,
+    "pageUnlocked": true
+  },
+  "switchKeepsArticle": "http://localhost:3000/ar/article/dakar-espaces-publics",
+  "arDir": "rtl",
+  "arTitle": "داكار وفضاءاتها العامة: لمن تنتمي المدينة؟",
+  "fallbackNotice": [
+    "مقال تجريبي خيالي. لا يصف أي واقعة حقيقية.",
+    "هذا المقال غير متوفر بعد باللغة العربية. يُعرض بلغته الأصلية إلى أن تراجع هيئة التحرير ترجمته."
+  ],
+  "photoCaption": "صورة توضيحية مصارعة في مهرجان ديالاو. صورة للمكان، لا علاقة لها بالوقائع الموصوفة. تصوير: Ibrahima Xaalil Ndiaye, 2026 · CC BY-SA 4.0 · Wikimedia Commons",
+  "searchThies": "1 result",
+  "searchSaintLouis": "1 result",
+  "anchorClear": {
+    "headerBottom": 59,
+    "targetTop": 77,
+    "ok": true
+  },
+  "desktopSwitch": "http://localhost:3000/fr/watch/senegal-reel",
+  "notFoundH1": "Page not found",
+  "reducedMotion": {
+    "drawerTransition": "0s",
+    "imageTransition": "0s"
+  },
+  "identReduced": {
+    "present": true,
+    "playing": false,
+    "replayButton": false
+  },
+  "identPlays": 26,
+  "motionFiles": {
+    "lek-ident-720p.mp4": 200,
+    "lek-ident-16x9.mp4": 200,
+    "lek-ident-end.webp": 200
+  },
+  "failed": []
+}
