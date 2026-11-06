@@ -122,7 +122,7 @@ Updated after each milestone. "Verified" means checked by the CI run recorded on
   (`public/brand/lek-info`); the hare emblem and the two gold dots are unchanged.
 - New group page `/group` for LËK Network. No URL changed. `Programme.division` lets future LËK Media programmes
   leave LËK Info without duplication.
-- Verified on `staging` (commit 67a6971): CI 90 screenshots, 204 audited page loads, all checks; community
+- Verified on `staging` (commit aff8741, identical to the tested 67a6971): CI 90 screenshots, 204 audited page loads, all checks; community
   95/95. The public site (`main`) is unchanged.
 - Details, changed references and remaining work: `docs/BRAND-MIGRATION.md`.
 
