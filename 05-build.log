@@ -1,0 +1,204 @@
+
+> lek-network@0.3.0 build:netlify
+> node scripts/community/prebuild.mjs && next build
+
+better-auth: create [] add []
+⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+   ▲ Next.js 15.5.29
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 10.5s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/620) ...
+   Generating static pages (155/620) 
+   Generating static pages (310/620) 
+   Generating static pages (465/620) 
+ ✓ Generating static pages (620/620)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                           Size  First Load JS
+┌ ○ /_not-found                                      172 B         103 kB
+├ ● /[locale]                                       1.9 kB         120 kB
+├   ├ /fr
+├   ├ /en
+├   ├ /ar
+├   └ [+7 more paths]
+├ ƒ /[locale]/[...rest]                              208 B         103 kB
+├ ● /[locale]/account                                183 B         150 kB
+├   ├ /fr/account
+├   ├ /en/account
+├   ├ /ar/account
+├   └ [+7 more paths]
+├ ● /[locale]/account/forgot                         183 B         150 kB
+├   ├ /fr/account/forgot
+├   ├ /en/account/forgot
+├   ├ /ar/account/forgot
+├   └ [+7 more paths]
+├ ● /[locale]/account/invite                       2.35 kB         152 kB
+├   ├ /fr/account/invite
+├   ├ /en/account/invite
+├   ├ /ar/account/invite
+├   └ [+7 more paths]
+├ ● /[locale]/account/login                          181 B         150 kB
+├   ├ /fr/account/login
+├   ├ /en/account/login
+├   ├ /ar/account/login
+├   └ [+7 more paths]
+├ ● /[locale]/account/register                       182 B         150 kB
+├   ├ /fr/account/register
+├   ├ /en/account/register
+├   ├ /ar/account/register
+├   └ [+7 more paths]
+├ ● /[locale]/account/reset                          183 B         150 kB
+├   ├ /fr/account/reset
+├   ├ /en/account/reset
+├   ├ /ar/account/reset
+├   └ [+7 more paths]
+├ ● /[locale]/admin/bootstrap                      2.35 kB         152 kB
+├   ├ /fr/admin/bootstrap
+├   ├ /en/admin/bootstrap
+├   ├ /ar/admin/bootstrap
+├   └ [+7 more paths]
+├ ● /[locale]/article/[slug]                       1.05 kB         140 kB
+├   ├ /fr/article/dakar-espaces-publics
+├   ├ /fr/article/essentiel-format-quotidien
+├   ├ /fr/article/economie-entreprendre-autrement
+├   └ [+117 more paths]
+├ ● /[locale]/category/[slug]                       1.9 kB         120 kB
+├   ├ /fr/category/all
+├   ├ /fr/category/society
+├   ├ /fr/category/economy
+├   └ [+97 more paths]
+├ ● /[locale]/community                             1.9 kB         120 kB
+├   ├ /fr/community
+├   ├ /en/community
+├   ├ /ar/community
+├   └ [+7 more paths]
+├ ● /[locale]/credits                                168 B         115 kB
+├   ├ /fr/credits
+├   ├ /en/credits
+├   ├ /ar/credits
+├   └ [+7 more paths]
+├ ● /[locale]/feedback                             1.66 kB         151 kB
+├   ├ /fr/feedback
+├   ├ /en/feedback
+├   ├ /ar/feedback
+├   └ [+7 more paths]
+├ ● /[locale]/group                                 1.9 kB         120 kB
+├   ├ /fr/group
+├   ├ /en/group
+├   ├ /ar/group
+├   └ [+7 more paths]
+├ ● /[locale]/live                                 4.56 kB         119 kB
+├   ├ /fr/live
+├   ├ /en/live
+├   ├ /ar/live
+├   └ [+7 more paths]
+├ ● /[locale]/moderation                           5.35 kB         138 kB
+├   ├ /fr/moderation
+├   ├ /en/moderation
+├   ├ /ar/moderation
+├   └ [+7 more paths]
+├ ● /[locale]/newsroom                             5.66 kB         132 kB
+├   ├ /fr/newsroom
+├   ├ /en/newsroom
+├   ├ /ar/newsroom
+├   └ [+7 more paths]
+├ ● /[locale]/newsroom/inbox                        2.5 kB         135 kB
+├   ├ /fr/newsroom/inbox
+├   ├ /en/newsroom/inbox
+├   ├ /ar/newsroom/inbox
+├   └ [+7 more paths]
+├ ● /[locale]/originals                             1.9 kB         120 kB
+├   ├ /fr/originals
+├   ├ /en/originals
+├   ├ /ar/originals
+├   └ [+7 more paths]
+├ ● /[locale]/pilot                                2.35 kB         152 kB
+├   ├ /fr/pilot
+├   ├ /en/pilot
+├   ├ /ar/pilot
+├   └ [+7 more paths]
+├ ● /[locale]/privacy                                168 B         115 kB
+├   ├ /fr/privacy
+├   ├ /en/privacy
+├   ├ /ar/privacy
+├   └ [+7 more paths]
+├ ● /[locale]/region/[slug]                         1.9 kB         120 kB
+├   ├ /fr/region/dakar
+├   ├ /fr/region/thies
+├   ├ /fr/region/saint-louis
+├   └ [+87 more paths]
+├ ● /[locale]/regions                               1.9 kB         120 kB
+├   ├ /fr/regions
+├   ├ /en/regions
+├   ├ /ar/regions
+├   └ [+7 more paths]
+├ ● /[locale]/search                               12.3 kB         142 kB
+├   ├ /fr/search
+├   ├ /en/search
+├   ├ /ar/search
+├   └ [+7 more paths]
+├ ● /[locale]/standards                              168 B         115 kB
+├   ├ /fr/standards
+├   ├ /en/standards
+├   ├ /ar/standards
+├   └ [+7 more paths]
+├ ● /[locale]/studios                              1.37 kB         116 kB
+├   ├ /fr/studios
+├   ├ /en/studios
+├   ├ /ar/studios
+├   └ [+7 more paths]
+├ ƒ /[locale]/u/[username]                         1.18 kB         151 kB
+├ ● /[locale]/watch                                 1.9 kB         120 kB
+├   ├ /fr/watch
+├   ├ /en/watch
+├   ├ /ar/watch
+├   └ [+7 more paths]
+├ ● /[locale]/watch/[slug]                         1.02 kB         140 kB
+├   ├ /fr/watch/lessentiel
+├   ├ /fr/watch/senegal-reel
+├   ├ /fr/watch/conversations
+├   └ [+47 more paths]
+├ ƒ /api/auth/[...all]                               208 B         103 kB
+├ ƒ /api/community/admin/bootstrap                   208 B         103 kB
+├ ƒ /api/community/appeals                           208 B         103 kB
+├ ƒ /api/community/comments                          208 B         103 kB
+├ ƒ /api/community/comments/[id]                     208 B         103 kB
+├ ƒ /api/community/comments/[id]/helpful             208 B         103 kB
+├ ƒ /api/community/comments/[id]/report              208 B         103 kB
+├ ƒ /api/community/comments/[id]/restore             208 B         103 kB
+├ ƒ /api/community/feedback                          208 B         103 kB
+├ ƒ /api/community/inbox                             208 B         103 kB
+├ ƒ /api/community/inbox/[id]                        208 B         103 kB
+├ ƒ /api/community/invites                           208 B         103 kB
+├ ƒ /api/community/invites/[id]                      208 B         103 kB
+├ ƒ /api/community/invites/accept                    208 B         103 kB
+├ ƒ /api/community/invites/check                     208 B         103 kB
+├ ƒ /api/community/me                                208 B         103 kB
+├ ƒ /api/community/moderation                        208 B         103 kB
+├ ƒ /api/community/moderation/appeals/[id]           208 B         103 kB
+├ ƒ /api/community/moderation/cases/[id]             208 B         103 kB
+├ ƒ /api/community/moderation/staff                  208 B         103 kB
+├ ƒ /api/community/moderation/users/[username]       208 B         103 kB
+├ ƒ /api/community/notifications                     208 B         103 kB
+├ ƒ /api/community/pilot                             208 B         103 kB
+├ ƒ /api/community/register                          208 B         103 kB
+├ ƒ /api/community/test-mail                         208 B         103 kB
+├ ƒ /api/community/username                          208 B         103 kB
+├ ƒ /api/community/users/[username]                  208 B         103 kB
+└ ○ /robots.txt                                      208 B         103 kB
++ First Load JS shared by all                       103 kB
+  ├ chunks/1255-b84741b894bb9354.js                46.6 kB
+  ├ chunks/4bd1b696-f785427dddbba9fb.js            54.2 kB
+  └ other shared chunks (total)                    1.99 kB
+
+
+ƒ Middleware                                       46.4 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

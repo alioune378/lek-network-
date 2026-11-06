@@ -1,0 +1,8 @@
+
+> lek-network@0.3.0 typecheck
+> tsc --noEmit
+
+
+> lek-network@0.3.0 lint
+> eslint .
+

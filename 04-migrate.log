@@ -1,0 +1,19 @@
+
+> lek-network@0.3.0 community:migrate
+> tsx scripts/community/migrate.mjs
+
+better-auth: create [
+  'user',
+  'session',
+  'account',
+  'verification',
+  'twoFactor',
+  'rateLimit'
+] add []
+applied 001_community.sql
+applied 002_pilot.sql
+
+> lek-network@0.3.0 community:migrate
+> tsx scripts/community/migrate.mjs
+
+better-auth: create [] add []
