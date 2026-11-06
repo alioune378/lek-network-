@@ -108,6 +108,14 @@ Both CI workflows now also run on the `staging` branch, and publish to separate 
 - `ci-community-staging`: the full pilot acceptance suite, plus a check that community emails carry the new
   signature.
 
+Results for commit `67a6971` (the last code change):
+- CI run 42134908333: i18n, type check, lint and build passed; 90 screenshots; 204 page loads audited with 0
+  problems; all checks passed, including the new brand checks.
+- Community run 42134908316: 95/95 acceptance checks, 12/12 unit tests.
+
+One issue found and fixed during testing: article pages dropped the site name from their share metadata. This
+was also true before the rebrand.
+
 The staging Netlify site is not linked yet (see `docs/STAGING.md` §2), so the testing so far is CI on the
 `staging` branch, not a live staging URL.
 
