@@ -1,0 +1,14 @@
+
+> lek-network@0.3.0 check:i18n
+> node scripts/check-messages.mjs
+
+ar   94% of 887 keys · 56 fall back
+de   15% of 887 keys · 751 fall back
+en  100% of 887 keys
+es   15% of 887 keys · 751 fall back
+fr  100% of 887 keys
+it   15% of 887 keys · 751 fall back
+pt   15% of 887 keys · 751 fall back
+tr   15% of 887 keys · 751 fall back
+wo    2% of 887 keys · 870 fall back
+zh   15% of 887 keys · 751 fall back
