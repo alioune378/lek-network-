@@ -1,0 +1,477 @@
+[
+  {
+    "name": "Unregistered visitors can read articles",
+    "ok": true,
+    "evidence": "HTTP 200"
+  },
+  {
+    "name": "Comment section shows a sign-in prompt to visitors",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Unregistered visitors cannot submit comments",
+    "ok": true,
+    "evidence": "HTTP 401 auth_required"
+  },
+  {
+    "name": "Raw sign-up endpoint is closed (registration only through validated flow)",
+    "ok": true,
+    "evidence": "HTTP 404"
+  },
+  {
+    "name": "Staging: every page carries X-Robots-Tag noindex and robots.txt disallows everything",
+    "ok": true,
+    "evidence": "{\"xrt\":\"noindex, nofollow, noarchive\",\"robots\":\"User-Agent: *\\nDisallow: /\"}"
+  },
+  {
+    "name": "Community API responses are never cached",
+    "ok": true,
+    "evidence": "no-store"
+  },
+  {
+    "name": "Staging shows a visible \"private staging\" badge",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Captured-mail test endpoint is closed without the per-run test token",
+    "ok": true,
+    "evidence": "HTTP 404"
+  },
+  {
+    "name": "Founder bootstrap refuses a wrong token",
+    "ok": true,
+    "evidence": "{\"error\":\"bootstrap_denied\"}"
+  },
+  {
+    "name": "Founder bootstrap emails a one-time link to FOUNDER_EMAIL only and never returns it (masked address in the response)",
+    "ok": true,
+    "evidence": "{\"ok\":true,\"delivery\":\"captured\",\"sentTo\":\"fo•••@example.test\"}"
+  },
+  {
+    "name": "Community emails are signed by LËK Info, a LËK Network publication",
+    "ok": true,
+    "evidence": "LËK Info · un média de LËK Network"
+  },
+  {
+    "name": "Re-running the bootstrap revokes the earlier founder link (only the newest works)",
+    "ok": true,
+    "evidence": "{\"olderCheck\":{\"valid\":false},\"newestCheck\":{\"valid\":true,\"purpose\":\"founder\",\"emailBound\":true,\"expiresAt\":\"2026-11-08T00:29:04.979Z\"}}"
+  },
+  {
+    "name": "Pilot: registration without an invitation is refused",
+    "ok": true,
+    "evidence": "{\"error\":\"invite_required\"}"
+  },
+  {
+    "name": "Turnstile is checked server-side: registration without a token is refused",
+    "ok": true,
+    "evidence": "{\"error\":\"captcha_required\"}"
+  },
+  {
+    "name": "Turnstile is checked server-side on sign-in too (no token, refused)",
+    "ok": true,
+    "evidence": "HTTP 400"
+  },
+  {
+    "name": "The founder invitation only works for FOUNDER_EMAIL",
+    "ok": true,
+    "evidence": "{\"error\":\"invite_email_mismatch\"}"
+  },
+  {
+    "name": "Privacy notice and pilot conditions must be accepted explicitly",
+    "ok": true,
+    "evidence": "{\"error\":\"invalid\",\"fields\":{\"acceptPrivacy\":\"required\",\"acceptPilot\":\"required\"}}"
+  },
+  {
+    "name": "Founder becomes owner, but staff powers stay off until two-step verification is on",
+    "ok": true,
+    "evidence": "{\"role\":\"owner\",\"status\":\"two_factor_required\",\"api\":{\"error\":\"two_factor_required\"}}"
+  },
+  {
+    "name": "Consent is recorded with the privacy-notice version and pilot consent time",
+    "ok": true,
+    "evidence": "{\"privacy_version\":\"2026-11-pilot\",\"pilot_consent_at\":\"2026-11-06T00:29:05.433Z\"}"
+  },
+  {
+    "name": "Bootstrap is closed for good once a founder exists",
+    "ok": true,
+    "evidence": "{\"error\":\"already_bootstrapped\"}"
+  },
+  {
+    "name": "After TOTP set-up (QR secret + 6-digit code, backup codes issued) the founder can manage invitations",
+    "ok": true,
+    "evidence": "{\"status\":200,\"backupCodes\":10}"
+  },
+  {
+    "name": "Signing in with two-step verification on: password alone gives no session; the TOTP code completes it",
+    "ok": true,
+    "evidence": "{\"redirect\":true,\"before\":200,\"after\":200}"
+  },
+  {
+    "name": "A TOTP code without a pending sign-in is refused",
+    "ok": true,
+    "evidence": "HTTP 401"
+  },
+  {
+    "name": "Admins create single-use pilot invitations; links are returned once and only a hash is stored",
+    "ok": true,
+    "evidence": "{\"links\":20}"
+  },
+  {
+    "name": "An invitation bound to an email is emailed to it and refused for any other address",
+    "ok": true,
+    "evidence": "{\"delivery\":\"captured\",\"wrong\":\"invite_email_mismatch\"}"
+  },
+  {
+    "name": "A revoked invitation can no longer be used",
+    "ok": true,
+    "evidence": "{\"revoke\":200,\"use\":{\"error\":\"invite_invalid\"}}"
+  },
+  {
+    "name": "Without an invitation the registration page explains it is invitation-only (no form)",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Invited registration works on a 390px phone with the Turnstile widget, and asks to check the inbox (no delivery claim)",
+    "ok": true,
+    "evidence": "Disponible"
+  },
+  {
+    "name": "Registration page has no horizontal overflow (390px)",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "An unverified account cannot sign in (so cannot comment)",
+    "ok": true,
+    "evidence": "HTTP 403"
+  },
+  {
+    "name": "Email verification link signs the member in and lands on the account page",
+    "ok": true,
+    "evidence": "http://localhost:3000/fr/account?verified=1"
+  },
+  {
+    "name": "Duplicate usernames cannot register (case-insensitive)",
+    "ok": true,
+    "evidence": "HTTP 409 username_taken"
+  },
+  {
+    "name": "Registering an existing email gives the same answer as a new one (no account enumeration) and warns the owner",
+    "ok": true,
+    "evidence": "HTTP 200"
+  },
+  {
+    "name": "Impersonating usernames/display names are refused",
+    "ok": true,
+    "evidence": "{\"error\":\"invalid\",\"fields\":{\"username\":\"reserved\",\"displayName\":\"reserved\"}}"
+  },
+  {
+    "name": "Accepting the community guidelines is required",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "A verified account can submit comments (UI)",
+    "ok": true,
+    "evidence": "count=1"
+  },
+  {
+    "name": "Comments persist across browsers and sessions (new context, no cookies)",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Replies are attached to the correct parent; a reply to a reply joins the top thread (one level)",
+    "ok": true,
+    "evidence": "[{\"id\":\"bbc3e412-baa4-4123-bfbe-c46f02435133\",\"parent_id\":\"efb881a2-85ed-4780-843c-6b5b96b7b45c\"},{\"id\":\"e1348882-7395-4c45-a5d7-e1a530bc12d7\",\"parent_id\":\"efb881a2-85ed-4780-843c-6b5b96b7b45c\"}]"
+  },
+  {
+    "name": "Posting is idempotent (same key does not create a duplicate)",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Reply notifications are optional: sent to a member who opted in, not to one who did not",
+    "ok": true,
+    "evidence": "{\"optedIn\":1,\"optedOut\":0}"
+  },
+  {
+    "name": "Private email addresses are never visible publicly (API + profile page)",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "User HTML is shown as text, never executed (XSS)",
+    "ok": true,
+    "evidence": "{\"scripts\":0,\"text\":true}"
+  },
+  {
+    "name": "Cross-site requests are refused (Origin check)",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Edits are saved with a visible edit indicator",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Members cannot edit someone else's comment",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Deleted comments are hidden publicly but keep their author in the database",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Helpful: one per member, toggles, not on own comments, not from brand-new accounts",
+    "ok": true,
+    "evidence": "{\"own\":403,\"tooNew\":403,\"h1\":{\"helpful\":1,\"helpedByMe\":true},\"h2\":{\"helpful\":2,\"helpedByMe\":true},\"h3\":{\"helpful\":1,\"helpedByMe\":false}}"
+  },
+  {
+    "name": "Sorting by most helpful puts the helpful comment first",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Spam: new-account link held, link flood rejected",
+    "ok": true,
+    "evidence": "{\"linky\":{\"id\":\"fe56e1bb-c010-4e30-802f-dbfd569cea8e\",\"status\":\"pending\",\"signals\":[\"new_account_link\"]},\"flood\":422}"
+  },
+  {
+    "name": "Threats are held for human review and hidden from others meanwhile",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Political criticism of officials is published without any flag",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Spam and abusive content can be reported; reports alone never hide a comment",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "A newly appointed moderator has no powers before two-step verification",
+    "ok": true,
+    "evidence": "{\"grant\":200,\"mod\":{\"error\":\"two_factor_required\"}}"
+  },
+  {
+    "name": "Unauthorized users cannot perform moderator actions (API and page)",
+    "ok": true,
+    "evidence": "{\"api\":403,\"page\":404,\"forged\":403}"
+  },
+  {
+    "name": "Moderators see a queue with reference, source, reasons, context and severity",
+    "ok": true,
+    "evidence": "{\"threat\":{\"severity\":\"critical\",\"reasons\":[\"threat\"],\"suggested\":\"suspend\"}}"
+  },
+  {
+    "name": "A held comment cannot be decided without an explicit choice (no default that publishes)",
+    "ok": true,
+    "evidence": "{\"error\":\"invalid_action\"}"
+  },
+  {
+    "name": "Moderators can act on reports (remove + temporary restriction)",
+    "ok": true,
+    "evidence": "{\"ok\":true,\"actions\":[\"remove_comment\",\"restrict\"]}"
+  },
+  {
+    "name": "Account restrictions work (restricted member cannot comment)",
+    "ok": true,
+    "evidence": "{\"error\":\"comment_restricted\",\"endsAt\":\"2026-11-07T00:29:45.709Z\",\"reason\":\"Menace explicite envers une personne.\"}"
+  },
+  {
+    "name": "Staff comments still go through the same endpoint and rules (rate limits, reports)",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Appeals can be filed and reviewed by a different moderator; overturning lifts the restriction",
+    "ok": true,
+    "evidence": "{\"appeal\":200,\"same\":\"same_reviewer\",\"overturn\":200,\"after\":200}"
+  },
+  {
+    "name": "Moderators can restore removed content",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Every action is in an append-only audit log",
+    "ok": true,
+    "evidence": "13 entries"
+  },
+  {
+    "name": "Anonymous feedback also requires the Turnstile check server-side",
+    "ok": true,
+    "evidence": "{\"error\":\"captcha_required\"}"
+  },
+  {
+    "name": "Readers can send private feedback (factual error) without an account",
+    "ok": true,
+    "evidence": "Message reçuRéférence : 5DC12CEF. Conservez-la si vous nous recontactez.Vous n’a"
+  },
+  {
+    "name": "Feedback page has no horizontal overflow (390px)",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Editorial feedback remains private (not in public APIs, inbox refused to members)",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Role hierarchy: only admins/owner manage staff; admins cannot create admins or touch the owner; nobody changes their own role; members and moderators cannot invite",
+    "ok": true,
+    "evidence": "{\"grantW\":200,\"mod\":403,\"adminAdmin\":403,\"adminOwner\":403,\"self\":\"conflict_of_interest\",\"memberInv\":403,\"modInv\":403,\"grantJ\":200}"
+  },
+  {
+    "name": "Newsroom inbox: category, article, date, status, assignee, notes and replies",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Replies to readers without an account or email provider are honestly marked internal",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Verified journalists can post editorial notes, shown first with a staff badge; members cannot",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Wolof input (ë, é, ñ) and Arabic input are stored and returned exactly",
+    "ok": true,
+    "evidence": "{\"wo\":200,\"ar\":200}"
+  },
+  {
+    "name": "In the Arabic interface, an Arabic comment reads right-to-left and a Wolof comment left-to-right",
+    "ok": true,
+    "evidence": "{\"arDir\":\"rtl\",\"woDir\":\"ltr\"}"
+  },
+  {
+    "name": "Pilot questionnaire: members save and reload their answers; invalid ratings and visitors are refused",
+    "ok": true,
+    "evidence": "{\"save\":200,\"bad\":422,\"visitor\":401}"
+  },
+  {
+    "name": "Pilot results: editors+ see averages and understanding rates, free text without names; members and moderators cannot",
+    "ok": true,
+    "evidence": "{\"owner\":200,\"member\":403,\"moderator\":403,\"understanding\":{\"emailVisible\":100,\"reportEffect\":0,\"appeal\":100,\"disagreement\":100}}"
+  },
+  {
+    "name": "Pilot questionnaire page works in FR at 390px (answers reloaded, no overflow)",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Pilot questionnaire page works in AR at 390px (answers reloaded, no overflow)",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Privacy page (pilot) names the processors (Netlify, Resend, Cloudflare Turnstile) and the pilot terms",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Two-step verification can be switched on from the account page (QR code, manual key, code check)",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Comments render in FR at 390px without overflow",
+    "ok": true,
+    "evidence": "overflow 0, dir ltr"
+  },
+  {
+    "name": "Comments render in AR at 390px without overflow (RTL)",
+    "ok": true,
+    "evidence": "overflow 0, dir rtl"
+  },
+  {
+    "name": "Comments render in EN at 1280px without overflow",
+    "ok": true,
+    "evidence": "overflow 0, dir ltr"
+  },
+  {
+    "name": "Comments render in FR at 320px without overflow",
+    "ok": true,
+    "evidence": "overflow 0, dir ltr"
+  },
+  {
+    "name": "Community and sign-in pages work in FR",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Community and sign-in pages work in EN",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Community and sign-in pages work in AR",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Keyboard: Enter on \"Reply\" opens the reply box with focus in it",
+    "ok": true,
+    "evidence": "TEXTAREA"
+  },
+  {
+    "name": "Account page has no overflow on a phone",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Rate limiting stops rapid posting (7th comment in 10 minutes)",
+    "ok": true,
+    "evidence": "200,200,200,200,200,200,429"
+  },
+  {
+    "name": "Account deletion: confirmation required, credentials gone, comments hidden as \"deleted account\", link kept internally",
+    "ok": true,
+    "evidence": "{\"wrong\":422,\"del\":200,\"relog\":401,\"profile\":404}"
+  },
+  {
+    "name": "Existing page still works with the community on: home",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Existing page still works with the community on: watch",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Existing page still works with the community on: live",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Existing page still works with the community on: programme",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "Existing page still works with the community on: search",
+    "ok": true,
+    "evidence": ""
+  },
+  {
+    "name": "The test environment never sends email: every message is captured",
+    "ok": true,
+    "evidence": "[{\"status\":\"captured\",\"n\":15}]"
+  }
+]

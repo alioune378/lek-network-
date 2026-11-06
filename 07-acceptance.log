@@ -1,0 +1,97 @@
+PASS  Unregistered visitors can read articles  — HTTP 200
+PASS  Comment section shows a sign-in prompt to visitors
+PASS  Unregistered visitors cannot submit comments  — HTTP 401 auth_required
+PASS  Raw sign-up endpoint is closed (registration only through validated flow)  — HTTP 404
+PASS  Staging: every page carries X-Robots-Tag noindex and robots.txt disallows everything  — {"xrt":"noindex, nofollow, noarchive","robots":"User-Agent: *\nDisallow: /"}
+PASS  Community API responses are never cached  — no-store
+PASS  Staging shows a visible "private staging" badge
+PASS  Captured-mail test endpoint is closed without the per-run test token  — HTTP 404
+PASS  Founder bootstrap refuses a wrong token  — {"error":"bootstrap_denied"}
+PASS  Founder bootstrap emails a one-time link to FOUNDER_EMAIL only and never returns it (masked address in the response)  — {"ok":true,"delivery":"captured","sentTo":"fo•••@example.test"}
+PASS  Community emails are signed by LËK Info, a LËK Network publication  — LËK Info · un média de LËK Network
+PASS  Re-running the bootstrap revokes the earlier founder link (only the newest works)  — {"olderCheck":{"valid":false},"newestCheck":{"valid":true,"purpose":"founder","emailBound":true,"expiresAt":"2026-11-08T00:29:04.979Z"}}
+PASS  Pilot: registration without an invitation is refused  — {"error":"invite_required"}
+PASS  Turnstile is checked server-side: registration without a token is refused  — {"error":"captcha_required"}
+PASS  Turnstile is checked server-side on sign-in too (no token, refused)  — HTTP 400
+PASS  The founder invitation only works for FOUNDER_EMAIL  — {"error":"invite_email_mismatch"}
+PASS  Privacy notice and pilot conditions must be accepted explicitly  — {"error":"invalid","fields":{"acceptPrivacy":"required","acceptPilot":"required"}}
+PASS  Founder becomes owner, but staff powers stay off until two-step verification is on  — {"role":"owner","status":"two_factor_required","api":{"error":"two_factor_required"}}
+PASS  Consent is recorded with the privacy-notice version and pilot consent time  — {"privacy_version":"2026-11-pilot","pilot_consent_at":"2026-11-06T00:29:05.433Z"}
+PASS  Bootstrap is closed for good once a founder exists  — {"error":"already_bootstrapped"}
+PASS  After TOTP set-up (QR secret + 6-digit code, backup codes issued) the founder can manage invitations  — {"status":200,"backupCodes":10}
+PASS  Signing in with two-step verification on: password alone gives no session; the TOTP code completes it  — {"redirect":true,"before":200,"after":200}
+PASS  A TOTP code without a pending sign-in is refused  — HTTP 401
+PASS  Admins create single-use pilot invitations; links are returned once and only a hash is stored  — {"links":20}
+PASS  An invitation bound to an email is emailed to it and refused for any other address  — {"delivery":"captured","wrong":"invite_email_mismatch"}
+PASS  A revoked invitation can no longer be used  — {"revoke":200,"use":{"error":"invite_invalid"}}
+PASS  Without an invitation the registration page explains it is invitation-only (no form)
+PASS  Invited registration works on a 390px phone with the Turnstile widget, and asks to check the inbox (no delivery claim)  — Disponible
+PASS  Registration page has no horizontal overflow (390px)
+PASS  An unverified account cannot sign in (so cannot comment)  — HTTP 403
+PASS  Email verification link signs the member in and lands on the account page  — http://localhost:3000/fr/account?verified=1
+PASS  Duplicate usernames cannot register (case-insensitive)  — HTTP 409 username_taken
+PASS  Registering an existing email gives the same answer as a new one (no account enumeration) and warns the owner  — HTTP 200
+PASS  Impersonating usernames/display names are refused  — {"error":"invalid","fields":{"username":"reserved","displayName":"reserved"}}
+PASS  Accepting the community guidelines is required
+PASS  A verified account can submit comments (UI)  — count=1
+PASS  Comments persist across browsers and sessions (new context, no cookies)
+PASS  Replies are attached to the correct parent; a reply to a reply joins the top thread (one level)  — [{"id":"bbc3e412-baa4-4123-bfbe-c46f02435133","parent_id":"efb881a2-85ed-4780-843c-6b5b96b7b45c"},{"id":"e1348882-7395-4c45-a5d7-e1a530bc12d7","parent_id":"efb881a2-85ed-4780-843c-6b5b96b7b45c"}]
+PASS  Posting is idempotent (same key does not create a duplicate)
+PASS  Reply notifications are optional: sent to a member who opted in, not to one who did not  — {"optedIn":1,"optedOut":0}
+PASS  Private email addresses are never visible publicly (API + profile page)
+PASS  User HTML is shown as text, never executed (XSS)  — {"scripts":0,"text":true}
+PASS  Cross-site requests are refused (Origin check)
+PASS  Edits are saved with a visible edit indicator
+PASS  Members cannot edit someone else's comment
+PASS  Deleted comments are hidden publicly but keep their author in the database
+PASS  Helpful: one per member, toggles, not on own comments, not from brand-new accounts  — {"own":403,"tooNew":403,"h1":{"helpful":1,"helpedByMe":true},"h2":{"helpful":2,"helpedByMe":true},"h3":{"helpful":1,"helpedByMe":false}}
+PASS  Sorting by most helpful puts the helpful comment first
+PASS  Spam: new-account link held, link flood rejected  — {"linky":{"id":"fe56e1bb-c010-4e30-802f-dbfd569cea8e","status":"pending","signals":["new_account_link"]},"flood":422}
+PASS  Threats are held for human review and hidden from others meanwhile
+PASS  Political criticism of officials is published without any flag
+PASS  Spam and abusive content can be reported; reports alone never hide a comment
+PASS  A newly appointed moderator has no powers before two-step verification  — {"grant":200,"mod":{"error":"two_factor_required"}}
+PASS  Unauthorized users cannot perform moderator actions (API and page)  — {"api":403,"page":404,"forged":403}
+PASS  Moderators see a queue with reference, source, reasons, context and severity  — {"threat":{"severity":"critical","reasons":["threat"],"suggested":"suspend"}}
+PASS  A held comment cannot be decided without an explicit choice (no default that publishes)  — {"error":"invalid_action"}
+PASS  Moderators can act on reports (remove + temporary restriction)  — {"ok":true,"actions":["remove_comment","restrict"]}
+PASS  Account restrictions work (restricted member cannot comment)  — {"error":"comment_restricted","endsAt":"2026-11-07T00:29:45.709Z","reason":"Menace explicite envers une personne."}
+PASS  Staff comments still go through the same endpoint and rules (rate limits, reports)
+PASS  Appeals can be filed and reviewed by a different moderator; overturning lifts the restriction  — {"appeal":200,"same":"same_reviewer","overturn":200,"after":200}
+PASS  Moderators can restore removed content
+PASS  Every action is in an append-only audit log  — 13 entries
+PASS  Anonymous feedback also requires the Turnstile check server-side  — {"error":"captcha_required"}
+PASS  Readers can send private feedback (factual error) without an account  — Message reçuRéférence : 5DC12CEF. Conservez-la si vous nous recontactez.Vous n’a
+PASS  Feedback page has no horizontal overflow (390px)
+PASS  Editorial feedback remains private (not in public APIs, inbox refused to members)
+PASS  Role hierarchy: only admins/owner manage staff; admins cannot create admins or touch the owner; nobody changes their own role; members and moderators cannot invite  — {"grantW":200,"mod":403,"adminAdmin":403,"adminOwner":403,"self":"conflict_of_interest","memberInv":403,"modInv":403,"grantJ":200}
+PASS  Newsroom inbox: category, article, date, status, assignee, notes and replies
+PASS  Replies to readers without an account or email provider are honestly marked internal
+PASS  Verified journalists can post editorial notes, shown first with a staff badge; members cannot
+PASS  Wolof input (ë, é, ñ) and Arabic input are stored and returned exactly  — {"wo":200,"ar":200}
+PASS  In the Arabic interface, an Arabic comment reads right-to-left and a Wolof comment left-to-right  — {"arDir":"rtl","woDir":"ltr"}
+PASS  Pilot questionnaire: members save and reload their answers; invalid ratings and visitors are refused  — {"save":200,"bad":422,"visitor":401}
+PASS  Pilot results: editors+ see averages and understanding rates, free text without names; members and moderators cannot  — {"owner":200,"member":403,"moderator":403,"understanding":{"emailVisible":100,"reportEffect":0,"appeal":100,"disagreement":100}}
+PASS  Pilot questionnaire page works in FR at 390px (answers reloaded, no overflow)
+PASS  Pilot questionnaire page works in AR at 390px (answers reloaded, no overflow)
+PASS  Privacy page (pilot) names the processors (Netlify, Resend, Cloudflare Turnstile) and the pilot terms
+PASS  Two-step verification can be switched on from the account page (QR code, manual key, code check)
+PASS  Comments render in FR at 390px without overflow  — overflow 0, dir ltr
+PASS  Comments render in AR at 390px without overflow (RTL)  — overflow 0, dir rtl
+PASS  Comments render in EN at 1280px without overflow  — overflow 0, dir ltr
+PASS  Comments render in FR at 320px without overflow  — overflow 0, dir ltr
+PASS  Community and sign-in pages work in FR
+PASS  Community and sign-in pages work in EN
+PASS  Community and sign-in pages work in AR
+PASS  Keyboard: Enter on "Reply" opens the reply box with focus in it  — TEXTAREA
+PASS  Account page has no overflow on a phone
+PASS  Rate limiting stops rapid posting (7th comment in 10 minutes)  — 200,200,200,200,200,200,429
+PASS  Account deletion: confirmation required, credentials gone, comments hidden as "deleted account", link kept internally  — {"wrong":422,"del":200,"relog":401,"profile":404}
+PASS  Existing page still works with the community on: home
+PASS  Existing page still works with the community on: watch
+PASS  Existing page still works with the community on: live
+PASS  Existing page still works with the community on: programme
+PASS  Existing page still works with the community on: search
+PASS  The test environment never sends email: every message is captured  — [{"status":"captured","n":15}]
+
+95/95 checks passed
