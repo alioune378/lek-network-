@@ -1,3 +1,4 @@
+import { PUBLICATION } from '@/lib/brand';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       // Only languages with an actual version of the article are offered as alternates.
       languages: Object.fromEntries(locales.filter((x) => hasVersion(s, x)).map((x) => [x, `/${x}/article/${s.slug}`])),
     },
-    openGraph: { type: 'article', publishedTime: s.published, modifiedTime: s.updated, images: s.photo ? [`/media/photos/${s.photo}-1200.webp`] : undefined },
+    openGraph: { siteName: PUBLICATION, type: 'article', publishedTime: s.published, modifiedTime: s.updated, images: s.photo ? [`/media/photos/${s.photo}-1200.webp`] : undefined },
   };
 }
 
